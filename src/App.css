@@ -51,10 +51,16 @@
     cursor: pointer;
 }
 
-.navbar-icons {
+.navbar-icons::before, .profile-picture {
     width: 24px;
     height: 24px;
     cursor: pointer;
+}
+
+.profile-picture {
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
 }
 
 .img-container,
@@ -103,6 +109,7 @@
 .fa-inbox {
     position: relative;
 }
+
 .amount-of-unread-messages {
     display: flex;
     justify-content: center;

@@ -26,7 +26,7 @@ function Header() {
                     </i>
                     <i className="fas fa-plus-circle navbar-icons" />
                     <i className="fas fa-heart navbar-icons" />
-                    <i className="fas fa-user-alt navbar-icons" />
+                    <img className="profile-picture" src="https://lh3.googleusercontent.com/ogw/ADea4I5HaEHIjUpA_xJBph5dE9POzh0l_z62cJ5IACM6WVY=s83-c-mo" alt="profile-pic"/>
                 </div>
             </div>
         </div>
