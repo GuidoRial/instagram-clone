@@ -4,7 +4,7 @@ import Stories from "./Stories";
 function Feed() {
     return (
         <main>
-
+            <Stories />
         </main>
     );
 }
