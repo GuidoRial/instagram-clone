@@ -27,3 +27,14 @@
         -  Only three columns
     *  Footer
         -  Different links, I can just use my normal footer with Linkedin and GitHub
+
+I need state for: 
+1. posts
+2. followers
+3. following
+4. my own user (and the user database)
+5. saved pics
+6. liked pics
+7. stories
+8. messages
+9. notifications
