@@ -13,7 +13,7 @@ function Post({ id, username, userImg, img, caption }) {
                     <p>{username}</p>
                 </div>
                 <div>
-                    <i class="fas fa-ellipsis-h" />
+                    <i className="fas fa-ellipsis-h" />
                 </div>
             </div>
             <div className="post-img-container">
@@ -36,7 +36,7 @@ function Post({ id, username, userImg, img, caption }) {
                 </p>
 
                 <form className="comment-form">
-                    <i class="far fa-smile-wink"/>
+                    <i className="far fa-smile-wink" />
                     <input type="text" placeholder="Add a comment..." />
                     <button className="post-button">Post</button>
                 </form>
