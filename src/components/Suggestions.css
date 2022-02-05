@@ -1,0 +1,65 @@
+.suggestions-for-you {
+    color: #959595;
+    text-align: left;
+    font-weight: 700;
+}
+
+.suggestion-profile-picture {
+    width: 50px;
+    height: 50px;
+}
+
+.suggestion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.suggestion-image-and-username {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    color: #262626;
+    font-weight: bold;
+}
+.user-mini-profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-data-container {
+    text-align: left;
+}
+
+.mini-profile-picture {
+    width: 65px;
+    height: 65px;
+}
+
+.log-out-button {
+    border: none;
+    background-color: transparent;
+    color: #0095f6;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.avatar-and-username-miniprofile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+}
+
+.username {
+    font-weight: 700;
+    font-size: 14px;
+    color: #262626;
+}
+
+.fullname {
+    font-size: 14px;
+    font-weight: normal;
+    color: #8e8e8e;
+}

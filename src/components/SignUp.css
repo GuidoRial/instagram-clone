@@ -1,0 +1,30 @@
+.sign-up {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid rgb(219, 219, 219);
+}
+
+.log-in-google {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.log-in-icon {
+    width: 130px;
+    height: 40px;
+    margin: 3px;
+    cursor: pointer;
+}
+
+.sign-up-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}

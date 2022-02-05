@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import faker from "@faker-js/faker";
 import Miniprofile from "./Miniprofile";
+import "./Suggestions.css";
 
 function Suggestions() {
     const [suggestions, setSuggestions] = useState([]);
@@ -18,7 +19,8 @@ function Suggestions() {
             <div className="user-mini-profile">
                 <div className="avatar-and-username-miniprofile">
                     <img
-                        className="profile-picture mini-profile-picture" src="https://lh3.googleusercontent.com/ogw/ADea4I5HaEHIjUpA_xJBph5dE9POzh0l_z62cJ5IACM6WVY=s83-c-mo"
+                        className="profile-picture mini-profile-picture"
+                        src="https://lh3.googleusercontent.com/ogw/ADea4I5HaEHIjUpA_xJBph5dE9POzh0l_z62cJ5IACM6WVY=s83-c-mo"
                         alt="user-avatar"
                     />
                     <div className="user-data-container">

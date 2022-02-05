@@ -1,0 +1,120 @@
+.posts {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 95%;
+
+    border-radius: 5px;
+}
+
+.post {
+    width: 99%;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(219, 219, 219);
+    margin: 10px;
+    min-width: 450px;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.user-and-image {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user-and-image > p {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.user-and-image > p,
+.user-and-image > img,
+.fa-ellipsis-h {
+    cursor: pointer;
+}
+
+.post-user-avatar {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    padding: 1.5px;
+    border: 2px solid transparent;
+}
+
+.post-img {
+    object-fit: contain;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.interactions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.interaction-icons {
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    color: #2f2f2f;
+}
+
+.interaction-icons:hover {
+    color: #999999;
+}
+
+.amount-of-likes {
+    font-weight: 700;
+    text-align: left;
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+.user-and-caption {
+    text-align: left;
+    padding-left: 10px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-and-caption > span {
+    font-weight: 700;
+}
+
+.comment-form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 30px;
+    border-top: 1px solid #e2e2e2;
+    padding: 3px;
+}
+
+.fa-smile-wink {
+    cursor: pointer;
+}
+
+.comment-form > input {
+    width: 80%;
+    border: none;
+}
+
+.post-button {
+    border: none;
+    font-weight: 700;
+    color: #0396f6;
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import AppStoreLogo from "../assets/download-appStore.png";
 import GooglePlayLogo from "../assets/get-it-on-GooglePlay.png";
+import "./SignUp.css"
 
 function SignUp() {
     return (
