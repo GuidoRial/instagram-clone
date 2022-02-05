@@ -86,18 +86,8 @@
     cursor: pointer;
 }
 
-.navbar-icons::before,
-.profile-picture {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-}
 
-.profile-picture {
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-}
+
 
 .img-container,
 .search-bar-container,
