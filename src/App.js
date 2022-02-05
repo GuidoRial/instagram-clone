@@ -11,15 +11,19 @@ function App() {
 
     useEffect(() => {
         firestore.collection("posts").onSnapshot((snapshot) => {
-            setPosts(snapshot.docs.map((doc) => doc.data()));
+            setPosts(
+                snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    post: doc.data,
+                }))
+            );
         });
     }, []);
-    console.log(posts);
     return (
         <div className="App">
             {/*<SignUp/>*/}
             <Header />
-            <Feed />
+            <Feed posts={posts} />
             {/* <Profile /> */}
         </div>
     );
