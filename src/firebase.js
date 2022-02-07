@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import { createContext } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
@@ -15,6 +16,6 @@ firebase.initializeApp({
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
+const FirebaseContext = createContext(null);
 
-
-export { auth, firestore };
+export { auth, firestore, FirebaseContext };
