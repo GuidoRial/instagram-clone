@@ -5,8 +5,12 @@ import "./LogIn.css";
 import LoginImg from "../assets/login-photo.png";
 import { FirebaseContext } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function LogIn() {
+        const linkStyle = {
+            textDecoration: "none",
+        };
     //const navigate = useNavigate();
     const firebase = useContext(FirebaseContext);
 
@@ -61,7 +65,10 @@ function LogIn() {
                 </div>
                 <div className="log-in-question">
                     <p>Don't have an accout?</p>
-                    <p className="log-in-text">Sign up</p>
+                    <Link style={linkStyle} to="/signup" label="SignUp">
+                
+                        <p className="log-in-text">Sign up</p>
+                    </Link>
                 </div>
 
                 <div>
