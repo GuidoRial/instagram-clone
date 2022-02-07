@@ -8,14 +8,11 @@ import { auth, firestore } from "./firebase";
 
 function App() {
     const [posts, setPosts] = useState([]);
-
+console.log(posts)
     useEffect(() => {
         let postsRef = firestore.collection("posts").onSnapshot((snapshot) => {
             setPosts(
-                snapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    post: doc.data(),
-                }))
+                snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
             );
         });
     }, []);

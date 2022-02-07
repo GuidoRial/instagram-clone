@@ -1,13 +1,13 @@
 import React from "react";
 
-function Post({ id, username, userImg, img, caption }) {
+function Post({ id, username, img, caption, profilePic }) {
     return (
         <div className="post" key={id}>
             <div className="post-header">
                 <div className="user-and-image">
                     <img
                         className="post-user-avatar"
-                        src={userImg}
+                        src={profilePic}
                         alt="user-avatar"
                     />
                     <p>{username}</p>

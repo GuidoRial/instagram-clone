@@ -10,9 +10,10 @@ function Posts({ posts }) {
             {posts.map((post) => (
                 <Post
                     key={post.id}
-                    username={post.post.username}
-                    img={post.post.imageUrl}
-                    caption={post.post.caption}
+                    username={post.username}
+                    img={post.imageUrl}
+                    caption={post.caption}
+                    profilePic={post.profilePic}
                 />
             ))}
         </div>
