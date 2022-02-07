@@ -6,11 +6,15 @@ import LoginImg from "../assets/login-photo.png";
 import { FirebaseContext } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import * as ROUTES from "../routes";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
+import * as openFunction from "../aux";
 
 function LogIn() {
-        const linkStyle = {
-            textDecoration: "none",
-        };
+    const linkStyle = {
+        textDecoration: "none",
+    };
     //const navigate = useNavigate();
     const firebase = useContext(FirebaseContext);
 
@@ -20,8 +24,15 @@ function LogIn() {
 
     const isInvalid = password === "" || emailAdress === "";
 
+    const signUpUser = (email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password);
+    };
+
     const handleLogin = (e) => {
         e.preventDefault();
+
+        try {
+        } catch {}
     };
 
     useEffect(() => {
@@ -66,7 +77,6 @@ function LogIn() {
                 <div className="log-in-question">
                     <p>Don't have an accout?</p>
                     <Link style={linkStyle} to="/signup" label="SignUp">
-                
                         <p className="log-in-text">Sign up</p>
                     </Link>
                 </div>
@@ -78,11 +88,13 @@ function LogIn() {
                             src={AppStoreLogo}
                             alt="get-it-on-appstore"
                             className="log-in-icon"
+                            onClick={openFunction.openAppStore}
                         />
                         <img
                             src={GooglePlayLogo}
                             alt="get-it-on-play-store"
                             className="log-in-icon"
+                            onClick={openFunction.openPlayStore}
                         />
                     </div>
                 </div>
