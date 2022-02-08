@@ -90,3 +90,10 @@
     margin: 5px;
     cursor: pointer;
 }
+
+.demo-user-button {
+    color: #00a4fa;
+    background-color: white;
+    border: 1px solid #dbdbdb;
+    background-color: #fafafa;
+}

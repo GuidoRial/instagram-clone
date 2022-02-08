@@ -1,9 +1,8 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { createContext } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import { createContext, useEffect, useState } from "react";
+import { getAuth } from "firebase/auth";
 
 firebase.initializeApp({
     apiKey: "AIzaSyC9ot2RsYoA6LndK9jPnERQZT_8qlhUCuw",
@@ -14,7 +13,7 @@ firebase.initializeApp({
     appId: "1:970620958679:web:7e46ab6b91c95f7d8d3d92",
 });
 
-const auth = firebase.auth();
+const auth = getAuth();
 const firestore = firebase.firestore();
 const FirebaseContext = createContext(null);
 

@@ -20,21 +20,22 @@ function LogIn() {
 
     const [emailAdress, setEmailAdress] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+
 
     const isInvalid = password === "" || emailAdress === "";
 
-    const signUpUser = (email, password) => {
-        return createUserWithEmailAndPassword(auth, email, password);
-    };
+    const logInUser = (email, password) => {
+        return 
+    }
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
-        } catch {}
+        } catch (error) {
+            console.error(error);
+        }
     };
-
 
     useEffect(() => {
         document.title = "Login - Instagram Clone";
@@ -71,6 +72,14 @@ function LogIn() {
                                 style={{ opacity: isInvalid ? "0.5" : "1" }}
                             >
                                 Log In
+                            </button>
+                            <button
+                              
+                                type="submit"
+                                className="login-button demo-user-button"
+                                
+                            >
+                                DEMO USER
                             </button>
                         </form>
                     </div>

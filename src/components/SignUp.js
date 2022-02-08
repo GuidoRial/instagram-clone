@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import AppStoreLogo from "../assets/download-appStore.png";
 import GooglePlayLogo from "../assets/get-it-on-GooglePlay.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
 import * as openFunction from "../aux";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 function SignUp() {
     const linkStyle = {
         textDecoration: "none",
     };
-
+    let navigate = useNavigate();
     const [emailAdress, setEmailAdress] = useState("");
     const [fullName, setFullName] = useState("");
     const [userName, setUserName] = useState("");
@@ -21,7 +23,20 @@ function SignUp() {
         fullName === "" ||
         userName === "";
 
-    console.log(emailAdress, fullName, userName, password);
+    const signUpUser = (email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password);
+    };
+
+    const handleSignUp = async (e) => {
+        try {
+            e.preventDefault();
+
+            await signUpUser(emailAdress, password);
+            navigate("/");
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <div className="main-container">
@@ -36,7 +51,7 @@ function SignUp() {
                     Sign up to see photos and videos from your friends.
                 </p>
 
-                <form className="sign-up-form">
+                <form className="sign-up-form" onSubmit={handleSignUp}>
                     <input
                         type="text"
                         placeholder="Email"

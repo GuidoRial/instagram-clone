@@ -18,10 +18,13 @@ function App() {
             );
         });
     }, []);
+
+    /* if the user isn't loged in show Log In and don't show header, if he is send it to / and show header */
     return (
         <div className="App">
             <BrowserRouter>
                 {/* Show header only if user == true */}
+      
                 <Header />
                 <Routes>
                     <Route exact path="login" element={<LogIn />}></Route>
