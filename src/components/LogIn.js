@@ -6,31 +6,28 @@ import LoginImg from "../assets/test.png";
 import { FirebaseContext } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import * as ROUTES from "../routes";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import * as openFunction from "../aux";
 
 function LogIn() {
+    let navigate = useNavigate();
     const linkStyle = {
         textDecoration: "none",
     };
-    //const navigate = useNavigate();
     const firebase = useContext(FirebaseContext);
 
     const [emailAdress, setEmailAdress] = useState("");
     const [password, setPassword] = useState("");
 
-
     const isInvalid = password === "" || emailAdress === "";
 
-    const logInUser = (email, password) => {
-        return 
-    }
+
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
+        signInWithEmailAndPassword(auth, emailAdress, password);
+        navigate("/");
         try {
         } catch (error) {
             console.error(error);
@@ -74,10 +71,8 @@ function LogIn() {
                                 Log In
                             </button>
                             <button
-                              
                                 type="submit"
                                 className="login-button demo-user-button"
-                                
                             >
                                 DEMO USER
                             </button>

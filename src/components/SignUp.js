@@ -30,7 +30,6 @@ function SignUp() {
     const handleSignUp = async (e) => {
         try {
             e.preventDefault();
-
             await signUpUser(emailAdress, password);
             navigate("/");
         } catch (error) {
