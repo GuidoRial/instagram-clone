@@ -14,7 +14,8 @@ firebase.initializeApp({
 });
 
 const auth = getAuth();
+const authService = firebase.auth();
 const firestore = firebase.firestore();
 const FirebaseContext = createContext(null);
 
-export { auth, firestore, FirebaseContext };
+export { auth, authService, firestore, FirebaseContext };

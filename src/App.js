@@ -5,10 +5,16 @@ import Header from "./components/Header";
 import LogIn from "./components/LogIn";
 import Profile from "./components/Profile";
 import SignUp from "./components/SignUp";
-import { firestore } from "./firebase";
+import { firestore, authService } from "./firebase";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+import firebase from "firebase/compat/app";
+import { getAuth } from "firebase/auth";
 
 function App() {
+    const [user] = useAuthState(authService);
+
     const [posts, setPosts] = useState([]);
     useEffect(() => {
         let postsRef = firestore.collection("posts").onSnapshot((snapshot) => {
@@ -24,16 +30,29 @@ function App() {
             <BrowserRouter>
                 {/* Show header only if user == true */}
 
-                <Header />
                 <Routes>
                     <Route exact path="login" element={<LogIn />}></Route>
                     <Route exact path="signup" element={<SignUp />}></Route>
                     <Route
                         exact
                         path="/"
-                        element={<Feed posts={posts} />}
+                        element={
+                            <>
+                                <Header />
+                                <Feed posts={posts} />
+                            </>
+                        }
                     ></Route>
-                    <Route exact path="profile" element={<Profile />}></Route>
+                    <Route
+                        exact
+                        path="profile"
+                        element={
+                            <>
+                                <Header />
+                                <Profile />
+                            </>
+                        }
+                    ></Route>
                 </Routes>
             </BrowserRouter>
         </div>

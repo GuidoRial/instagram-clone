@@ -31,6 +31,7 @@ function SignUp() {
         try {
             e.preventDefault();
             await signUpUser(emailAdress, password);
+
             navigate("/");
         } catch (error) {
             console.error(error);
