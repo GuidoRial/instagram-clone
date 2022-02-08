@@ -44,6 +44,7 @@
     background-color: #efefef;
     padding: 8px;
     padding-left: 35px;
+    font-weight: 500;
 }
 
 .search-bar:focus {
