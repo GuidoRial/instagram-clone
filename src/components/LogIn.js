@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import AppStoreLogo from "../assets/download-appStore.png";
 import GooglePlayLogo from "../assets/get-it-on-GooglePlay.png";
 import "./LogIn.css";
-import LoginImg from "../assets/login-photo.png";
+import LoginImg from "../assets/test.png";
 import { FirebaseContext } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -35,6 +35,7 @@ function LogIn() {
         } catch {}
     };
 
+
     useEffect(() => {
         document.title = "Login - Instagram Clone";
     }, []);
@@ -48,7 +49,7 @@ function LogIn() {
                         <img
                             src="https://logos-marcas.com/wp-content/uploads/2020/04/Instagram-Logo.png"
                             alt="instagram-logo"
-                            className="instagram-logo-text login-instagram-logo"
+                            className=" login-instagram-logo"
                         />
                         <form className="login-form" onSubmit={handleLogin}>
                             <input

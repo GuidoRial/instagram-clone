@@ -21,6 +21,8 @@ function SignUp() {
         fullName === "" ||
         userName === "";
 
+    console.log(emailAdress, fullName, userName, password);
+
     return (
         <div className="main-container">
             <div className="superior-container">
@@ -39,21 +41,25 @@ function SignUp() {
                         type="text"
                         placeholder="Email"
                         className="data-input"
+                        onChange={(e) => setEmailAdress(e.target.value)}
                     />
                     <input
                         type="text"
                         placeholder="Full Name"
                         className="data-input"
+                        onChange={(e) => setFullName(e.target.value)}
                     />
                     <input
                         type="text"
                         placeholder="Username"
                         className="data-input"
+                        onChange={(e) => setUserName(e.target.value)}
                     />
                     <input
                         type="password"
                         placeholder="Password"
                         className="data-input"
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                     <button
                         type="submit"

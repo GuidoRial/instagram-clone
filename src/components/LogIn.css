@@ -38,11 +38,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: transparent;
 }
 
 .form-container {
-    background-color: transparent;
     margin: 0px 25px;
     padding: 20px;
     display: flex;
@@ -54,14 +52,12 @@
 }
 
 .log-in-text {
-    background-color: transparent;
     font-weight: 700;
     color: #00a4fa;
     cursor: pointer;
 }
 
 .login-form {
-    background-color: transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
