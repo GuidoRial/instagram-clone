@@ -22,16 +22,19 @@ function LogIn() {
 
     const isInvalid = password === "" || emailAdress === "";
 
-
-
     const handleLogin = async (e) => {
-        e.preventDefault();
-        signInWithEmailAndPassword(auth, emailAdress, password);
-        navigate("/");
         try {
+            e.preventDefault();
+            signInWithEmailAndPassword(auth, "demouser@gmail.com", "demouser");
+            navigate("/");
         } catch (error) {
             console.error(error);
         }
+    };
+
+    const handleLoginWithDemoUser = async () => {
+        signInWithEmailAndPassword(auth, emailAdress, password);
+        navigate("/");
     };
 
     useEffect(() => {
@@ -73,6 +76,7 @@ function LogIn() {
                             <button
                                 type="submit"
                                 className="login-button demo-user-button"
+                                onClick={handleLoginWithDemoUser}
                             >
                                 DEMO USER
                             </button>

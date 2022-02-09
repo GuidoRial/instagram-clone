@@ -61,8 +61,6 @@
 
 .profile-picture {
     border-radius: 50%;
-    width: 18px;
-    height: 18px;
 }
 
 .suggestion-profile-picture {
@@ -78,4 +76,8 @@
 .navbar-icons::before,
 .profile-picture {
     cursor: pointer;
+}
+
+.navbar-icons{
+    margin: 0px 13px;
 }
