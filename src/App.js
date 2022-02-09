@@ -55,10 +55,19 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                {/* Show header only if user == true */}
-
                 <Routes>
-                    <Route exact path="login" element={<LogIn />}></Route>
+                    {/* if there isn't a user make me log in, else show me my feed */}
+                    {!user ? <Route exact path="/" element={<LogIn />}></Route> :
+                    <Route
+                        exact
+                        path="/"
+                        element={
+                            <>
+                                <Header />
+                                <Feed posts={posts} />
+                            </>
+                        }
+                    ></Route>}
                     <Route
                         exact
                         path="signup"
@@ -69,13 +78,6 @@ function App() {
                                 fullName={fullName}
                                 setFullName={setFullName}
                             />
-                        }
-                    ></Route>
-                    <Route exact path="/" element={
-                            <>
-                                <Header />
-                                <Feed posts={posts} />
-                            </>
                         }
                     ></Route>
                     <Route
