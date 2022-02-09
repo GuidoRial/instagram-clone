@@ -25,12 +25,14 @@
 ## Todo's
 
 1. Console.log(true) if there's an user DONE
-2. Ability to log in and log out (materialUI with modals)
-3. If there's a user show feed else show login ON IT
+2. Ability to log in and log out (materialUI with modals) DONE
+3. If there's a user show feed else show login DONE
 4. Show profile with user.data
 5. Add ability to customize the profile and update the database
 6. Add ability to post
 7. Add ability to like and save posts
 8. Add ability to comment posts
+9. You can see post of people you follow
+10. You can follow and be followed
 
-X. Create and populate a demo user
+X. Create and populate a demo user DONE
