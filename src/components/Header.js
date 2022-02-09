@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Header.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Menu from "@mui/material/Menu";
@@ -8,10 +8,11 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
+import { authService, signOut } from "../firebase";
 
 function Header({ user }) {
+    let navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (e) => {
@@ -30,6 +31,16 @@ function Header({ user }) {
         width: "20px",
         height: "20px",
     };
+
+    const handleLogOut = async () => {
+        try {
+            signOut(authService);
+            await navigate("/");
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <div className="header">
             <div className="header-content">
@@ -151,11 +162,12 @@ function Header({ user }) {
                             <MenuItem>
                                 <ListItemIcon>
                                     <Avatar
+                                        onClick={handleLogOut}
                                         fontSize="small"
                                         src="https://media.istockphoto.com/vectors/bold-standby-icon-on-white-background-vector-id1309001045?b=1&k=20&m=1309001045&s=170667a&w=0&h=DW7C80PVHwQJeCGTBTZeBk9IMRVddRvpPQrVLJXtAac="
                                     />
                                 </ListItemIcon>
-                                Log Out
+                                <p onClick={handleLogOut}>Log Out</p>
                             </MenuItem>
                         </Menu>
                     </React.Fragment>

@@ -2,7 +2,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { createContext, useEffect, useState } from "react";
-import { getAuth } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 
 firebase.initializeApp({
     apiKey: "AIzaSyC9ot2RsYoA6LndK9jPnERQZT_8qlhUCuw",
@@ -18,4 +18,4 @@ const authService = firebase.auth();
 const firestore = firebase.firestore();
 const FirebaseContext = createContext(null);
 
-export { auth, authService, firestore, FirebaseContext };
+export { auth, authService, firestore, FirebaseContext, signOut };

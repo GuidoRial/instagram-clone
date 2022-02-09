@@ -7,7 +7,7 @@ import { FirebaseContext } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { authService } from "../firebase";
 import * as openFunction from "../aux";
 
 function LogIn() {
@@ -25,16 +25,20 @@ function LogIn() {
     const handleLogin = async (e) => {
         try {
             e.preventDefault();
-            signInWithEmailAndPassword(auth, "demouser@gmail.com", "demouser");
-            navigate("/");
+            signInWithEmailAndPassword(authService, emailAdress, password);
+            await navigate("/");
         } catch (error) {
             console.error(error);
         }
     };
 
     const handleLoginWithDemoUser = async () => {
-        signInWithEmailAndPassword(auth, emailAdress, password);
-        navigate("/");
+        try {
+            signInWithEmailAndPassword(authService, "demouser@gmail.com", "demouser");
+            await navigate("/");
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     useEffect(() => {
