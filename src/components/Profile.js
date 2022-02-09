@@ -9,10 +9,7 @@ function Profile({ user }) {
                 <div className="profile-pic-container">
                     <img
                         className="main-profile-pic"
-                        src={
-                            user.photoUrl ||
-                            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                        }
+                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                         alt="user-avatar"
                     />
                 </div>

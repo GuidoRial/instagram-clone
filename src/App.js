@@ -19,7 +19,7 @@ function App() {
     const [fullName, setFullName] = useState("");
 
     useEffect(() => {
-        let postsRef = firestore.collection("posts").onSnapshot((snapshot) => {
+        let postsRef = firestore.collection("posts").orderBy("createdAt").onSnapshot((snapshot) => {
             setPosts(
                 snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
             );

@@ -9,9 +9,9 @@ function Posts({ posts, users }) {
                 <Post
                     key={post.id}
                     username={post.username}
-                    img={post.imageUrl}
+                    img={post.file}
                     caption={post.caption}
-                    profilePic={post.profilePic}
+                    profilePic={post.photoURL}
                 />
             ))}
         </div>

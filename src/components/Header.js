@@ -9,12 +9,29 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import { authService, signOut } from "../firebase";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import LinearProgress from "@mui/material/LinearProgress";
+import firebase from "firebase/compat/app";
+import {
+    authService,
+    signOut,
+    firestore,
+    ref,
+    storage,
+    storageRef,
+    uploadBytes,
+} from "../firebase";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 function Header({ user }) {
     let navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+
     const handleClick = (e) => {
         setAnchorEl(e.currentTarget);
     };
@@ -30,6 +47,7 @@ function Header({ user }) {
     const avatarStyle = {
         width: "20px",
         height: "20px",
+        borderRadius: "50%",
     };
 
     const handleLogOut = async () => {
@@ -39,6 +57,88 @@ function Header({ user }) {
         } catch (error) {
             console.error(error);
         }
+    };
+
+    const [openUploadModal, setOpenUploadModal] = useState(false);
+    const handleModalOpen = () => setOpenUploadModal(true);
+    const handleModalClose = () => setOpenUploadModal(false);
+
+    const modalStyle = {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        height: 200,
+        width: 400,
+        bgcolor: "background.paper",
+        border: "1px solid #efefef",
+        borderRadius: "4px",
+        boxShadow: 24,
+        p: 4,
+        padding: "5px",
+        backgroundColor: "white",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-around",
+        alignItems: "center",
+    };
+
+    const [caption, setCaption] = useState("");
+    const [image, setImage] = useState(null);
+    const [url, setUrl] = useState("");
+    const [progress, setProgress] = useState(0);
+
+    const handleFile = (e) => {
+        setImage(e.target.files[0]);
+        console.log(e.target.files[0]);
+    };
+
+    const handleFileUpload = (image) => {
+        if (!image) return;
+        const imagesRef = ref(storage, `/images/${image.name}`);
+        const postsRef = firestore.collection("posts");
+        /* 1. Upload file to storage, get link in the process */
+        /* 2. setImage(thatLink) */
+        const uploadTask = uploadBytesResumable(imagesRef, image);
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                setProgress(
+                    Math.round(
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    )
+                );
+            },
+            (error) => {
+                console.error(error);
+                console.log(error);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    postsRef.add({
+                        file: downloadURL,
+                        caption: caption,
+                        createdAt:
+                            firebase.firestore.FieldValue.serverTimestamp(),
+                        uid: user.uid,
+                        photoURL: user.photoURL,
+                        username: user.displayName,
+                    });
+                    setOpenUploadModal(false);
+                    setProgress(0)
+                    setImage(null)
+                });
+            }
+        );
+        /*
+            await postsRef.add({
+                file: image,
+                caption: caption,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                uid: user.uid,
+                photoURL: user.photoURL,
+                username: user.displayName,
+            });*/
     };
 
     return (
@@ -76,12 +176,55 @@ function Header({ user }) {
                                     style={linkStyle}
                                 />
                             </Link>
+
                             <i className="fas fa-inbox navbar-icons">
                                 <div className="amount-of-unread-messages">
                                     9+
                                 </div>
                             </i>
-                            <i className="fas fa-plus-circle navbar-icons" />
+                            <i
+                                className="fas fa-plus-circle navbar-icons"
+                                onClick={handleModalOpen}
+                            />
+                            <Modal
+                                open={openUploadModal}
+                                onClose={handleModalClose}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box style={modalStyle}>
+                                    <div>
+                                        <Typography
+                                            id="modal-modal-title"
+                                            variant="h6"
+                                            component="h2"
+                                            fontWeight="bold"
+                                            textAlign="center"
+                                        >
+                                            Create a new post
+                                        </Typography>
+                                        <Divider style={{ width: 400 }} />
+                                    </div>
+
+                                    <input type="file" onChange={handleFile} />
+                                    {image && <h3>{progress}% done</h3>}
+                                    <TextField
+                                        id="standard-basic"
+                                        label="Write a caption..."
+                                        variant="standard"
+                                        onChange={(e) =>
+                                            setCaption(e.target.value)
+                                        }
+                                    />
+
+                                    <Button
+                                        variant="contained"
+                                        onClick={() => handleFileUpload(image)}
+                                    >
+                                        Share post
+                                    </Button>
+                                </Box>
+                            </Modal>
                             <i className="fas fa-heart navbar-icons" />
                             <Tooltip title="Account settings">
                                 <IconButton
@@ -94,12 +237,12 @@ function Header({ user }) {
                                     aria-haspopup="true"
                                     aria-expanded={open ? "true" : undefined}
                                 >
-                                    <Avatar
+                                    <img
                                         sx={{ width: 32, height: 32 }}
                                         src="https://lh3.googleusercontent.com/ogw/ADea4I5HaEHIjUpA_xJBph5dE9POzh0l_z62cJ5IACM6WVY=s83-c-mo"
                                         alt="profile-pic"
                                         style={avatarStyle}
-                                    ></Avatar>
+                                    />
                                 </IconButton>
                             </Tooltip>
                         </Box>

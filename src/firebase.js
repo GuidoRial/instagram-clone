@@ -3,6 +3,7 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { createContext, useEffect, useState } from "react";
 import { getAuth, signOut } from "firebase/auth";
+import { ref, getStorage, uploadBytes } from "firebase/storage";
 
 firebase.initializeApp({
     apiKey: "AIzaSyC9ot2RsYoA6LndK9jPnERQZT_8qlhUCuw",
@@ -17,5 +18,17 @@ const auth = getAuth();
 const authService = firebase.auth();
 const firestore = firebase.firestore();
 const FirebaseContext = createContext(null);
+const storage = getStorage();
+const storageRef = ref(storage);
 
-export { auth, authService, firestore, FirebaseContext, signOut };
+export {
+    auth,
+    authService,
+    firestore,
+    FirebaseContext,
+    signOut,
+    ref,
+    storage,
+    storageRef,
+    uploadBytes,
+};
