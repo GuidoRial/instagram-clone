@@ -5,16 +5,16 @@ import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
 import * as openFunction from "../aux";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, authService } from "../firebase";
 
-function SignUp() {
+function SignUp({ userName, setUserName, fullName, setFullName }) {
     const linkStyle = {
         textDecoration: "none",
     };
     let navigate = useNavigate();
+
     const [emailAdress, setEmailAdress] = useState("");
-    const [fullName, setFullName] = useState("");
-    const [userName, setUserName] = useState("");
+
     const [password, setPassword] = useState("");
 
     const isInvalid =
@@ -24,7 +24,8 @@ function SignUp() {
         userName === "";
 
     const signUpUser = (email, password) => {
-        return createUserWithEmailAndPassword(auth, email, password);
+        //con auth tambien funciona por algun motivo
+        return createUserWithEmailAndPassword(authService, email, password);
     };
 
     const handleSignUp = async (e) => {

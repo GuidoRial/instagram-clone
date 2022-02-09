@@ -3,15 +3,15 @@ import Posts from "./Posts";
 import Stories from "./Stories";
 import Suggestions from "./Suggestions";
 
-function Feed({posts}) {
+function Feed({ posts, user }) {
     return (
-        <main>
+        <div className="main">
             <div className="left-container">
                 <Stories />
-                <Posts posts={posts}/>
+                <Posts posts={posts} />
             </div>
             <Suggestions />
-        </main>
+        </div>
     );
 }
 
