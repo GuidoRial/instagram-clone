@@ -63,8 +63,8 @@ function App() {
                         path="/"
                         element={
                             <>
-                                <Header />
-                                <Feed posts={posts} />
+                                <Header user={user}/>
+                                <Feed posts={posts} user={user}/>
                             </>
                         }
                     ></Route>}
@@ -86,7 +86,7 @@ function App() {
                         element={
                             <>
                                 <Header />
-                                <Profile />
+                                <Profile user={user}/>
                             </>
                         }
                     ></Route>

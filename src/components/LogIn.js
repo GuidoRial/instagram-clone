@@ -19,7 +19,8 @@ function LogIn() {
 
     const [emailAdress, setEmailAdress] = useState("");
     const [password, setPassword] = useState("");
-
+    const demoUserEmailAdress = "demouser@gmail.com";
+    const demoUserPassword = "demouser";
     const isInvalid = password === "" || emailAdress === "";
 
     const handleLogin = async (e) => {
@@ -34,7 +35,11 @@ function LogIn() {
 
     const handleLoginWithDemoUser = async () => {
         try {
-            signInWithEmailAndPassword(authService, "demouser@gmail.com", "demouser");
+            signInWithEmailAndPassword(
+                authService,
+                demoUserEmailAdress,
+                demoUserPassword
+            );
             await navigate("/");
         } catch (error) {
             console.error(error);

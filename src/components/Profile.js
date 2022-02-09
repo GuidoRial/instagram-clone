@@ -2,41 +2,46 @@ import React from "react";
 import Header from "./Header";
 import "./Profile.css";
 
-function Profile() {
+function Profile({ user }) {
     return (
         <div className="profile-container">
             <div className="profile-resume">
                 <div className="profile-pic-container">
                     <img
                         className="main-profile-pic"
-                        src="https://lh3.googleusercontent.com/ogw/ADea4I5HaEHIjUpA_xJBph5dE9POzh0l_z62cJ5IACM6WVY=s83-c-mo"
+                        src={
+                            user.photoUrl ||
+                            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                        }
                         alt="user-avatar"
                     />
                 </div>
                 <div className="profile-right">
                     <div className="profile-first">
-                        <p className="bold-text">gui2rial</p>
+                        <p className="bold-text">{user.displayName}</p>
                         <button className="edit-profile-button">
                             Edit Profile
                         </button>
                     </div>
                     <div className="profile-second">
                         <div className="profile-amounts">
-                            <p className="bold-text">7</p>
+                            <p className="bold-text">{user.postsAmount || 0}</p>
                             <span> posts</span>
                         </div>
                         <div className="profile-amounts">
-                            <p className="bold-text">806</p>
+                            <p className="bold-text">{user.followers || 0}</p>
                             <span> followers</span>
                         </div>
                         <div className="profile-amounts">
-                            <p className="bold-text">570</p>
+                            <p className="bold-text">{user.following || 0}</p>
                             <span> following</span>
                         </div>
                     </div>
                     <div className="profile-third">
-                        <p className="bold-text">Guido Rial</p>
-                        <p>Doing my best.</p>
+                        <p className="bold-text">
+                            {user.fullName || "Full Name"}
+                        </p>
+                        <p>{user.description || "Description."}</p>
                     </div>
                 </div>
             </div>
