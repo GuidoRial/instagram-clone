@@ -13,7 +13,7 @@ import { auth, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 
-function Profile({ user }) {
+function Profile({ user, activeUser }) {
     const modalStyle = {
         position: "absolute",
         top: "50%",
@@ -146,7 +146,7 @@ function Profile({ user }) {
                 </div>
                 <div className="profile-right">
                     <div className="profile-first">
-                        <p className="bold-text">{user.displayName}</p>
+                        <p className="bold-text">{activeUser.username}</p>
                         <button
                             className="edit-profile-button"
                             onClick={handleEditProfileModalOpen}
@@ -156,20 +156,28 @@ function Profile({ user }) {
                     </div>
                     <div className="profile-second">
                         <div className="profile-amounts">
-                            <p className="bold-text">{user.postsAmount || 0}</p>
+                            <p className="bold-text">
+                                {activeUser.postsAmount || 0}
+                            </p>
                             <span> posts</span>
                         </div>
                         <div className="profile-amounts">
-                            <p className="bold-text">{user.followers || 0}</p>
+                            <p className="bold-text">
+                                {activeUser.followers.length || 0}
+                            </p>
                             <span> followers</span>
                         </div>
                         <div className="profile-amounts">
-                            <p className="bold-text">{user.following || 0}</p>
+                            <p className="bold-text">
+                                {activeUser.following.length || 0}
+                            </p>
                             <span> following</span>
                         </div>
                     </div>
                     <div className="profile-third">
-                        <p>{user.description || "Description."}</p>
+                      
+                        <p className="bold-text"> {activeUser.fullName}</p>
+                        <p>{activeUser.description || "Description."}</p>
                     </div>
                 </div>
             </div>

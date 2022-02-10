@@ -28,7 +28,8 @@
 2. Ability to log in and log out (materialUI with modals) DONE
 3. If there's a user show feed else show login DONE
 4. Show profile with user.data and do individual avatar components DONE
-   4.5 Add 30 users to my database
+   4.5 Add 10 users to my database
+   4.6 Pass the new user object as props and render everything correctly
 5. Add ability to customize the profile and update the database ON IT
 6. Add ability to post DONE
 7. Add ability to like and save posts

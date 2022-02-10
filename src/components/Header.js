@@ -18,8 +18,7 @@ import { authService, signOut, firestore, ref, storage } from "../firebase";
 
 import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
-function Header({ user }) {
-
+function Header({ user, activeUser }) {
     let navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -77,12 +76,10 @@ function Header({ user }) {
 
     const [caption, setCaption] = useState("");
     const [image, setImage] = useState(null);
-    const [url, setUrl] = useState("");
     const [progress, setProgress] = useState(0);
 
     const handleFile = (e) => {
         setImage(e.target.files[0]);
-
     };
 
     const handleFileUpload = (image) => {
@@ -112,10 +109,9 @@ function Header({ user }) {
                         createdAt:
                             firebase.firestore.FieldValue.serverTimestamp(),
                         uid: user.uid,
-                        photoURL: 
+                        photoURL:
                             user.photoURL ||
-                            "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
-                        ,
+                            "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png",
                         username: user.displayName,
                     });
                     setOpenUploadModal(false);
@@ -224,7 +220,10 @@ function Header({ user }) {
                                 >
                                     <img
                                         sx={{ width: 32, height: 32 }}
-                                        src={user.photoURL || "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"}
+                                        src={
+                                            user.photoURL ||
+                                            "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
+                                        }
                                         alt="profile-pic"
                                         style={avatarStyle}
                                     />

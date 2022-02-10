@@ -48,10 +48,10 @@ function App() {
                     docId: item.id,
                 }));
 
-                //I create an objet out of it and add the doc.id (which it didn't previously have)
+                //I create an object out of it and add the doc.id (which it didn't previously have)
 
                 setActiveUser(userObject);
-
+                //I could make it so that description is part of activeUser in the future
 
                 if (authUser.displayName) {
                     //Don't update username
@@ -74,7 +74,7 @@ function App() {
             };
         });
     }, [user]);
-                console.log(activeUser);
+
     return (
         <div className="App">
             <BrowserRouter>
@@ -88,8 +88,15 @@ function App() {
                             path="/"
                             element={
                                 <>
-                                    <Header user={user} />
-                                    <Feed posts={posts} user={user} />
+                                    <Header
+                                        user={user}
+                                        activeUser={activeUser}
+                                    />
+                                    <Feed
+                                        posts={posts}
+                                        user={user}
+                                        activeUser={activeUser}
+                                    />
                                 </>
                             }
                         ></Route>
@@ -111,8 +118,8 @@ function App() {
                         path="profile"
                         element={
                             <>
-                                <Header user={user} />
-                                <Profile user={user} />
+                                <Header user={user} activeUser={activeUser} />
+                                <Profile user={user} activeUser={activeUser} />
                             </>
                         }
                     ></Route>

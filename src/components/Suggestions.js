@@ -2,14 +2,26 @@ import React, { useEffect, useState } from "react";
 import faker from "@faker-js/faker";
 import Miniprofile from "./Miniprofile";
 import "./Suggestions.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { authService } from "../firebase";
 
-function Suggestions({ user }) {
+function Suggestions({ user, activeUser }) {
+    console.log(activeUser);
     const linkStyle = {
         textDecoration: "none",
     };
 
     const [suggestions, setSuggestions] = useState([]);
+
+    const handleLogOut = async () => {
+        try {
+            signOut(authService);
+            await Navigate("/");
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
         const fakerProfiles = [...Array(5)].map((_, i) => ({
@@ -35,12 +47,14 @@ function Suggestions({ user }) {
                     </Link>
                     <div className="user-data-container">
                         <Link to="/profile" style={linkStyle}>
-                            <p className="username">{user.displayName}</p>
+                            <p className="username">{activeUser.username}</p>
                         </Link>
                     </div>
                 </div>
                 <div>
-                    <button className="log-out-button">Log Out</button>
+                    <button className="log-out-button" onClick={handleLogOut}>
+                        Log Out
+                    </button>
                 </div>
             </div>
 
