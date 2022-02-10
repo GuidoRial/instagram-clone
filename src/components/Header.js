@@ -82,7 +82,7 @@ function Header({ user }) {
 
     const handleFile = (e) => {
         setImage(e.target.files[0]);
-        console.log(e.target.files[0]);
+
     };
 
     const handleFileUpload = (image) => {

@@ -29,9 +29,11 @@ function SignUp({ userName, setUserName, fullName, setFullName }) {
             const createdUserResult = await firebase
                 .auth()
                 .createUserWithEmailAndPassword(emailAdress, password);
-            console.log(createdUserResult);
+
             await createdUserResult.user.updateProfile({
                 displayName: userName,
+                photoURL:
+                    "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png",
             });
 
             await firestore.collection("users").add({

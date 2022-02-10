@@ -8,7 +8,7 @@ function Suggestions({ user }) {
     const linkStyle = {
         textDecoration: "none",
     };
-    console.log(user);
+
     const [suggestions, setSuggestions] = useState([]);
 
     useEffect(() => {
