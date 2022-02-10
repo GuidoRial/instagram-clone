@@ -46,10 +46,6 @@ function LogIn() {
         }
     };
 
-    useEffect(() => {
-        document.title = "Login - Instagram Clone";
-    }, []);
-
     return (
         <div className="log-in-container">
             <img className="login-img" src={LoginImg} alt="login-instagram" />

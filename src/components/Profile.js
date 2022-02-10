@@ -7,6 +7,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Divider from "@mui/material/Divider";
+import TextField from "@mui/material/TextField";
+import LinearProgress from "@mui/material/LinearProgress";
+import { auth, storage } from "../firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { updateProfile } from "firebase/auth";
 
 function Profile({ user }) {
     const modalStyle = {
@@ -14,8 +19,8 @@ function Profile({ user }) {
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
-        height: 200,
-        width: 400,
+        height: 400,
+        width: 600,
         bgcolor: "background.paper",
         border: "1px solid #efefef",
         borderRadius: "4px",
@@ -33,7 +38,49 @@ function Profile({ user }) {
     const handleEditProfileModalOpen = () => setOpenEditProfileModal(true);
     const handleEditProfileModalClose = () => setOpenEditProfileModal(false);
 
-    console.log(user);
+    const [updatedPhotoURL, setUpdatedPhotoURL] = useState(null);
+    const [updatedDisplayName, setUpdatedDisplayName] = useState("");
+    const [updatedDescription, setUpdatedDescription] = useState("");
+    const [uploadProgress, setUploadProgress] = useState(0);
+
+    /* I have to add three sections, one for each component the user can update */
+    /* The photoURL is the same as posting, send the profile picture to storage, get the link, use that as a source for photoURL */
+    /* display name will be the one the user set when he signed in, but if they decide to change it, I'll set it to updateDisplayName and updatedDescription and add it to the updateProfile function at the end */
+
+    const updateUserProfile = (image, user) => {
+        if (!image) return;
+        const imagesRef = ref(storage, `/profilePictures/${image.name}`);
+        const uploadTask = uploadBytesResumable(imagesRef, image);
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                setUploadProgress(
+                    Math.round(
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    )
+                );
+            },
+            (error) => {
+                console.error(error);
+                console.log(error);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    updateProfile(auth.user, {
+                        displayName: updatedDisplayName || user.displayName,
+                        photoURL: downloadURL || user.photoURL,
+                    })
+                        .then(() => {
+                            console.log("passed");
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                });
+            }
+        );
+    };
+
     return (
         <div className="profile-container">
             <Modal
@@ -51,10 +98,39 @@ function Profile({ user }) {
                         Edit Profile
                     </Typography>
                     <Divider />
-                    <div>edit photoURL</div>
-                    <div>edit username</div>
 
-                    <div>edit description</div>
+                    <Typography
+                        id="modal-modal-title"
+                        variant="h6"
+                        component="h2"
+                        fontWeight="bold"
+                        textAlign="center"
+                    >
+                        Upload your profile picture here
+                    </Typography>
+                    <input
+                        type="file"
+                        onChange={(e) => setUpdatedPhotoURL(e.target.files[0])}
+                    />
+                    <LinearProgress
+                        variant="determinate"
+                        value={uploadProgress}
+                    />
+
+                    <TextField
+                        id="filled-basic"
+                        label="New username..."
+                        variant="filled"
+                        onChange={(e) => setUpdatedDisplayName(e.target.value)}
+                    />
+                    <TextField
+                        id="filled-basic"
+                        label="New description..."
+                        variant="filled"
+                        onChange={(e) => setUpdatedDescription(e.target.value)}
+                    />
+
+                    <Button variant="contained">Update Profile</Button>
                 </Box>
             </Modal>
             <div className="profile-resume">

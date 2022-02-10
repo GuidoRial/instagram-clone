@@ -4,6 +4,7 @@ import "firebase/compat/firestore";
 import { createContext } from "react";
 import { getAuth, signOut } from "firebase/auth";
 import { ref, getStorage, uploadBytes } from "firebase/storage";
+import { seedDatabase } from "./seed";
 
 firebase.initializeApp({
     apiKey: "AIzaSyC9ot2RsYoA6LndK9jPnERQZT_8qlhUCuw",
@@ -31,4 +32,5 @@ export {
     storage,
     storageRef,
     uploadBytes,
+    firebase,
 };

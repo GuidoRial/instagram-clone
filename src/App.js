@@ -17,7 +17,7 @@ function App() {
     useEffect(() => {
         let postsRef = firestore
             .collection("posts")
-            .orderBy("createdAt")
+            .orderBy("createdAt", "desc")
             .onSnapshot((snapshot) => {
                 setPosts(
                     snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))

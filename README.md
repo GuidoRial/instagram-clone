@@ -27,13 +27,16 @@
 1. Console.log(true) if there's an user DONE
 2. Ability to log in and log out (materialUI with modals) DONE
 3. If there's a user show feed else show login DONE
-4. Show profile with user.data and do individual avatar components ON IT
-4.5 Add 30 users to my database
-5. Add ability to customize the profile and update the database
+4. Show profile with user.data and do individual avatar components DONE
+   4.5 Add 30 users to my database
+5. Add ability to customize the profile and update the database ON IT
 6. Add ability to post DONE
 7. Add ability to like and save posts
 8. Add ability to comment posts
 9. You can see post of people you follow
 10. You can follow and be followed
+11. Populate Suggestions that dissapear if you follow them
+12. Search users on database
+13. Implement notification system
 
 X. Create and populate a demo user DONE

@@ -112,7 +112,10 @@ function Header({ user }) {
                         createdAt:
                             firebase.firestore.FieldValue.serverTimestamp(),
                         uid: user.uid,
-                        photoURL: user.photoURL,
+                        photoURL: 
+                            user.photoURL ||
+                            "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
+                        ,
                         username: user.displayName,
                     });
                     setOpenUploadModal(false);

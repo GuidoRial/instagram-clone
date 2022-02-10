@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import faker from "@faker-js/faker";
 import Miniprofile from "./Miniprofile";
 import "./Suggestions.css";
+import { Link } from "react-router-dom";
 
 function Suggestions({ user }) {
-    console.log(user)
+    const linkStyle = {
+        textDecoration: "none",
+    };
+    console.log(user);
     const [suggestions, setSuggestions] = useState([]);
 
     useEffect(() => {
@@ -19,17 +23,20 @@ function Suggestions({ user }) {
         <div className="suggestions">
             <div className="user-mini-profile">
                 <div className="avatar-and-username-miniprofile">
-                    <img
-                        className="profile-picture mini-profile-picture"
-                        src={
-                            user.photoURL ||
-                            "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
-                        }
-                        alt="user-avatar"
-                    />
+                    <Link to="/profile" style={linkStyle}>
+                        <img
+                            className="profile-picture mini-profile-picture"
+                            src={
+                                user.photoURL ||
+                                "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
+                            }
+                            alt="user-avatar"
+                        />
+                    </Link>
                     <div className="user-data-container">
-                        <p className="username">{user.displayName}</p>
-
+                        <Link to="/profile" style={linkStyle}>
+                            <p className="username">{user.displayName}</p>
+                        </Link>
                     </div>
                 </div>
                 <div>

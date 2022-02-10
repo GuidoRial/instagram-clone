@@ -5,7 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
 import * as openFunction from "../aux";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, authService } from "../firebase";
+import { auth, authService, firebase, firestore } from "../firebase";
+import { where } from "firebase/firestore";
 
 function SignUp({ userName, setUserName, fullName, setFullName }) {
     const linkStyle = {
@@ -14,7 +15,6 @@ function SignUp({ userName, setUserName, fullName, setFullName }) {
     let navigate = useNavigate();
 
     const [emailAdress, setEmailAdress] = useState("");
-
     const [password, setPassword] = useState("");
 
     const isInvalid =
@@ -23,19 +23,30 @@ function SignUp({ userName, setUserName, fullName, setFullName }) {
         fullName === "" ||
         userName === "";
 
-    const signUpUser = (email, password) => {
-        //con auth tambien funciona por algun motivo
-        return createUserWithEmailAndPassword(authService, email, password);
-    };
-
     const handleSignUp = async (e) => {
         try {
             e.preventDefault();
-            await signUpUser(emailAdress, password);
+            const createdUserResult = await firebase
+                .auth()
+                .createUserWithEmailAndPassword(emailAdress, password);
+            console.log(createdUserResult);
+            await createdUserResult.user.updateProfile({
+                displayName: userName,
+            });
+
+            await firestore.collection("users").add({
+                userId: createdUserResult.user.uid,
+                username: userName.toLowerCase(),
+                fullName,
+                emailAdress: emailAdress.toLowerCase(),
+                following: ["a8fN5O0biDVRmOFhveOfW16Ozb63"],
+                dateCreated: Date.now(),
+            });
 
             navigate("/");
         } catch (error) {
             console.error(error);
+
         }
     };
 
