@@ -5,12 +5,8 @@ import Header from "./components/Header";
 import LogIn from "./components/LogIn";
 import Profile from "./components/Profile";
 import SignUp from "./components/SignUp";
-import { firestore, authService, auth } from "./firebase";
+import { firestore, authService } from "./firebase";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-
-import firebase from "firebase/compat/app";
-import { updateProfile } from "firebase/auth";
 
 function App() {
     const [user, setUser] = useState(null);
@@ -19,17 +15,20 @@ function App() {
     const [fullName, setFullName] = useState("");
 
     useEffect(() => {
-        let postsRef = firestore.collection("posts").orderBy("createdAt").onSnapshot((snapshot) => {
-            setPosts(
-                snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-            );
-        });
+        let postsRef = firestore
+            .collection("posts")
+            .orderBy("createdAt")
+            .onSnapshot((snapshot) => {
+                setPosts(
+                    snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+                );
+            });
     }, []);
     useEffect(() => {
         const unsuscribe = authService.onAuthStateChanged((authUser) => {
             if (authUser) {
                 //User has logged in
-                console.log(authUser);
+
                 setUser(authUser);
                 if (authUser.displayName) {
                     //Don't update username
@@ -47,6 +46,7 @@ function App() {
 
             return () => {
                 unsuscribe();
+          
             };
         });
     }, [user]);
@@ -57,17 +57,20 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     {/* if there isn't a user make me log in, else show me my feed */}
-                    {!user ? <Route exact path="/" element={<LogIn />}></Route> :
-                    <Route
-                        exact
-                        path="/"
-                        element={
-                            <>
-                                <Header user={user}/>
-                                <Feed posts={posts} user={user}/>
-                            </>
-                        }
-                    ></Route>}
+                    {!user ? (
+                        <Route exact path="/" element={<LogIn />}></Route>
+                    ) : (
+                        <Route
+                            exact
+                            path="/"
+                            element={
+                                <>
+                                    <Header user={user} />
+                                    <Feed posts={posts} user={user} />
+                                </>
+                            }
+                        ></Route>
+                    )}
                     <Route
                         exact
                         path="signup"
@@ -85,8 +88,8 @@ function App() {
                         path="profile"
                         element={
                             <>
-                                <Header />
-                                <Profile user={user}/>
+                                <Header user={user} />
+                                <Profile user={user} />
                             </>
                         }
                     ></Route>

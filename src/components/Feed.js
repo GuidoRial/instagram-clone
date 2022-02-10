@@ -10,7 +10,7 @@ function Feed({ posts, user }) {
                 <Stories />
                 <Posts posts={posts} />
             </div>
-            <Suggestions />
+            <Suggestions user={user}/>
         </div>
     );
 }

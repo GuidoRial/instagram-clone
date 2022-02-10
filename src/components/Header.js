@@ -13,21 +13,13 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import LinearProgress from "@mui/material/LinearProgress";
 import firebase from "firebase/compat/app";
-import {
-    authService,
-    signOut,
-    firestore,
-    ref,
-    storage,
-    storageRef,
-    uploadBytes,
-} from "../firebase";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import { authService, signOut, firestore, ref, storage } from "../firebase";
+
 import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 function Header({ user }) {
+
     let navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -97,8 +89,7 @@ function Header({ user }) {
         if (!image) return;
         const imagesRef = ref(storage, `/images/${image.name}`);
         const postsRef = firestore.collection("posts");
-        /* 1. Upload file to storage, get link in the process */
-        /* 2. setImage(thatLink) */
+
         const uploadTask = uploadBytesResumable(imagesRef, image);
         uploadTask.on(
             "state_changed",
@@ -125,20 +116,11 @@ function Header({ user }) {
                         username: user.displayName,
                     });
                     setOpenUploadModal(false);
-                    setProgress(0)
-                    setImage(null)
+                    setProgress(0);
+                    setImage(null);
                 });
             }
         );
-        /*
-            await postsRef.add({
-                file: image,
-                caption: caption,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                uid: user.uid,
-                photoURL: user.photoURL,
-                username: user.displayName,
-            });*/
     };
 
     return (
@@ -239,7 +221,7 @@ function Header({ user }) {
                                 >
                                     <img
                                         sx={{ width: 32, height: 32 }}
-                                        src="https://lh3.googleusercontent.com/ogw/ADea4I5HaEHIjUpA_xJBph5dE9POzh0l_z62cJ5IACM6WVY=s83-c-mo"
+                                        src={user.photoURL || "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"}
                                         alt="profile-pic"
                                         style={avatarStyle}
                                     />
@@ -291,7 +273,7 @@ function Header({ user }) {
                             <Link to="/profile" style={linkStyle}>
                                 <MenuItem>
                                     <Avatar
-                                        src="https://lh3.googleusercontent.com/ogw/ADea4I5HaEHIjUpA_xJBph5dE9POzh0l_z62cJ5IACM6WVY=s83-c-mo"
+                                        src="https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
                                         alt="profile-pic"
                                     />
                                     Profile

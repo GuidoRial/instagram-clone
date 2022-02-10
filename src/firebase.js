@@ -1,7 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { createContext, useEffect, useState } from "react";
+import { createContext } from "react";
 import { getAuth, signOut } from "firebase/auth";
 import { ref, getStorage, uploadBytes } from "firebase/storage";
 

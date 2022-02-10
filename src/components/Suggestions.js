@@ -3,7 +3,8 @@ import faker from "@faker-js/faker";
 import Miniprofile from "./Miniprofile";
 import "./Suggestions.css";
 
-function Suggestions() {
+function Suggestions({ user }) {
+    console.log(user)
     const [suggestions, setSuggestions] = useState([]);
 
     useEffect(() => {
@@ -20,12 +21,15 @@ function Suggestions() {
                 <div className="avatar-and-username-miniprofile">
                     <img
                         className="profile-picture mini-profile-picture"
-                        src="https://lh3.googleusercontent.com/ogw/ADea4I5HaEHIjUpA_xJBph5dE9POzh0l_z62cJ5IACM6WVY=s83-c-mo"
+                        src={
+                            user.photoURL ||
+                            "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
+                        }
                         alt="user-avatar"
                     />
                     <div className="user-data-container">
-                        <p className="username">gui2rial</p>
-                        <p className="fullname">Guido Rial</p>
+                        <p className="username">{user.displayName}</p>
+
                     </div>
                 </div>
                 <div>

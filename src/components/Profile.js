@@ -1,22 +1,80 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import "./Profile.css";
 
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import Divider from "@mui/material/Divider";
+
 function Profile({ user }) {
+    const modalStyle = {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        height: 200,
+        width: 400,
+        bgcolor: "background.paper",
+        border: "1px solid #efefef",
+        borderRadius: "4px",
+        boxShadow: 24,
+        p: 4,
+        padding: "5px",
+        backgroundColor: "white",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-around",
+        alignItems: "center",
+    };
+
+    const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
+    const handleEditProfileModalOpen = () => setOpenEditProfileModal(true);
+    const handleEditProfileModalClose = () => setOpenEditProfileModal(false);
+
+    console.log(user);
     return (
         <div className="profile-container">
+            <Modal
+                open={openEditProfileModal}
+                onClose={handleEditProfileModalClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={modalStyle}>
+                    <Typography
+                        id="modal-modal-title"
+                        variant="h6"
+                        component="h2"
+                    >
+                        Edit Profile
+                    </Typography>
+                    <Divider />
+                    <div>edit photoURL</div>
+                    <div>edit username</div>
+
+                    <div>edit description</div>
+                </Box>
+            </Modal>
             <div className="profile-resume">
                 <div className="profile-pic-container">
                     <img
                         className="main-profile-pic"
-                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                        src={
+                            !user.photoURL &&
+                            "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
+                        }
                         alt="user-avatar"
                     />
                 </div>
                 <div className="profile-right">
                     <div className="profile-first">
                         <p className="bold-text">{user.displayName}</p>
-                        <button className="edit-profile-button">
+                        <button
+                            className="edit-profile-button"
+                            onClick={handleEditProfileModalOpen}
+                        >
                             Edit Profile
                         </button>
                     </div>
@@ -35,9 +93,6 @@ function Profile({ user }) {
                         </div>
                     </div>
                     <div className="profile-third">
-                        <p className="bold-text">
-                            {user.fullName || "Full Name"}
-                        </p>
                         <p>{user.description || "Description."}</p>
                     </div>
                 </div>
