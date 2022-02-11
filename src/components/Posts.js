@@ -2,18 +2,19 @@ import React from "react";
 import Post from "./Post";
 import "./Posts.css";
 
-function Posts({ posts, users }) {
+function Posts({ user, activeUser }) {
     return (
         <div className="posts">
-            {posts.map((post) => (
+            {/*feedPhotos.map((post) => (
                 <Post
                     key={post.id}
-                    username={post.username}
-                    img={post.file}
+                    id={post.id}
+                    username={post.displayName}
+                    img={post.imageSrc}
                     caption={post.caption}
-                    profilePic={post.photoURL}
+                    userId={post.userId}
                 />
-            ))}
+            ))*/}
         </div>
     );
 }

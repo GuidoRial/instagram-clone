@@ -9,23 +9,67 @@ import { firestore, authService } from "./firebase";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-    const [posts, setPosts] = useState([]);
     const [userName, setUserName] = useState("");
     const [fullName, setFullName] = useState("");
+    const [feedPhotos, setFeedPhotos] = useState(null);
 
-    //get posts
-    useEffect(() => {
-        let postsRef = firestore
+    async function getUserByUserId(userId) {
+        const result = await firestore
+            .collection()
+            .where("userId", "==", userId)
+            .get();
+        const user = result.docs.map((item) => ({
+            ...item.data(),
+            docId: item.id,
+        }));
+
+        return user;
+    }
+
+    const getFeedPhotos = async (following) => {
+        const result = await firestore.collection("photos").get();
+        let filteredResult = result.docs
+            .map((photo) => ({
+                ...photo.data(),
+                docId: photo.id,
+            }))
+            .filter((photo) => following.includes(photo.userId));
+
+        return filteredResult;
+        //At this point result returns an array of photos from people I follow
+    };
+
+    /*
+    async function getFeedPhotos(userId, following) {
+        const result = await firestore
             .collection("photos")
-            .orderBy("createdAt", "desc")
-            .onSnapshot((snapshot) => {
-                setPosts(
-                    snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-                );
-            });
-    }, []);
-    //get posts
+            .where("userId", "in", following)
+            .get();
 
+        const userFollowedPhotos = result.docs.map((photo) => ({
+            ...photo.data(),
+            docId: photo.id,
+        }));
+
+        console.log(userFollowedPhotos, "userFollowedPhotos");
+
+        const photosWithUserDetails = await Promise.all(
+            userFollowedPhotos.map(async (photo) => {
+                let userLikedPhoto = false;
+                if (photo.likes.includes(userId)) {
+                    userLikedPhoto = true;
+                }
+                const user = await getUserByUserId(photo.userId);
+
+                const { username } = user[0];
+
+                return { username, ...photo, userLikedPhoto };
+            })
+        );
+
+        return photosWithUserDetails;
+    }
+*/
     const [user, setUser] = useState(null); //The user that comes from auth
     const [activeUser, setActiveUser] = useState({}); //The actual object I want to manipulate
     //Both of these share the same uid so I have to use user to get activeUser from collections
@@ -75,7 +119,47 @@ function App() {
         });
     }, [user]);
 
-    console.log(activeUser);
+    useEffect(() => {
+        async function getFeed() {
+            const response = await getFeedPhotos(activeUser.following);
+
+            setFeedPhotos(response);
+        }
+
+        if (activeUser) getFeed()
+    }, [activeUser.userId]);
+
+
+    console.log(feedPhotos);
+    /*
+    useEffect(() => {
+        const getPhotosArray = async () => {
+            const response = await getFeedPhotos(activeUser.following);
+            setFeedPhotos(response);
+        };
+
+        if (activeUser) {
+            let result = getFeedPhotos(activeUser.following);
+            setFeedPhotos(result);
+        }
+    }, [user]);
+
+    useEffect(() => {
+        async function getTimelinePhotos() {
+            const [{ following }] = await getUserByUserId(activeUser.userId);
+            let followedUserPhotos = [];
+
+            if (following.length > 0) {
+                followedUserPhotos = await getFeedPhotos(
+                    activeUser.userId,
+                    following
+                );
+            }
+        }
+
+        getTimelinePhotos();
+    }, []);
+*/
     return (
         <div className="App">
             <BrowserRouter>
@@ -93,11 +177,7 @@ function App() {
                                         user={user}
                                         activeUser={activeUser}
                                     />
-                                    <Feed
-                                        posts={posts}
-                                        user={user}
-                                        activeUser={activeUser}
-                                    />
+                                    <Feed user={user} activeUser={activeUser} />
                                 </>
                             }
                         ></Route>
