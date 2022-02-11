@@ -42,7 +42,11 @@ function SignUp({ userName, setUserName, fullName, setFullName }) {
                 fullName,
                 emailAdress: emailAdress.toLowerCase(),
                 following: ["a8fN5O0biDVRmOFhveOfW16Ozb63"],
+                followers: [],
                 dateCreated: Date.now(),
+                description: "",
+                profilePicture:
+                    "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png",
             });
 
             navigate("/");
