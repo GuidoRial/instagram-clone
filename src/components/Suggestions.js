@@ -77,11 +77,12 @@ function Suggestions({ user, activeUser }) {
                 {suggestions.map((profile) => (
                     <Miniprofile
                         key={profile.docId}
-                        userDocId={profile.docId}
+                        suggestedProfileDocId={profile.docId}
                         profilePicture={profile.profilePicture}
                         username={profile.username}
                         profileId={profile.userId}
                         userId={activeUser.userId}
+                        loggedInUserDocId={activeUser.docId}
                     />
                 ))}
             </div>

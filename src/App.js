@@ -16,7 +16,7 @@ function App() {
     //get posts
     useEffect(() => {
         let postsRef = firestore
-            .collection("posts")
+            .collection("photos")
             .orderBy("createdAt", "desc")
             .onSnapshot((snapshot) => {
                 setPosts(
@@ -75,6 +75,7 @@ function App() {
         });
     }, [user]);
 
+    console.log(activeUser);
     return (
         <div className="App">
             <BrowserRouter>

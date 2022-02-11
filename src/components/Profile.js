@@ -12,6 +12,8 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { auth, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
+import { Avatar } from "@mui/material";
+import { height } from "@mui/system";
 
 function Profile({ user, activeUser }) {
     const modalStyle = {
@@ -135,8 +137,8 @@ function Profile({ user, activeUser }) {
             </Modal>
             <div className="profile-resume">
                 <div className="profile-pic-container">
-                    <img
-                        className="main-profile-pic"
+                    <Avatar
+                        style={{width: "128px", height: "128px"}}
                         src={
                             activeUser.profilePicture
                         }
