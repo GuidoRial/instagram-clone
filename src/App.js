@@ -41,7 +41,7 @@ function App() {
                     .where("userId", "==", user.uid)
                     .get();
 
-                //Now I have a collection of documents that share the uid (only 1)
+                //Now I have the document that share the same uid
 
                 const [userObject] = result.docs.map((item) => ({
                     ...item.data(),
@@ -51,7 +51,7 @@ function App() {
                 //I create an object out of it and add the doc.id (which it didn't previously have)
 
                 setActiveUser(userObject);
-                //I could make it so that description is part of activeUser in the future
+                //I could make it so that description and profile picture is part of activeUser in the future
 
                 if (authUser.displayName) {
                     //Don't update username

@@ -78,10 +78,6 @@ function Header({ user, activeUser }) {
     const [image, setImage] = useState(null);
     const [progress, setProgress] = useState(0);
 
-    const handleFile = (e) => {
-        setImage(e.target.files[0]);
-    };
-
     const handleFileUpload = (image) => {
         if (!image) return;
         const imagesRef = ref(storage, `/images/${image.name}`);
@@ -187,7 +183,12 @@ function Header({ user, activeUser }) {
                                         <Divider style={{ width: 400 }} />
                                     </div>
 
-                                    <input type="file" onChange={handleFile} />
+                                    <input
+                                        type="file"
+                                        onChange={(e) =>
+                                            setImage(e.target.files[0])
+                                        }
+                                    />
                                     {image && <h3>{progress}% done</h3>}
                                     <TextField
                                         id="standard-basic"

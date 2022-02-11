@@ -1,9 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import AppStoreLogo from "../assets/download-appStore.png";
 import GooglePlayLogo from "../assets/get-it-on-GooglePlay.png";
 import "./LogIn.css";
 import LoginImg from "../assets/test.png";
-import { FirebaseContext } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -15,7 +14,6 @@ function LogIn() {
     const linkStyle = {
         textDecoration: "none",
     };
-    const firebase = useContext(FirebaseContext);
 
     const [emailAdress, setEmailAdress] = useState("");
     const [password, setPassword] = useState("");
