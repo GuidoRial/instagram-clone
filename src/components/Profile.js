@@ -138,8 +138,7 @@ function Profile({ user, activeUser }) {
                     <img
                         className="main-profile-pic"
                         src={
-                            !user.photoURL &&
-                            "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
+                            activeUser.profilePicture
                         }
                         alt="user-avatar"
                     />
@@ -163,13 +162,13 @@ function Profile({ user, activeUser }) {
                         </div>
                         <div className="profile-amounts">
                             <p className="bold-text">
-                                {activeUser.followers.length || 0}
+                                {activeUser.followers.length}
                             </p>
                             <span> followers</span>
                         </div>
                         <div className="profile-amounts">
                             <p className="bold-text">
-                                {activeUser.following.length || 0}
+                                {activeUser.following.length}
                             </p>
                             <span> following</span>
                         </div>
@@ -177,7 +176,7 @@ function Profile({ user, activeUser }) {
                     <div className="profile-third">
                       
                         <p className="bold-text"> {activeUser.fullName}</p>
-                        <p>{activeUser.description || "Description."}</p>
+                        <p>{activeUser.description}</p>
                     </div>
                 </div>
             </div>

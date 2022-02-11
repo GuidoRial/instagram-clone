@@ -221,10 +221,7 @@ function Header({ user, activeUser }) {
                                 >
                                     <img
                                         sx={{ width: 32, height: 32 }}
-                                        src={
-                                            user.photoURL ||
-                                            "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
-                                        }
+                                        src={activeUser.profilePicture}
                                         alt="profile-pic"
                                         style={avatarStyle}
                                     />
@@ -276,7 +273,7 @@ function Header({ user, activeUser }) {
                             <Link to="/profile" style={linkStyle}>
                                 <MenuItem>
                                     <Avatar
-                                        src="https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
+                                        src={activeUser.profilePicture}
                                         alt="profile-pic"
                                     />
                                     Profile

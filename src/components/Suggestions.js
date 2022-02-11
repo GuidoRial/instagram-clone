@@ -38,10 +38,7 @@ function Suggestions({ user, activeUser }) {
                     <Link to="/profile" style={linkStyle}>
                         <img
                             className="profile-picture mini-profile-picture"
-                            src={
-                                user.photoURL ||
-                                "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png"
-                            }
+                            src={activeUser.profilePicture}
                             alt="user-avatar"
                         />
                     </Link>
