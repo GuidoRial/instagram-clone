@@ -4,6 +4,7 @@ import "./Suggestions.css";
 import { Link, Navigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { authService, firestore } from "../firebase";
+import { Avatar } from "@mui/material";
 
 function Suggestions({ user, activeUser }) {
     const linkStyle = {
@@ -53,11 +54,8 @@ function Suggestions({ user, activeUser }) {
             <div className="user-mini-profile">
                 <div className="avatar-and-username-miniprofile">
                     <Link to="/profile" style={linkStyle}>
-                        <img
-                            className="profile-picture mini-profile-picture"
-                            src={activeUser.profilePicture}
-                            alt="user-avatar"
-                        />
+                        <Avatar src={activeUser.profilePicture} style={{width: "64px", height: "64px"}}/>
+                        
                     </Link>
                     <div className="user-data-container">
                         <Link to="/profile" style={linkStyle}>
@@ -76,16 +74,16 @@ function Suggestions({ user, activeUser }) {
                 <p className="suggestions-for-you">Suggestions For You</p>
             </div>
             <div className="mini-profile-container">
-                {suggestions.map((profile) => 
-                    (<Miniprofile
+                {suggestions.map((profile) => (
+                    <Miniprofile
                         key={profile.docId}
                         userDocId={profile.docId}
                         profilePicture={profile.profilePicture}
                         username={profile.username}
                         profileId={profile.userId}
                         userId={activeUser.userId}
-                    />)
-                )}
+                    />
+                ))}
             </div>
         </div>
     );

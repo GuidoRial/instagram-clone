@@ -219,12 +219,7 @@ function Header({ user, activeUser }) {
                                     aria-haspopup="true"
                                     aria-expanded={open ? "true" : undefined}
                                 >
-                                    <img
-                                        sx={{ width: 32, height: 32 }}
-                                        src={activeUser.profilePicture}
-                                        alt="profile-pic"
-                                        style={avatarStyle}
-                                    />
+                                    <Avatar src={activeUser.profilePicture} style={avatarStyle}/>
                                 </IconButton>
                             </Tooltip>
                         </Box>
