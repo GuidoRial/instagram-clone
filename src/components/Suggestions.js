@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import faker from "@faker-js/faker";
 import Miniprofile from "./Miniprofile";
 import "./Suggestions.css";
 import { Link, Navigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { authService } from "../firebase";
+import { authService, firestore } from "../firebase";
 
 function Suggestions({ user, activeUser }) {
-    console.log(activeUser);
     const linkStyle = {
         textDecoration: "none",
+        color: "black",
     };
+    //Make this an aux
 
     const [suggestions, setSuggestions] = useState([]);
 
@@ -23,14 +23,31 @@ function Suggestions({ user, activeUser }) {
         }
     };
 
-    useEffect(() => {
-        const fakerProfiles = [...Array(5)].map((_, i) => ({
-            ...faker.helpers.contextualCard(),
-            id: i,
-        }));
+    async function getSuggestedProfiles(userId, following) {
+        const result = await firestore.collection("users").limit(5).get();
+        return result.docs
+            .map((user) => ({ ...user.data(), docId: user.id }))
+            .filter(
+                (profile) =>
+                    profile.userId !== userId &&
+                    !following.includes(profile.userId)
+            );
+    }
 
-        setSuggestions(fakerProfiles);
-    }, []);
+    useEffect(() => {
+        async function suggestedProfiles() {
+            const response = await getSuggestedProfiles(
+                activeUser.userId,
+                activeUser.following
+            );
+
+            setSuggestions(response);
+        }
+        if (activeUser.userId) {
+            suggestedProfiles(activeUser.userId, activeUser.following);
+        }
+    }, [activeUser.userId]);
+
     return (
         <div className="suggestions">
             <div className="user-mini-profile">
@@ -59,13 +76,16 @@ function Suggestions({ user, activeUser }) {
                 <p className="suggestions-for-you">Suggestions For You</p>
             </div>
             <div className="mini-profile-container">
-                {suggestions.map((profile) => (
-                    <Miniprofile
-                        key={profile.id}
-                        img={profile.avatar}
+                {suggestions.map((profile) => 
+                    (<Miniprofile
+                        key={profile.docId}
+                        userDocId={profile.docId}
+                        profilePicture={profile.profilePicture}
                         username={profile.username}
-                    />
-                ))}
+                        profileId={profile.userId}
+                        userId={activeUser.userId}
+                    />)
+                )}
             </div>
         </div>
     );
