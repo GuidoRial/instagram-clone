@@ -24,20 +24,14 @@
 
 ## Todo's
 
-1. Console.log(true) if there's an user DONE
-2. Ability to log in and log out (materialUI with modals) DONE
-3. If there's a user show feed else show login DONE
-4. Show profile with user.data and do individual avatar components DONE
-   4.5 Add 10 users to my database
-   4.6 Pass the new user object as props and render everything correctly
-5. Add ability to customize the profile and update the database ON IT
-6. Add ability to post DONE
-7. Add ability to like and save posts
-8. Add ability to comment posts
-9. You can see post of people you follow
-10. You can follow and be followed
-11. Populate Suggestions that dissapear if you follow them
-12. Search users on database
-13. Implement notification system
-
-X. Create and populate a demo user DONE
+0. Add a postAmount property to each user [I KNOW HOW TO DO IT]
+1. Fix ability to post [I KNOW HOW TO DO IT]
+2. Display and Add ability to comment [not a clue on how to do it]
+3. Add ability to like  [I KNOW HOW TO DO IT]
+4. Add ability to save posts  [I KNOW HOW TO DO IT]
+5. Finish edit profile  [I KNOW HOW TO DO IT]
+6. Add POST and SAVED profile buttons functionality  [I KNOW HOW TO DO IT]
+7. Implement react-router-dom so that you can click on each profile and it renders /profile/userId [not a clue on how to do it]
+8. Implement the logic of what an user can and can't see [not a clue on how to do it]
+9. Clean and refactor code, make use of aux.js, delete functionality I'm not going to use [I KNOW HOW TO DO IT]
+10. Consider adding notifications with a new collection called "notifications", each doc should contain a sender, a receiver, an action (comment, like or follow) [not a clue on how to do it]
