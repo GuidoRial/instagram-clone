@@ -4,6 +4,7 @@ import "./Posts.css";
 import { sleep } from "../aux";
 
 function Posts({ user, activeUser, feedPhotos }) {
+
     return (
         <div className="posts">
             {feedPhotos ? (
@@ -16,6 +17,7 @@ function Posts({ user, activeUser, feedPhotos }) {
                         caption={post.caption}
                         userId={post.userId}
                         likes={post.likes}
+                        activeUser={activeUser}
                     />
                 ))
             ) : (

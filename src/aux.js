@@ -64,3 +64,12 @@ export const modalStyle = {
     justifyContent: "space-around",
     alignItems: "center",
 };
+
+export const likeStyle = { color: "#ed4956" };
+
+export const notLikeStyle = {
+    color: "#262626",
+};
+export const notLikeStyleHover = {
+    color: "#999999"
+}

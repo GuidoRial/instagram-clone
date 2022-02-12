@@ -79,6 +79,8 @@
     text-align: left;
     font-size: 14px;
     padding-left: 10px;
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .user-and-caption {
@@ -87,6 +89,7 @@
     font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-top: 5px;
 }
 
 .user-and-caption > span {

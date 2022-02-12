@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { linkStyle } from "../aux";
 import { firestore } from "../firebase";
+import Interactions from "./Interactions";
 
-function Post({ id, username, img, caption, userId, likes }) {
+function Post({ activeUser, id, username, img, caption, userId, likes }) {
     const [postOwner, setPostOwner] = useState({});
 
     useEffect(() => {
@@ -25,20 +26,22 @@ function Post({ id, username, img, caption, userId, likes }) {
         getPostOwner(userId);
     }, []);
 
-    console.log(postOwner);
+    //console.log(postOwner);
+
     return (
         <div className="post" key={id}>
             <div className="post-header">
                 <div className="user-and-image">
                     <Link to={`/profile/${username}`} style={linkStyle}>
-                        <Avatar
+                        <img
                             className="post-user-avatar"
                             alt="user-avatar"
                             src={postOwner.profilePicture}
                             style={{
-                                width: "20px",
-                                height: "20px",
-                                borderRadius: "12px",
+                                width: "40px",
+                                height: "40px",
+                                borderRadius: "50%",
+                                objectFit: "cover",
                             }}
                         />
                     </Link>
@@ -46,25 +49,19 @@ function Post({ id, username, img, caption, userId, likes }) {
                         <p>{postOwner.username}</p>
                     </Link>
                 </div>
-                <div>
-                    <i className="fas fa-ellipsis-h" />
-                </div>
+                <div></div>
             </div>
             <div className="post-img-container">
                 <img className="post-img" src={img} alt="post" />
             </div>
             <div className="post-footer">
-                <div className="interactions">
-                    <div className="left">
-                        <i className="far fa-heart interaction-icons" />
-                        <i className="far fa-comment interaction-icons" />
-                        <i className="fas fa-paper-plane interaction-icons" />
-                    </div>
-                    <div className="right">
-                        <i className="far fa-bookmark interaction-icons" />
-                    </div>
-                </div>
-                <div className="amount-of-likes">{likes.length} likes</div>
+                
+                <Interactions
+                    likes={likes}
+                    docId={id}
+                    activeUser={activeUser}
+                />
+
                 <p className="user-and-caption">
                     <span>{postOwner.username}</span> {caption}
                 </p>

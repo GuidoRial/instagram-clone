@@ -33,11 +33,6 @@ function Header({ user, activeUser }) {
 
 
 
-    const avatarStyle = {
-        width: "20px",
-        height: "20px",
-    };
-
     const handleLogOut = async () => {
         try {
             signOut(authService);
@@ -213,7 +208,10 @@ function Header({ user, activeUser }) {
                                 >
                                     <Avatar
                                         src={activeUser.profilePicture}
-                                        style={avatarStyle}
+                                        style={{
+                                            width: "20px",
+                                            height: "20px",
+                                        }}
                                     />
                                 </IconButton>
                             </Tooltip>
