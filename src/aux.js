@@ -39,6 +39,28 @@ export async function getUserByUserId(userId) {
     return user;
 }
 
-export function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
+export const linkStyle = {
+    textDecoration: "none",
+    color: "black",
+    fontWeight: "bold",
+};
+
+export const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    height: 400,
+    width: 600,
+    bgcolor: "background.paper",
+    border: "1px solid #efefef",
+    borderRadius: "4px",
+    boxShadow: 24,
+    p: 4,
+    padding: "5px",
+    backgroundColor: "white",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center",
+};

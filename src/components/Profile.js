@@ -13,29 +13,9 @@ import { auth, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { Avatar } from "@mui/material";
-import { height } from "@mui/system";
+import { modalStyle } from "../aux";
 
 function Profile({ user, activeUser }) {
-    const modalStyle = {
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        height: 400,
-        width: 600,
-        bgcolor: "background.paper",
-        border: "1px solid #efefef",
-        borderRadius: "4px",
-        boxShadow: 24,
-        p: 4,
-        padding: "5px",
-        backgroundColor: "white",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-around",
-        alignItems: "center",
-    };
-
     const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
     const handleEditProfileModalOpen = () => setOpenEditProfileModal(true);
     const handleEditProfileModalClose = () => setOpenEditProfileModal(false);
@@ -138,10 +118,8 @@ function Profile({ user, activeUser }) {
             <div className="profile-resume">
                 <div className="profile-pic-container">
                     <Avatar
-                        style={{width: "128px", height: "128px"}}
-                        src={
-                            activeUser.profilePicture
-                        }
+                        style={{ width: "128px", height: "128px" }}
+                        src={activeUser.profilePicture}
                         alt="user-avatar"
                     />
                 </div>
@@ -176,7 +154,6 @@ function Profile({ user, activeUser }) {
                         </div>
                     </div>
                     <div className="profile-third">
-                      
                         <p className="bold-text"> {activeUser.fullName}</p>
                         <p>{activeUser.description}</p>
                     </div>

@@ -1,5 +1,7 @@
 import { Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { linkStyle } from "../aux";
 import { firestore } from "../firebase";
 
 function Post({ id, username, img, caption, userId, likes }) {
@@ -20,21 +22,29 @@ function Post({ id, username, img, caption, userId, likes }) {
             setPostOwner(postOwnerObject);
         };
 
-        getPostOwner(userId)
+        getPostOwner(userId);
     }, []);
 
-    console.log(postOwner)
+    console.log(postOwner);
     return (
         <div className="post" key={id}>
             <div className="post-header">
                 <div className="user-and-image">
-                    <Avatar /* get avatar from userId */
-                        className="post-user-avatar"
-                        alt="user-avatar"
-                        src={postOwner.profilePicture}
-                        style={{ width: "30px", height: "30px" }}
-                    />
-                    <p>{postOwner.username}</p>
+                    <Link to={`/profile/${username}`} style={linkStyle}>
+                        <Avatar
+                            className="post-user-avatar"
+                            alt="user-avatar"
+                            src={postOwner.profilePicture}
+                            style={{
+                                width: "20px",
+                                height: "20px",
+                                borderRadius: "12px",
+                            }}
+                        />
+                    </Link>
+                    <Link to={`/profile/${username}`} style={linkStyle}>
+                        <p>{postOwner.username}</p>
+                    </Link>
                 </div>
                 <div>
                     <i className="fas fa-ellipsis-h" />

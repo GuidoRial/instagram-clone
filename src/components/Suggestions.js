@@ -5,14 +5,9 @@ import { Link, Navigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { authService, firestore } from "../firebase";
 import { Avatar } from "@mui/material";
+import { linkStyle } from "../aux";
 
 function Suggestions({ user, activeUser }) {
-    const linkStyle = {
-        textDecoration: "none",
-        color: "black",
-    };
-    //Make this an aux
-
     const [suggestions, setSuggestions] = useState([]);
 
     const handleLogOut = async () => {
@@ -54,8 +49,10 @@ function Suggestions({ user, activeUser }) {
             <div className="user-mini-profile">
                 <div className="avatar-and-username-miniprofile">
                     <Link to="/profile" style={linkStyle}>
-                        <Avatar src={activeUser.profilePicture} style={{width: "64px", height: "64px"}}/>
-                        
+                        <Avatar
+                            src={activeUser.profilePicture}
+                            style={{ width: "64px", height: "64px" }}
+                        />
                     </Link>
                     <div className="user-data-container">
                         <Link to="/profile" style={linkStyle}>

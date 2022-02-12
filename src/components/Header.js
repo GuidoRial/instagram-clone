@@ -15,6 +15,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import firebase from "firebase/compat/app";
 import { authService, signOut, firestore, ref, storage } from "../firebase";
+import { linkStyle } from "../aux";
 
 import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
@@ -30,10 +31,7 @@ function Header({ user, activeUser }) {
         setAnchorEl(null);
     };
 
-    const linkStyle = {
-        textDecoration: "none",
-        color: "black",
-    };
+
 
     const avatarStyle = {
         width: "20px",
@@ -153,11 +151,6 @@ function Header({ user, activeUser }) {
                                 />
                             </Link>
 
-                            <i className="fas fa-inbox navbar-icons">
-                                <div className="amount-of-unread-messages">
-                                    9+
-                                </div>
-                            </i>
                             <i
                                 className="fas fa-plus-circle navbar-icons"
                                 onClick={handleModalOpen}
@@ -218,7 +211,10 @@ function Header({ user, activeUser }) {
                                     aria-haspopup="true"
                                     aria-expanded={open ? "true" : undefined}
                                 >
-                                    <Avatar src={activeUser.profilePicture} style={avatarStyle}/>
+                                    <Avatar
+                                        src={activeUser.profilePicture}
+                                        style={avatarStyle}
+                                    />
                                 </IconButton>
                             </Tooltip>
                         </Box>

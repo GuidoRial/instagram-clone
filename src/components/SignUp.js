@@ -5,13 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
 import * as openFunction from "../aux";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, authService, firebase, firestore } from "../firebase";
-import { where } from "firebase/firestore";
+import {  firebase, firestore } from "../firebase";
+
+import { linkStyle } from "../aux";
+
 
 function SignUp({ userName, setUserName, fullName, setFullName }) {
-    const linkStyle = {
-        textDecoration: "none",
-    };
+
     let navigate = useNavigate();
 
     const [emailAdress, setEmailAdress] = useState("");

@@ -8,12 +8,11 @@ import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { authService } from "../firebase";
 import * as openFunction from "../aux";
+import { linkStyle } from "../aux";
 
 function LogIn() {
     let navigate = useNavigate();
-    const linkStyle = {
-        textDecoration: "none",
-    };
+
 
     const [emailAdress, setEmailAdress] = useState("");
     const [password, setPassword] = useState("");

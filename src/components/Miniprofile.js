@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { firestore } from "../firebase";
 import firebase from "firebase/app";
+import {linkStyle} from "../aux"
 
 function Miniprofile({
     profilePicture,
@@ -13,10 +14,7 @@ function Miniprofile({
     userId,
     loggedInUserDocId,
 }) {
-    const linkStyle = {
-        textDecoration: "none",
-        color: "black",
-    };
+
     const [followed, setFollowed] = useState(false);
 
     async function updateLoggedInUserFollowingArray(

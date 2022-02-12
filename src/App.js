@@ -8,7 +8,6 @@ import SignUp from "./components/SignUp";
 import { firestore, authService } from "./firebase";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { sleep } from "./aux";
 
 function App() {
     const [userName, setUserName] = useState("");
