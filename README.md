@@ -27,8 +27,8 @@
 0. Add a postAmount property to each user [I KNOW HOW TO DO IT]
 1. Fix ability to post [I KNOW HOW TO DO IT]
 2. Display and Add ability to comment [not a clue on how to do it]
-3. Add ability to like  [I KNOW HOW TO DO IT]
-4. Add ability to save posts  [I KNOW HOW TO DO IT]
+3. Add ability to like  [DONE]
+4. Add ability to save posts  [ON IT]-------------
 5. Finish edit profile  [I KNOW HOW TO DO IT]
 6. Add POST and SAVED profile buttons functionality  [I KNOW HOW TO DO IT]
 7. Add search bar functionalityI KNOW HOW TO DO IT]
