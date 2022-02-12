@@ -30,7 +30,7 @@ function Interactions({ likes, docId, activeUser }) {
     };
 
     useState(async () => {
-        let didILikeThisPhoto = likes.includes(activeUser.userId)
+        let didILikeThisPhoto = likes.includes(activeUser.userId);
 
         didILikeThisPhoto && setToggleLiked(true);
     }, []);
@@ -39,21 +39,28 @@ function Interactions({ likes, docId, activeUser }) {
         <div>
             <div className="interactions">
                 <div className="left">
-                    <i
-                        style={
-                            toggleLiked
-                                ? likeStyle
-                                : hoverStatus
-                                ? notLikeStyleHover
-                                : notLikeStyle
-                        }
-                        className="far fa-heart interaction-icons"
-                        onClick={() =>
-                            handleToggleLiked(docId, activeUser.userId)
-                        }
-                        onMouseOver={() => setHoverStatus(true)}
-                        onMouseOut={() => setHoverStatus(false)}
-                    />
+                    {toggleLiked ? (
+                        <i
+                            className="fas fa-heart interaction-icons"
+                            onClick={() =>
+                                handleToggleLiked(docId, activeUser.userId)
+                            }
+                            style={likeStyle}
+                        />
+                    ) : (
+                        <i
+                            style={
+                                hoverStatus ? notLikeStyleHover : notLikeStyle
+                            }
+                            onMouseOver={() => setHoverStatus(true)}
+                            onMouseOut={() => setHoverStatus(false)}
+                            className="far fa-heart interaction-icons"
+                            onClick={() =>
+                                handleToggleLiked(docId, activeUser.userId)
+                            }
+                        />
+                    )}
+
                     <i className="far fa-comment interaction-icons" />
                 </div>
                 <div className="right">
