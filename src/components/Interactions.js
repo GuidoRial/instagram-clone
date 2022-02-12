@@ -3,6 +3,7 @@ import { firestore } from "../firebase";
 import "./Posts.css";
 import { arrayUnion, arrayRemove, doc, updateDoc } from "firebase/firestore";
 import { likeStyle, notLikeStyle, notLikeStyleHover } from "../aux";
+import heartSvg from "../assets/heart.svg";
 
 function Interactions({ likes, docId, activeUser }) {
     const [toggleLiked, setToggleLiked] = useState(false);
@@ -27,14 +28,24 @@ function Interactions({ likes, docId, activeUser }) {
 
         //send notification to user I liked this
     };
+
+    useState(async () => {
+        let didILikeThisPhoto = likes.includes(activeUser.userId)
+
+        didILikeThisPhoto && setToggleLiked(true);
+    }, []);
+
     return (
         <div>
             <div className="interactions">
                 <div className="left">
                     <i
                         style={
-                            toggleLiked ? likeStyle : (hoverStatus ? notLikeStyleHover : notLikeStyle)
-                     
+                            toggleLiked
+                                ? likeStyle
+                                : hoverStatus
+                                ? notLikeStyleHover
+                                : notLikeStyle
                         }
                         className="far fa-heart interaction-icons"
                         onClick={() =>
