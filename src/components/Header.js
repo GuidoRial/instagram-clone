@@ -31,8 +31,6 @@ function Header({ user, activeUser }) {
         setAnchorEl(null);
     };
 
-
-
     const handleLogOut = async () => {
         try {
             signOut(authService);
@@ -73,7 +71,7 @@ function Header({ user, activeUser }) {
     const handleFileUpload = (image) => {
         if (!image) return;
         const imagesRef = ref(storage, `/images/${image.name}`);
-        const postsRef = firestore.collection("posts");
+        const postsRef = firestore.collection("photos");
 
         const uploadTask = uploadBytesResumable(imagesRef, image);
         uploadTask.on(
@@ -92,15 +90,14 @@ function Header({ user, activeUser }) {
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     postsRef.add({
-                        file: downloadURL,
                         caption: caption,
-                        createdAt:
-                            firebase.firestore.FieldValue.serverTimestamp(),
-                        uid: user.uid,
-                        photoURL:
-                            user.photoURL ||
-                            "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png",
-                        username: user.displayName,
+                        comments: [],
+                        dateCreated: Date.now(),
+                        imageSrc: downloadURL,
+                        likes: [],
+                        photoId: "",
+                        saved: [],
+                        userId: activeUser.userId,
                     });
                     setOpenUploadModal(false);
                     setProgress(0);

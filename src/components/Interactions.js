@@ -3,12 +3,13 @@ import { firestore } from "../firebase";
 import "./Posts.css";
 import { arrayUnion, arrayRemove, doc, updateDoc } from "firebase/firestore";
 import { likeStyle, notLikeStyle, notLikeStyleHover } from "../aux";
-import heartSvg from "../assets/heart.svg";
 
-function Interactions({ likes, docId, activeUser }) {
+function Interactions({ likes, docId, activeUser, saved }) {
     const [toggleLiked, setToggleLiked] = useState(false);
     const [amountOfLikes, setAmountOfLikes] = useState(likes.length);
     const [hoverStatus, setHoverStatus] = useState(false);
+
+    const [toggleSaved, setToggleSaved] = useState(false);
 
     const handleToggleLiked = async (docId, userId) => {
         if (toggleLiked == false) {
@@ -29,10 +30,29 @@ function Interactions({ likes, docId, activeUser }) {
         //send notification to user I liked this
     };
 
+    const handleToggleSaved = async (docId, userId) => {
+        if (toggleSaved == false) {
+            setToggleSaved(true);
+        } else {
+            setToggleSaved(false);
+        }
+
+        await firestore
+            .collection("photos")
+            .doc(docId)
+            .update({
+                saved: toggleSaved ? arrayRemove(userId) : arrayUnion(userId),
+            });
+
+        //send notification to user I liked this
+    };
+
     useState(async () => {
         let didILikeThisPhoto = likes.includes(activeUser.userId);
+        let didISaveThisPhoto = saved.includes(activeUser.userId);
 
         didILikeThisPhoto && setToggleLiked(true);
+        didISaveThisPhoto && setToggleSaved(true);
     }, []);
 
     return (
@@ -64,7 +84,21 @@ function Interactions({ likes, docId, activeUser }) {
                     <i className="far fa-comment interaction-icons" />
                 </div>
                 <div className="right">
-                    <i className="far fa-bookmark interaction-icons" />
+                    {toggleSaved ? (
+                        <i
+                            className="fas fa-bookmark interaction-icons"
+                            onClick={() =>
+                                handleToggleSaved(docId, activeUser.userId)
+                            }
+                        />
+                    ) : (
+                        <i
+                            className="far fa-bookmark interaction-icons"
+                            onClick={() =>
+                                handleToggleSaved(docId, activeUser.userId)
+                            }
+                        />
+                    )}
                 </div>
             </div>
             <div className="amount-of-likes">

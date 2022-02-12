@@ -18,6 +18,7 @@ function Posts({ user, activeUser, feedPhotos }) {
                         userId={post.userId}
                         likes={post.likes}
                         activeUser={activeUser}
+                        saved={post.saved}
                     />
                 ))
             ) : (
