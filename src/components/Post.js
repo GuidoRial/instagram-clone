@@ -1,15 +1,40 @@
-import React from "react";
+import { Avatar } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { firestore } from "../firebase";
 
-function Post({ id, username, img, caption, userId }) {
+function Post({ id, username, img, caption, userId, likes }) {
+    const [postOwner, setPostOwner] = useState({});
+
+    useEffect(() => {
+        const getPostOwner = async (userId) => {
+            const result = await firestore
+                .collection("users")
+                .where("userId", "==", userId)
+                .get();
+
+            const [postOwnerObject] = result.docs.map((item) => ({
+                ...item.data(),
+                docId: item.id,
+            }));
+
+            setPostOwner(postOwnerObject);
+        };
+
+        getPostOwner(userId)
+    }, []);
+
+    console.log(postOwner)
     return (
         <div className="post" key={id}>
             <div className="post-header">
                 <div className="user-and-image">
-                    <img
+                    <Avatar /* get avatar from userId */
                         className="post-user-avatar"
                         alt="user-avatar"
+                        src={postOwner.profilePicture}
+                        style={{ width: "30px", height: "30px" }}
                     />
-                    <p>{username}</p>
+                    <p>{postOwner.username}</p>
                 </div>
                 <div>
                     <i className="fas fa-ellipsis-h" />
@@ -29,9 +54,9 @@ function Post({ id, username, img, caption, userId }) {
                         <i className="far fa-bookmark interaction-icons" />
                     </div>
                 </div>
-                <div className="amount-of-likes">66 likes</div>
+                <div className="amount-of-likes">{likes.length} likes</div>
                 <p className="user-and-caption">
-                    <span>{username}</span> {caption}
+                    <span>{postOwner.username}</span> {caption}
                 </p>
 
                 <form className="comment-form">

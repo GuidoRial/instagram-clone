@@ -1,3 +1,5 @@
+import { firestore } from "./firebase";
+
 export const openTerms = () => {
     window.open("https://help.instagram.com/581066165581870", "_blank");
 };
@@ -23,3 +25,20 @@ export const openPlayStore = () => {
         "_blank"
     );
 };
+
+export async function getUserByUserId(userId) {
+    const result = await firestore
+        .collection("users")
+        .where("userId", "==", userId)
+        .get();
+    const [user] = result.docs.map((item) => ({
+        ...item.data(),
+        docId: item.id,
+    }));
+
+    return user;
+}
+
+export function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}

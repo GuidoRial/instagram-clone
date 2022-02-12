@@ -38,7 +38,6 @@ function Header({ user, activeUser }) {
     const avatarStyle = {
         width: "20px",
         height: "20px",
-        borderRadius: "50%",
     };
 
     const handleLogOut = async () => {

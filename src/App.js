@@ -8,32 +8,27 @@ import SignUp from "./components/SignUp";
 import { firestore, authService } from "./firebase";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import { sleep } from "./aux";
+
 function App() {
     const [userName, setUserName] = useState("");
     const [fullName, setFullName] = useState("");
-    const [feedPhotos, setFeedPhotos] = useState(null);
-
-    async function getUserByUserId(userId) {
-        const result = await firestore
-            .collection()
-            .where("userId", "==", userId)
-            .get();
-        const user = result.docs.map((item) => ({
-            ...item.data(),
-            docId: item.id,
-        }));
-
-        return user;
-    }
+    //Fuck me I'm never seting an array to null again who the fuck made me think it was a good idea???
+    const [feedPhotos, setFeedPhotos] = useState([]);
 
     const getFeedPhotos = async (following) => {
-        const result = await firestore.collection("photos").get();
+        const result = await firestore
+            .collection("photos")
+            .orderBy("dateCreated", "desc")
+            .get();
         let filteredResult = result.docs
             .map((photo) => ({
                 ...photo.data(),
                 docId: photo.id,
             }))
             .filter((photo) => following.includes(photo.userId));
+
+        //Add likedStatus. Maybe inside each post I can iterate if currentUser.userId is in LikesArray  and return true accordingly
 
         return filteredResult;
         //At this point result returns an array of photos from people I follow
@@ -84,18 +79,13 @@ function App() {
                     .collection("users")
                     .where("userId", "==", user.uid)
                     .get();
-
                 //Now I have the document that share the same uid
-
                 const [userObject] = result.docs.map((item) => ({
                     ...item.data(),
                     docId: item.id,
                 }));
-
                 //I create an object out of it and add the doc.id (which it didn't previously have)
-
                 setActiveUser(userObject);
-                //I could make it so that description and profile picture is part of activeUser in the future
 
                 if (authUser.displayName) {
                     //Don't update username
@@ -122,16 +112,15 @@ function App() {
     useEffect(() => {
         async function getFeed() {
             const response = await getFeedPhotos(activeUser.following);
-
             setFeedPhotos(response);
         }
 
-        if (activeUser) getFeed()
-    }, [activeUser.userId]);
+        if (activeUser) getFeed();
+    }, [activeUser]);
 
-
-    console.log(feedPhotos);
     /*
+    console.log(feedPhotos);
+   
     useEffect(() => {
         const getPhotosArray = async () => {
             const response = await getFeedPhotos(activeUser.following);
@@ -177,7 +166,11 @@ function App() {
                                         user={user}
                                         activeUser={activeUser}
                                     />
-                                    <Feed user={user} activeUser={activeUser} />
+                                    <Feed
+                                        feedPhotos={feedPhotos}
+                                        user={user}
+                                        activeUser={activeUser}
+                                    />
                                 </>
                             }
                         ></Route>
