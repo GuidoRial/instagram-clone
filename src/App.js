@@ -8,11 +8,10 @@ import SignUp from "./components/SignUp";
 import { firestore, authService } from "./firebase";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-
 function App() {
     const [userName, setUserName] = useState("");
     const [fullName, setFullName] = useState("");
-    //Fuck me I'm never seting an array to null again who the fuck made me think it was a good idea???
+
     const [feedPhotos, setFeedPhotos] = useState([]);
 
     const getFeedPhotos = async (following) => {
@@ -27,43 +26,9 @@ function App() {
             }))
             .filter((photo) => following.includes(photo.userId));
 
-        //Add likedStatus. Maybe inside each post I can iterate if currentUser.userId is in LikesArray  and return true accordingly
-
         return filteredResult;
-        //At this point result returns an array of photos from people I follow
     };
 
-    /*
-    async function getFeedPhotos(userId, following) {
-        const result = await firestore
-            .collection("photos")
-            .where("userId", "in", following)
-            .get();
-
-        const userFollowedPhotos = result.docs.map((photo) => ({
-            ...photo.data(),
-            docId: photo.id,
-        }));
-
-        console.log(userFollowedPhotos, "userFollowedPhotos");
-
-        const photosWithUserDetails = await Promise.all(
-            userFollowedPhotos.map(async (photo) => {
-                let userLikedPhoto = false;
-                if (photo.likes.includes(userId)) {
-                    userLikedPhoto = true;
-                }
-                const user = await getUserByUserId(photo.userId);
-
-                const { username } = user[0];
-
-                return { username, ...photo, userLikedPhoto };
-            })
-        );
-
-        return photosWithUserDetails;
-    }
-*/
     const [user, setUser] = useState(null); //The user that comes from auth
     const [activeUser, setActiveUser] = useState({}); //The actual object I want to manipulate
     //Both of these share the same uid so I have to use user to get activeUser from collections
@@ -143,6 +108,7 @@ function App() {
                             }
                         ></Route>
                     )}
+
                     <Route
                         exact
                         path="signup"
@@ -152,9 +118,11 @@ function App() {
                                 setUserName={setUserName}
                                 fullName={fullName}
                                 setFullName={setFullName}
+                                activeUser={activeUser}
                             />
                         }
                     ></Route>
+
                     <Route
                         exact
                         path="profile"

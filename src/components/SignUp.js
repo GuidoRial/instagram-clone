@@ -5,14 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
 import * as openFunction from "../aux";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import {  firebase, firestore } from "../firebase";
+import { firebase, firestore } from "../firebase";
 
 import { linkStyle } from "../aux";
 
-
-function SignUp({ userName, setUserName, fullName, setFullName }) {
-
+function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
     let navigate = useNavigate();
+    activeUser && navigate("/");
 
     const [emailAdress, setEmailAdress] = useState("");
     const [password, setPassword] = useState("");
@@ -52,7 +51,6 @@ function SignUp({ userName, setUserName, fullName, setFullName }) {
             navigate("/");
         } catch (error) {
             console.error(error);
-
         }
     };
 
