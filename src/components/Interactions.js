@@ -4,7 +4,14 @@ import "./Posts.css";
 import { arrayUnion, arrayRemove, doc, updateDoc } from "firebase/firestore";
 import { likeStyle, notLikeStyle, notLikeStyleHover } from "../aux";
 
-function Interactions({ likes, docId, activeUser, saved }) {
+function Interactions({
+    likes,
+    docId,
+    activeUser,
+    saved,
+    postOwnerUsername,
+    caption,
+}) {
     const [toggleLiked, setToggleLiked] = useState(false);
     const [amountOfLikes, setAmountOfLikes] = useState(likes.length);
     const [hoverStatus, setHoverStatus] = useState(false);
@@ -108,6 +115,15 @@ function Interactions({ likes, docId, activeUser, saved }) {
                     <p>{amountOfLikes} likes </p>
                 )}
             </div>
+            <p className="user-and-caption">
+                <span>{postOwnerUsername}</span> {caption}
+            </p>
+
+            <form className="comment-form">
+                <i className="far fa-smile-wink" />
+                <input type="text" placeholder="Add a comment..." />
+                <button className="post-button">Post</button>
+            </form>
         </div>
     );
 }

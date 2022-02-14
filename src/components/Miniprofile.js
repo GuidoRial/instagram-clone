@@ -61,7 +61,15 @@ function Miniprofile({
         <div className="suggestion">
             <div className="suggestion-image-and-username">
                 <Link to={`/profile/${username}`} style={linkStyle}>
-                    <Avatar src={profilePicture} alt="user-avatar" />
+                    <img
+                        src={profilePicture}
+                        alt="user-avatar"
+                        style={{
+                            width: "45px",
+                            height: "45px",
+                            borderRadius: "50%", objectFit: "cover"
+                        }}
+                    />
                 </Link>
                 <Link to={`/profile/${username}`} style={linkStyle}>
                     <p>{username}</p>

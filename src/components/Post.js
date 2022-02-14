@@ -61,17 +61,11 @@ function Post({ activeUser, id, username, img, caption, userId, likes, saved }) 
                     docId={id}
                     activeUser={activeUser}
                     saved={saved}
+                    postOwnerUsername={postOwner.username}
+                    caption={caption}
                 />
 
-                <p className="user-and-caption">
-                    <span>{postOwner.username}</span> {caption}
-                </p>
-
-                <form className="comment-form">
-                    <i className="far fa-smile-wink" />
-                    <input type="text" placeholder="Add a comment..." />
-                    <button className="post-button">Post</button>
-                </form>
+                
             </div>
         </div>
     );

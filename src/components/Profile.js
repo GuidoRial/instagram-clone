@@ -117,8 +117,13 @@ function Profile({ user, activeUser }) {
             </Modal>
             <div className="profile-resume">
                 <div className="profile-pic-container">
-                    <Avatar
-                        style={{ width: "128px", height: "128px" }}
+                    <img
+                        style={{
+                            width: "128px",
+                            height: "128px",
+                            borderRadius: "50%",
+                            objectFit: "cover",
+                        }}
                         src={activeUser.profilePicture}
                         alt="user-avatar"
                     />

@@ -49,9 +49,15 @@ function Suggestions({ user, activeUser }) {
             <div className="user-mini-profile">
                 <div className="avatar-and-username-miniprofile">
                     <Link to="/profile" style={linkStyle}>
-                        <Avatar
+                        <img
                             src={activeUser.profilePicture}
-                            style={{ width: "64px", height: "64px" }}
+                            style={{
+                                width: "64px",
+                                height: "64px",
+                                borderRadius: "50%",
+                                objectFit: "cover",
+                            }}
+                            alt="user-profile"
                         />
                     </Link>
                     <div className="user-data-container">
