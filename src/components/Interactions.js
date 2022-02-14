@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { firestore } from "../firebase";
 import "./Posts.css";
 import { arrayUnion, arrayRemove, doc, updateDoc } from "firebase/firestore";
-import { likeStyle, notLikeStyle, notLikeStyleHover } from "../aux";
+import { likeStyle, linkStyle, notLikeStyle, notLikeStyleHover } from "../aux";
+import { Link } from "react-router-dom";
 
 function Interactions({
     likes,
@@ -11,7 +12,9 @@ function Interactions({
     saved,
     postOwnerUsername,
     caption,
+    comments,
 }) {
+    console.log(comments);
     const [toggleLiked, setToggleLiked] = useState(false);
     const [amountOfLikes, setAmountOfLikes] = useState(likes.length);
     const [hoverStatus, setHoverStatus] = useState(false);
@@ -116,8 +119,32 @@ function Interactions({
                 )}
             </div>
             <p className="user-and-caption">
-                <span>{postOwnerUsername}</span> {caption}
+                <Link to={`/profile/${postOwnerUsername}`} style={linkStyle}>
+                    <span>{postOwnerUsername}</span>
+                </Link>
+                {caption}
             </p>
+
+            {comments.map((comment) => (
+                <div className="user-and-caption">
+                    <Link
+                        to={`/profile/${comment.displayName}`}
+                        style={linkStyle}
+                    >
+                        <span
+                            style={{
+                                marginRight: "5px",
+                                cursor: "pointer",
+                                marginTop: "7px",
+                                marginBottom: "5px",
+                            }}
+                        >
+                            {comment.displayName}
+                        </span>
+                    </Link>
+                    {comment.comment}
+                </div>
+            ))}
 
             <form className="comment-form">
                 <i className="far fa-smile-wink" />
