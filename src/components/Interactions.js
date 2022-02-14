@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { firestore } from "../firebase";
 import "./Posts.css";
-import { arrayUnion, arrayRemove, doc, updateDoc } from "firebase/firestore";
+import { arrayUnion, arrayRemove } from "firebase/firestore";
 import {
     clearAllInputs,
     likeStyle,
@@ -53,7 +53,7 @@ function Interactions({
     };
 
     const handleToggleSaved = async (docId, userId) => {
-        if (toggleSaved == false) {
+        if (toggleSaved === false) {
             setToggleSaved(true);
         } else {
             setToggleSaved(false);
@@ -138,7 +138,7 @@ function Interactions({
                 </div>
             </div>
             <div className="amount-of-likes">
-                {amountOfLikes == 1 ? (
+                {amountOfLikes === 1 ? (
                     <p>{amountOfLikes} like</p>
                 ) : (
                     <p>{amountOfLikes} likes </p>
@@ -189,8 +189,8 @@ function Interactions({
                 />
                 <button
                     className="post-button"
-                    style={{ opacity: newComment.length == 0 ? "0.5" : "1" }}
-                    disabled={newComment.length == 0}
+                    style={{ opacity: newComment.length === 0 ? "0.5" : "1" }}
+                    disabled={newComment.length === 0}
                 >
                     Post
                 </button>

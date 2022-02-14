@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Header from "./Header";
 import "./Profile.css";
 
 import Box from "@mui/material/Box";
@@ -12,7 +11,6 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { auth, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
-import { Avatar } from "@mui/material";
 import { modalStyle } from "../aux";
 
 function Profile({ user, activeUser }) {

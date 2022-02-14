@@ -1,4 +1,3 @@
-import { Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { linkStyle } from "../aux";
@@ -36,8 +35,6 @@ function Post({
 
         getPostOwner(userId);
     }, []);
-
-    //console.log(postOwner);
 
     return (
         <div className="post" key={id}>

@@ -1,7 +1,6 @@
 import React from "react";
 import Post from "./Post";
 import "./Posts.css";
-import { sleep } from "../aux";
 
 function Posts({ user, activeUser, feedPhotos }) {
 

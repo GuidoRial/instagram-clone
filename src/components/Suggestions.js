@@ -4,7 +4,6 @@ import "./Suggestions.css";
 import { Link, Navigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { authService, firestore } from "../firebase";
-import { Avatar } from "@mui/material";
 import { linkStyle } from "../aux";
 
 function Suggestions({ user, activeUser }) {

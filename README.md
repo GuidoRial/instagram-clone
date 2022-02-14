@@ -32,10 +32,10 @@
 4. Add search bar functionality [I KNOW HOW TO DO IT]
 5. Clean and refactor code, make use of aux.js, delete functionality I'm not going to use [I KNOW HOW TO DO IT]
 
-6. Display and Add ability to comment [not a clue on how to do it]
-7. Implement the logic of what an user can and can't see [not a clue on how to do it]
-8. Implement react-router-dom so that you can click on each profile and it renders /profile/username [not a clue on how to do it]
-9. Consider adding notifications with a new collection called "notifications", each doc should contain a sender, a receiver, an action (comment, like or follow) [not a clue on how to do it]
+6. Implement the logic of what an user can and can't see [not a clue on how to do it]
+7. Implement react-router-dom so that you can click on each profile and it renders /profile/username [not a clue on how to do it]
+8. Consider adding notifications with a new collection called "notifications", each doc should contain a sender, a receiver, an action (comment, like or follow) [not a clue on how to do it]
 
-10. Add ability to like [DONE]
-11. Add ability to save posts [DONE]
+9. Add ability to like [DONE]
+10. Add ability to save posts [DONE]
+11. Display and Add ability to comment [DONE]

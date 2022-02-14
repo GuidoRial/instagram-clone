@@ -117,37 +117,6 @@ function App() {
         if (activeUser) getFeed();
     }, [activeUser]);
 
-    /*
-    console.log(feedPhotos);
-   
-    useEffect(() => {
-        const getPhotosArray = async () => {
-            const response = await getFeedPhotos(activeUser.following);
-            setFeedPhotos(response);
-        };
-
-        if (activeUser) {
-            let result = getFeedPhotos(activeUser.following);
-            setFeedPhotos(result);
-        }
-    }, [user]);
-
-    useEffect(() => {
-        async function getTimelinePhotos() {
-            const [{ following }] = await getUserByUserId(activeUser.userId);
-            let followedUserPhotos = [];
-
-            if (following.length > 0) {
-                followedUserPhotos = await getFeedPhotos(
-                    activeUser.userId,
-                    following
-                );
-            }
-        }
-
-        getTimelinePhotos();
-    }, []);
-*/
     return (
         <div className="App">
             <BrowserRouter>
