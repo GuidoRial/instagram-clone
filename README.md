@@ -25,14 +25,17 @@
 ## Todo's
 
 0. Add a postAmount property to each user [I KNOW HOW TO DO IT]
+   Not going to do that. Instead I'm going to fetch every post that has that user's userId and count the amount.
 1. Fix ability to post [I KNOW HOW TO DO IT]
-2. Display and Add ability to comment [not a clue on how to do it]
-3. Add ability to like  [DONE]
-4. Add ability to save posts  [ON IT]-------------
-5. Finish edit profile  [I KNOW HOW TO DO IT]
-6. Add POST and SAVED profile buttons functionality  [I KNOW HOW TO DO IT]
-7. Add search bar functionalityI KNOW HOW TO DO IT]
-8. Implement react-router-dom so that you can click on each profile and it renders /profile/userId [not a clue on how to do it]
-9. Implement the logic of what an user can and can't see [not a clue on how to do it]
-10. Clean and refactor code, make use of aux.js, delete functionality I'm not going to use [I KNOW HOW TO DO IT]
-X. Consider adding notifications with a new collection called "notifications", each doc should contain a sender, a receiver, an action (comment, like or follow) [not a clue on how to do it]
+2. Finish edit profile [I KNOW HOW TO DO IT]
+3. Add POST and SAVED profile buttons functionality [I KNOW HOW TO DO IT]
+4. Add search bar functionality [I KNOW HOW TO DO IT]
+5. Clean and refactor code, make use of aux.js, delete functionality I'm not going to use [I KNOW HOW TO DO IT]
+
+6. Display and Add ability to comment [not a clue on how to do it]
+7. Implement the logic of what an user can and can't see [not a clue on how to do it]
+8. Implement react-router-dom so that you can click on each profile and it renders /profile/username [not a clue on how to do it]
+9. Consider adding notifications with a new collection called "notifications", each doc should contain a sender, a receiver, an action (comment, like or follow) [not a clue on how to do it]
+
+10. Add ability to like [DONE]
+11. Add ability to save posts [DONE]
