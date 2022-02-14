@@ -20,6 +20,7 @@ function Posts({ user, activeUser, feedPhotos }) {
                         activeUser={activeUser}
                         saved={post.saved}
                         comments={post.comments}
+                        dateCreated={post.dateCreated}
                     />
                 ))
             ) : (

@@ -5,7 +5,18 @@ import { linkStyle } from "../aux";
 import { firestore } from "../firebase";
 import Interactions from "./Interactions";
 
-function Post({ activeUser, id, username, img, caption, userId, likes, saved, comments }) {
+function Post({
+    activeUser,
+    id,
+    username,
+    img,
+    caption,
+    userId,
+    likes,
+    saved,
+    comments,
+    dateCreated,
+}) {
     const [postOwner, setPostOwner] = useState({});
 
     useEffect(() => {
@@ -27,7 +38,6 @@ function Post({ activeUser, id, username, img, caption, userId, likes, saved, co
     }, []);
 
     //console.log(postOwner);
-
 
     return (
         <div className="post" key={id}>
@@ -56,7 +66,6 @@ function Post({ activeUser, id, username, img, caption, userId, likes, saved, co
                 <img className="post-img" src={img} alt="post" />
             </div>
             <div className="post-footer">
-
                 <Interactions
                     likes={likes}
                     docId={id}
@@ -65,9 +74,8 @@ function Post({ activeUser, id, username, img, caption, userId, likes, saved, co
                     postOwnerUsername={postOwner.username}
                     caption={caption}
                     comments={comments}
+                    dateCreated={dateCreated}
                 />
-
-                
             </div>
         </div>
     );

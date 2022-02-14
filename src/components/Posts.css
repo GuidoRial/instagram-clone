@@ -28,7 +28,6 @@
     display: flex;
     align-items: center;
     gap: 5px;
-
 }
 
 .user-and-image > p {
@@ -90,6 +89,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     margin-top: 5px;
+    margin-bottom: 7px;
 }
 
 .user-and-caption > span {
@@ -123,4 +123,12 @@
     color: #0396f6;
     cursor: pointer;
     background-color: rgb(255, 255, 255);
+}
+
+.days-ago {
+    text-align: left;
+    margin-left: 10px;
+    margin-top: 5px;
+    font-size: small;
+    color: #a1a6ba;
 }

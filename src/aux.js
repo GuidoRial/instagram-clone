@@ -71,5 +71,10 @@ export const notLikeStyle = {
     color: "#262626",
 };
 export const notLikeStyleHover = {
-    color: "#999999"
-}
+    color: "#999999",
+};
+export const clearAllInputs = () => {
+    Array.from(document.querySelectorAll("input")).forEach(
+        (input) => (input.value = "")
+    );
+};
