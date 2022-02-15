@@ -35,6 +35,9 @@ function Profile({ user, activeUser }) {
     const [profileOwner, setProfileOwner] = useState({});
     const [profilePhotos, setProfilePhotos] = useState([]);
 
+    const [photosFromUser, setPhotosFromUser] = useState(true);
+    const [savedPhotos, setSavedPhotos] = useState([]);
+
     useEffect(() => {
         const getProfileOwner = async (username) => {
             try {
@@ -73,17 +76,37 @@ function Profile({ user, activeUser }) {
         return filteredResult;
     };
 
+    const getSavedPhotos = async (profileOwnerUserId) => {
+        const result = await firestore
+            .collection("photos")
+            .orderBy("dateCreated", "desc")
+            .get();
+
+        let filteredResult = result.docs
+            .map((photo) => ({
+                ...photo.data(),
+                docId: photo.id,
+            }))
+            .filter((photo) => photo.saved.includes(profileOwnerUserId));
+
+        return filteredResult;
+    };
+
     useEffect(() => {
         async function getPhotos() {
             const response = await getProfilePhotos(profileOwner.userId);
             setProfilePhotos(response);
+            const secondResponse = await getSavedPhotos(profileOwner.userId);
+            setSavedPhotos(secondResponse);
         }
 
-        if (profileOwner) getPhotos();
+        if (profileOwner) {
+            getPhotos();
+        }
     }, [profileOwner]);
-
-
-
+    //On load, setProfilePhotos(userPhotos) and setSavedPhotos(savedPhotosByUser)
+    //photosFromUser is true by default, showing then only this user's photos
+    //On click of SAVED button, photosFromUser changes to false showing this user's saved photos, the opposite happens on click of POSTS button
     return (
         <div className="profile-container">
             <Modal
@@ -193,14 +216,22 @@ function Profile({ user, activeUser }) {
             <div className="profile-button-container">
                 {activeUser.username === profileOwner.username ? (
                     <>
-                        <button className="profile-switch-button">
+                        <button
+                            className="profile-switch-button"
+                            disabled={photosFromUser}
+                            onClick={() => setPhotosFromUser(true)}
+                        >
                             <i className="fas fa-th profile-icons">
                                 {/*on click, get this profile's photos and set this state by default */}
                             </i>
                             POSTS
                         </button>
 
-                        <button className="profile-switch-button">
+                        <button
+                            className="profile-switch-button"
+                            onClick={() => setPhotosFromUser(false)}
+                            disabled={!photosFromUser}
+                        >
                             <i className="far fa-bookmark profile-icons" />
                             {/*on click, get this profile's saved photos */}
                             SAVED
@@ -209,19 +240,32 @@ function Profile({ user, activeUser }) {
                 ) : null}
             </div>
             <div className="profile-photo-main-container">
-                {profilePhotos.map((photo) => (
-                    <>
-                        <UserProfilePhoto
-                            key={photo.docId}
-                            src={photo.imageSrc}
-                            amountOfLikes={photo.likes.length}
-                            amountOfComments={photo.comments.length}
-                        />
+                {/* if photosFromUser is true showme this user's photos (true by default, else show me this user's saved photos) */}
 
-                        {/*on click, open a modal with the photo's content, get user by user id and fetch it's profile photo*/}
-                        {/* on mousover and mouseout toggle opacity and display an icon with the amount of likes and comments this have */}
-                    </>
-                ))}
+                {photosFromUser
+                    ? profilePhotos.map((photo) => (
+                          <>
+                              <UserProfilePhoto
+                                  key={photo.docId}
+                                  src={photo.imageSrc}
+                                  amountOfLikes={photo.likes.length}
+                                  amountOfComments={photo.comments.length}
+                              />
+
+                              {/*on click, open a modal with the photo's content, get user by user id and fetch it's profile photo*/}
+                              {/* on mousover and mouseout toggle opacity and display an icon with the amount of likes and comments this have */}
+                          </>
+                      ))
+                    : savedPhotos.map((photo) => (
+                          <>
+                              <UserProfilePhoto
+                                  key={photo.docId}
+                                  src={photo.imageSrc}
+                                  amountOfLikes={photo.likes.length}
+                                  amountOfComments={photo.comments.length}
+                              />
+                          </>
+                      ))}
             </div>
         </div>
     );

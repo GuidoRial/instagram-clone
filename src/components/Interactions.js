@@ -80,7 +80,6 @@ function Interactions({
 
     const handleAddComment = (e) => {
         e.preventDefault();
-
         setDatabaseComments([...comments, newComment]);
         setNewComment("");
         clearAllInputs();
