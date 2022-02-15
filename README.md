@@ -35,7 +35,8 @@
 6. Implement the logic of what an user can and can't see [not a clue on how to do it]
 7. Implement react-router-dom so that you can click on each profile and it renders /profile/username [not a clue on how to do it]
 8. Consider adding notifications with a new collection called "notifications", each doc should contain a sender, a receiver, an action (comment, like or follow) [not a clue on how to do it]
+9. Add function to not allow user to signup with a username that already exists [not a clue on how to do it]
 
-9. Add ability to like [DONE]
-10. Add ability to save posts [DONE]
-11. Display and Add ability to comment [DONE]
+10. Add ability to like [DONE]
+11. Add ability to save posts [DONE]
+12. Display and Add ability to comment [DONE]
