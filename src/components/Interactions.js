@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { firestore } from "../firebase";
 import "./Posts.css";
 import { arrayUnion, arrayRemove } from "firebase/firestore";
@@ -63,7 +63,7 @@ function Interactions({
             });
     };
 
-    useState(async () => {
+    useEffect( () => {
         let didILikeThisPhoto = likes.includes(activeUser.userId);
         let didISaveThisPhoto = saved.includes(activeUser.userId);
         didILikeThisPhoto && setToggleLiked(true);

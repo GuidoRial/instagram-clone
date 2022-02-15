@@ -28,6 +28,7 @@ function Profile({ user, activeUser }) {
     const [profilePhotos, setProfilePhotos] = useState([]);
     const [photosFromUser, setPhotosFromUser] = useState(true);
     const [savedPhotos, setSavedPhotos] = useState([]);
+    const [followButton, setFollowButton] = useState("");
 
     useEffect(() => {
         const getProfileOwner = async (username) => {
@@ -62,6 +63,20 @@ function Profile({ user, activeUser }) {
         profileOwner && getPhotos();
     }, [profileOwner]);
 
+    useEffect(() => {
+        async function getFollowUserState(profileOwner, activeUser) {
+            let doIFollowThisUser = await profileOwner.followers.includes(
+                activeUser.userId
+            );
+            return doIFollowThisUser
+                ? setFollowButton("UNFOLLOW")
+                : setFollowButton("FOLLOW");
+        }
+        if (profileOwner && activeUser) {
+            getFollowUserState(profileOwner, activeUser);
+        }
+    }, [profileOwner, activeUser]);
+    console.log(followButton);
     return (
         <div className="profile-container">
             <Modal
@@ -137,7 +152,11 @@ function Profile({ user, activeUser }) {
                             >
                                 Edit Profile
                             </button>
-                        ) : null}
+                        ) : (
+                            <Button variant="outlined">
+                                {profileOwner ? followButton : "loading"}
+                            </Button>
+                        )}
                     </div>
                     <div className="profile-second">
                         <div className="profile-amounts">
@@ -147,7 +166,6 @@ function Profile({ user, activeUser }) {
                                     : "loading..."}
                             </p>
                             <span>
-                                {" "}
                                 {profilePhotos.length === 1 ? "post" : "posts"}
                             </span>
                         </div>
@@ -158,7 +176,6 @@ function Profile({ user, activeUser }) {
                                     : "loading..."}
                             </p>
                             <span>
-                                {" "}
                                 {profileOwner.followers === 1
                                     ? "follower"
                                     : "followers"}

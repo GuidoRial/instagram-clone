@@ -122,7 +122,7 @@ function UserProfilePhoto({ src, amountOfComments, photo, activeUser }) {
                                     to={`/profile/${postOwner.username}`}
                                     style={linkStyle}
                                 >
-                                    <Avatar src={postOwner.profilePicture} />{" "}
+                                    <Avatar src={postOwner.profilePicture} />
                                 </Link>
                                 <Link
                                     to={`/profile/${postOwner.username}`}
@@ -240,7 +240,7 @@ function UserProfilePhoto({ src, amountOfComments, photo, activeUser }) {
                                 </p>
                             ) : (
                                 <p style={{ fontWeight: "700", marginLeft: "10px" }}>
-                                    {amountOfLikes} likes{" "}
+                                    {amountOfLikes} likes
                                 </p>
                             )}
 
@@ -295,11 +295,11 @@ function UserProfilePhoto({ src, amountOfComments, photo, activeUser }) {
                 >
                     {amountOfComments >= 0 && amountOfLikes >= 0 ? (
                         <>
-                            <p>
+                            <p style={{gap: "3px"}}>
                                 <i className="fas fa-heart" /> {amountOfLikes}
                             </p>
-                            <p>
-                                <i className="fas fa-comment" />{" "}
+                            <p style={{gap: "3px"}}>
+                                <i className="fas fa-comment" />
                                 {amountOfComments}
                             </p>
                         </>
