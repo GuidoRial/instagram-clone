@@ -93,6 +93,7 @@ function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <button
+                        disabled={isInvalid}
                         type="submit"
                         className="login-button"
                         style={{ opacity: isInvalid ? "0.5" : "1" }}

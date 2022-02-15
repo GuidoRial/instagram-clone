@@ -1,6 +1,6 @@
 .profile-container {
     width: 80%;
-    height: 100vh;
+    height: 100%;
 }
 
 .profile-resume {
@@ -77,9 +77,8 @@
 }
 
 .profile-third {
-height: 30px;
-margin-bottom: 40px;
-    
+    height: 30px;
+    margin-bottom: 40px;
 }
 
 .profile-icons {
@@ -88,3 +87,32 @@ margin-bottom: 40px;
     cursor: pointer;
     color: #2f2f2f;
 }
+
+.profile-photo-main-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    grid-gap: 10px;
+}
+
+.profile-photos {
+    width: 430px;
+    height: 430px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-photo-main-container:hover .amount-photo {
+    visibility: visible;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.photo-container {
+    position: relative;
+}
+

@@ -13,6 +13,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { modalStyle } from "../aux";
 import { useParams } from "react-router-dom";
+import UserProfilePhoto from "./UserProfilePhoto";
 
 function Profile({ user, activeUser }) {
     const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
@@ -32,8 +33,7 @@ function Profile({ user, activeUser }) {
     /* The photoURL is the same as posting, send the profile picture to storage, get the link, use that as a source for photoURL */
     /* display name will be the one the user set when he signed in, but if they decide to change it, I'll set it to updateDisplayName and updatedDescription and add it to the updateProfile function at the end */
     const [profileOwner, setProfileOwner] = useState({});
-    const [followers, setFollowers] = useState("");
-    const [following, setFollowing] = useState("");
+    const [profilePhotos, setProfilePhotos] = useState([]);
 
     useEffect(() => {
         const getProfileOwner = async (username) => {
@@ -56,6 +56,33 @@ function Profile({ user, activeUser }) {
 
         getProfileOwner(params.username);
     }, [params]);
+
+    const getProfilePhotos = async (profileOwnerUserId) => {
+        const result = await firestore
+            .collection("photos")
+            .orderBy("dateCreated", "desc")
+            .get();
+
+        let filteredResult = result.docs
+            .map((photo) => ({
+                ...photo.data(),
+                docId: photo.id,
+            }))
+            .filter((photo) => profileOwnerUserId === photo.userId);
+
+        return filteredResult;
+    };
+
+    useEffect(() => {
+        async function getPhotos() {
+            const response = await getProfilePhotos(profileOwner.userId);
+            setProfilePhotos(response);
+        }
+
+        if (profileOwner) getPhotos();
+    }, [profileOwner]);
+
+
 
     return (
         <div className="profile-container">
@@ -167,18 +194,34 @@ function Profile({ user, activeUser }) {
                 {activeUser.username === profileOwner.username ? (
                     <>
                         <button className="profile-switch-button">
-                            <i className="fas fa-th profile-icons"></i>POSTS
+                            <i className="fas fa-th profile-icons">
+                                {/*on click, get this profile's photos and set this state by default */}
+                            </i>
+                            POSTS
                         </button>
 
                         <button className="profile-switch-button">
                             <i className="far fa-bookmark profile-icons" />
+                            {/*on click, get this profile's saved photos */}
                             SAVED
                         </button>
                     </>
                 ) : null}
             </div>
-            <div>
-                {/* import pics from this user and render an each one in three columns and three rows with a hover effect that displays the amount of likes and comments it has */}
+            <div className="profile-photo-main-container">
+                {profilePhotos.map((photo) => (
+                    <>
+                        <UserProfilePhoto
+                            key={photo.docId}
+                            src={photo.imageSrc}
+                            amountOfLikes={photo.likes.length}
+                            amountOfComments={photo.comments.length}
+                        />
+
+                        {/*on click, open a modal with the photo's content, get user by user id and fetch it's profile photo*/}
+                        {/* on mousover and mouseout toggle opacity and display an icon with the amount of likes and comments this have */}
+                    </>
+                ))}
             </div>
         </div>
     );

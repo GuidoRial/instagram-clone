@@ -78,3 +78,40 @@ export const clearAllInputs = () => {
         (input) => (input.value = "")
     );
 };
+
+export const profilePhotosStyleOnHover = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "430px",
+    height: "431px",
+    borderRadius: "5px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "5px",
+    background: "black",
+    opacity: "0.5",
+    color: "white",
+    cursor: "pointer",
+    fontWeight: "700",
+};
+
+export const profilePhotosStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "430px",
+    height: "431px",
+    borderRadius: "5px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "5px",
+    opacity: "0",
+    color: "white",
+    cursor: "pointer",
+    fontWeight: "700",
+};
