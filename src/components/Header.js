@@ -78,6 +78,7 @@ function Header({ user, activeUser }) {
         }
     };
 
+
     return (
         <div className="header">
             <div className="header-content">
@@ -240,10 +241,7 @@ function Header({ user, activeUser }) {
                                     Profile
                                 </MenuItem>
                             </Link>
-                            <MenuItem>
-                                <Avatar src="https://cdn.iconscout.com/icon/premium/png-256-thumb/saved-2223099-1861901.png" />
-                                Saved
-                            </MenuItem>
+                           
                             <Divider />
                             <MenuItem>
                                 <ListItemIcon>
