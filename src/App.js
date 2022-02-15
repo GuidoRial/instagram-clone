@@ -7,28 +7,12 @@ import Profile from "./components/Profile";
 import SignUp from "./components/SignUp";
 import { firestore, authService } from "./firebase";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { getFeedPhotos } from "./aux";
 
 function App() {
     const [userName, setUserName] = useState("");
     const [fullName, setFullName] = useState("");
-
     const [feedPhotos, setFeedPhotos] = useState([]);
-
-    const getFeedPhotos = async (following) => {
-        const result = await firestore
-            .collection("photos")
-            .orderBy("dateCreated", "desc")
-            .get();
-        let filteredResult = result.docs
-            .map((photo) => ({
-                ...photo.data(),
-                docId: photo.id,
-            }))
-            .filter((photo) => following.includes(photo.userId));
-
-        return filteredResult;
-    };
-
     const [user, setUser] = useState(null); //The user that comes from auth
     const [activeUser, setActiveUser] = useState({}); //The actual object I want to manipulate
     //Both of these share the same uid so I have to use user to get activeUser from collections

@@ -4,30 +4,12 @@ import "./Suggestions.css";
 import { Link, Navigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { authService, firestore } from "../firebase";
-import { linkStyle } from "../aux";
+import { getSuggestedProfiles, handleLogOut, linkStyle } from "../aux";
 
 function Suggestions({ user, activeUser }) {
     const [suggestions, setSuggestions] = useState([]);
 
-    const handleLogOut = async () => {
-        try {
-            signOut(authService);
-            await Navigate("/");
-        } catch (error) {
-            console.error(error);
-        }
-    };
 
-    async function getSuggestedProfiles(userId, following) {
-        const result = await firestore.collection("users").limit(5).get();
-        return result.docs
-            .map((user) => ({ ...user.data(), docId: user.id }))
-            .filter(
-                (profile) =>
-                    profile.userId !== userId &&
-                    !following.includes(profile.userId)
-            );
-    }
 
     useEffect(() => {
         async function suggestedProfiles() {

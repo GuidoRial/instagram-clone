@@ -31,9 +31,9 @@
 4. Finish edit profile [I KNOW HOW TO DO IT]
 5. Add search bar functionality [I KNOW HOW TO DO IT]
 6. Clean and refactor code, make use of aux.js, delete functionality I'm not going to use [I KNOW HOW TO DO IT]
+7. Let user follow eachother on the other's profile [I KNOW HOW TO DO IT]
 
-7. Add function to not allow user to signup with a username that already exists [not a clue on how to do it]
-8. Consider adding notifications with a new collection called "notifications", each doc should contain a sender, a receiver, an action (comment, like or follow) [not a clue on how to do it]
+8. Add function to not allow user to signup with a username that already exists [not a clue on how to do it]
 
 9. Add ability to like [DONE]
 10. Add ability to save posts [DONE]

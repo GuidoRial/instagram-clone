@@ -27,9 +27,7 @@ function Interactions({
     const [toggleLiked, setToggleLiked] = useState(false);
     const [amountOfLikes, setAmountOfLikes] = useState(likes.length);
     const [hoverStatus, setHoverStatus] = useState(false);
-
     const [toggleSaved, setToggleSaved] = useState(false);
-
     const [newComment, setNewComment] = useState("");
     const [databaseComments, setDatabaseComments] = useState(comments);
 
@@ -48,8 +46,6 @@ function Interactions({
             .update({
                 likes: toggleLiked ? arrayRemove(userId) : arrayUnion(userId),
             });
-
-        //send notification to user I liked this
     };
 
     const handleToggleSaved = async (docId, userId) => {
@@ -65,8 +61,6 @@ function Interactions({
             .update({
                 saved: toggleSaved ? arrayRemove(userId) : arrayUnion(userId),
             });
-
-        //send notification to user I liked this
     };
 
     useState(async () => {

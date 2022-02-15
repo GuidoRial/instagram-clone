@@ -12,8 +12,6 @@ import { linkStyle } from "../aux";
 
 function LogIn() {
     let navigate = useNavigate();
-
-
     const [emailAdress, setEmailAdress] = useState("");
     const [password, setPassword] = useState("");
     const demoUserEmailAdress = "demouser@gmail.com";

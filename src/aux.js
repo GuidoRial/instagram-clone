@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { firestore } from "./firebase";
 
 export const openTerms = () => {
@@ -26,32 +27,6 @@ export const openPlayStore = () => {
     );
 };
 
-export async function getUserByUserId(userId) {
-    const result = await firestore
-        .collection("users")
-        .where("userId", "==", userId)
-        .get();
-    const [user] = result.docs.map((item) => ({
-        ...item.data(),
-        docId: item.id,
-    }));
-
-    return user;
-}
-
-export async function getUserByUserName(username) {
-    const result = await firestore
-        .collection("users")
-        .where("username", "==", username)
-        .get();
-    const [user] = result.docs.map((item) => ({
-        ...item.data(),
-        docId: item.id,
-    }));
-
-    return user;
-}
-
 export const linkStyle = {
     textDecoration: "none",
     color: "black",
@@ -63,13 +38,13 @@ export const modalStyle = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    height: 400,
-    width: 600,
+    height: 200,
+    width: 400,
     bgcolor: "background.paper",
     border: "1px solid #efefef",
     borderRadius: "4px",
     boxShadow: 24,
-    p: 4,
+
     padding: "5px",
     backgroundColor: "white",
     display: "flex",
@@ -145,4 +120,96 @@ export const modalPostStyle = {
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
+};
+
+export async function getUserByUserId(userId) {
+    const result = await firestore
+        .collection("users")
+        .where("userId", "==", userId)
+        .get();
+    const [user] = result.docs.map((item) => ({
+        ...item.data(),
+        docId: item.id,
+    }));
+
+    return user;
+}
+
+export async function getUserByUserName(username) {
+    const result = await firestore
+        .collection("users")
+        .where("username", "==", username)
+        .get();
+    const [user] = result.docs.map((item) => ({
+        ...item.data(),
+        docId: item.id,
+    }));
+
+    return user;
+}
+
+export const getFeedPhotos = async (following) => {
+    const result = await firestore
+        .collection("photos")
+        .orderBy("dateCreated", "desc")
+        .get();
+    let filteredResult = result.docs
+        .map((photo) => ({
+            ...photo.data(),
+            docId: photo.id,
+        }))
+        .filter((photo) => following.includes(photo.userId));
+
+    return filteredResult;
+};
+
+export const getProfilePhotos = async (profileOwnerUserId) => {
+    const result = await firestore
+        .collection("photos")
+        .orderBy("dateCreated", "desc")
+        .get();
+
+    let filteredResult = result.docs
+        .map((photo) => ({
+            ...photo.data(),
+            docId: photo.id,
+        }))
+        .filter((photo) => profileOwnerUserId === photo.userId);
+
+    return filteredResult;
+};
+
+export const getSavedPhotos = async (profileOwnerUserId) => {
+    const result = await firestore
+        .collection("photos")
+        .orderBy("dateCreated", "desc")
+        .get();
+
+    let filteredResult = result.docs
+        .map((photo) => ({
+            ...photo.data(),
+            docId: photo.id,
+        }))
+        .filter((photo) => photo.saved.includes(profileOwnerUserId));
+
+    return filteredResult;
+};
+
+export async function getSuggestedProfiles(userId, following) {
+    const result = await firestore.collection("users").limit(5).get();
+    return result.docs
+        .map((user) => ({ ...user.data(), docId: user.id }))
+        .filter(
+            (profile) =>
+                profile.userId !== userId && !following.includes(profile.userId)
+        );
+}
+
+export const handleLogOut = async () => {
+    try {
+        signOut(authService);
+        await Navigate("/");
+    } catch (error) {
+        console.error(error);
+    }
 };

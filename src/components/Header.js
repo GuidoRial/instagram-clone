@@ -15,7 +15,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import firebase from "firebase/compat/app";
 import { authService, signOut, firestore, ref, storage } from "../firebase";
-import { linkStyle } from "../aux";
+import { handleLogOut, linkStyle, modalStyle } from "../aux";
 
 import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
@@ -23,47 +23,9 @@ function Header({ user, activeUser }) {
     let navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-
-    const handleClick = (e) => {
-        setAnchorEl(e.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const handleLogOut = async () => {
-        try {
-            signOut(authService);
-            await navigate("/");
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     const [openUploadModal, setOpenUploadModal] = useState(false);
     const handleModalOpen = () => setOpenUploadModal(true);
     const handleModalClose = () => setOpenUploadModal(false);
-
-    const modalStyle = {
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        height: 200,
-        width: 400,
-        bgcolor: "background.paper",
-        border: "1px solid #efefef",
-        borderRadius: "4px",
-        boxShadow: 24,
-        p: 4,
-        padding: "5px",
-        backgroundColor: "white",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-around",
-        alignItems: "center",
-    };
-
     const [caption, setCaption] = useState("");
     const [image, setImage] = useState(null);
     const [progress, setProgress] = useState(0);
@@ -191,10 +153,9 @@ function Header({ user, activeUser }) {
                                     </Button>
                                 </Box>
                             </Modal>
-                            <i className="fas fa-heart navbar-icons" />
+
                             <Tooltip title="Account settings">
                                 <IconButton
-                                    onClick={handleClick}
                                     size="small"
                                     sx={{ ml: 2 }}
                                     aria-controls={
@@ -202,6 +163,9 @@ function Header({ user, activeUser }) {
                                     }
                                     aria-haspopup="true"
                                     aria-expanded={open ? "true" : undefined}
+                                    onClick={(e) =>
+                                        setAnchorEl(e.currentTarget)
+                                    }
                                 >
                                     <Avatar
                                         src={activeUser.profilePicture}
@@ -217,8 +181,8 @@ function Header({ user, activeUser }) {
                             anchorEl={anchorEl}
                             id="account-menu"
                             open={open}
-                            onClose={handleClose}
-                            onClick={handleClose}
+                            onClose={() => setAnchorEl(null)}
+                            onClick={() => setAnchorEl(null)}
                             PaperProps={{
                                 elevation: 0,
                                 sx: {

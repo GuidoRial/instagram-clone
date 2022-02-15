@@ -11,7 +11,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { auth, firestore, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
-import { modalStyle } from "../aux";
+import { getProfilePhotos, getSavedPhotos, modalStyle } from "../aux";
 import { useParams } from "react-router-dom";
 import UserProfilePhoto from "./UserProfilePhoto";
 
@@ -19,22 +19,13 @@ function Profile({ user, activeUser }) {
     const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
     const handleEditProfileModalOpen = () => setOpenEditProfileModal(true);
     const handleEditProfileModalClose = () => setOpenEditProfileModal(false);
-
     const [updatedPhotoURL, setUpdatedPhotoURL] = useState(null);
     const [updatedDisplayName, setUpdatedDisplayName] = useState("");
     const [updatedDescription, setUpdatedDescription] = useState("");
     const [uploadProgress, setUploadProgress] = useState(0);
-
     let params = useParams();
-    //When I give React Router a personalized link like :username or :userId I can call params to return that value
-    //console.log(params);  with :username returns: {username: "demouser"}
-
-    /* I have to add three sections, one for each component the user can update */
-    /* The photoURL is the same as posting, send the profile picture to storage, get the link, use that as a source for photoURL */
-    /* display name will be the one the user set when he signed in, but if they decide to change it, I'll set it to updateDisplayName and updatedDescription and add it to the updateProfile function at the end */
     const [profileOwner, setProfileOwner] = useState({});
     const [profilePhotos, setProfilePhotos] = useState([]);
-
     const [photosFromUser, setPhotosFromUser] = useState(true);
     const [savedPhotos, setSavedPhotos] = useState([]);
 
@@ -60,38 +51,6 @@ function Profile({ user, activeUser }) {
         getProfileOwner(params.username);
     }, [params]);
 
-    const getProfilePhotos = async (profileOwnerUserId) => {
-        const result = await firestore
-            .collection("photos")
-            .orderBy("dateCreated", "desc")
-            .get();
-
-        let filteredResult = result.docs
-            .map((photo) => ({
-                ...photo.data(),
-                docId: photo.id,
-            }))
-            .filter((photo) => profileOwnerUserId === photo.userId);
-
-        return filteredResult;
-    };
-
-    const getSavedPhotos = async (profileOwnerUserId) => {
-        const result = await firestore
-            .collection("photos")
-            .orderBy("dateCreated", "desc")
-            .get();
-
-        let filteredResult = result.docs
-            .map((photo) => ({
-                ...photo.data(),
-                docId: photo.id,
-            }))
-            .filter((photo) => photo.saved.includes(profileOwnerUserId));
-
-        return filteredResult;
-    };
-
     useEffect(() => {
         async function getPhotos() {
             const response = await getProfilePhotos(profileOwner.userId);
@@ -100,9 +59,7 @@ function Profile({ user, activeUser }) {
             setSavedPhotos(secondResponse);
         }
 
-        if (profileOwner) {
-            getPhotos();
-        }
+        profileOwner && getPhotos();
     }, [profileOwner]);
 
     return (
