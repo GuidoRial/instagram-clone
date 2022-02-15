@@ -141,8 +141,15 @@ function Profile({ user, activeUser }) {
                     </div>
                     <div className="profile-second">
                         <div className="profile-amounts">
-                            <p className="bold-text">0</p>
-                            <span> posts</span>
+                            <p className="bold-text">
+                                {profilePhotos
+                                    ? profilePhotos.length
+                                    : "loading..."}
+                            </p>
+                            <span>
+                                {" "}
+                                {profilePhotos.length === 1 ? "post" : "posts"}
+                            </span>
                         </div>
                         <div className="profile-amounts">
                             <p className="bold-text">
@@ -150,7 +157,12 @@ function Profile({ user, activeUser }) {
                                     ? profileOwner.followers.length
                                     : "loading..."}
                             </p>
-                            <span> followers</span>
+                            <span>
+                                {" "}
+                                {profileOwner.followers === 1
+                                    ? "follower"
+                                    : "followers"}
+                            </span>
                         </div>
                         <div className="profile-amounts">
                             <p className="bold-text">
@@ -198,9 +210,8 @@ function Profile({ user, activeUser }) {
                                   photo={photo}
                                   key={photo.docId}
                                   src={photo.imageSrc}
-                                  amountOfLikes={photo.likes.length}
-                                  amountOfComments={photo.comments.length}
                                   activeUser={activeUser}
+                                  amountOfComments={photo.comments.length}
                               />
                           </>
                       ))
@@ -210,9 +221,8 @@ function Profile({ user, activeUser }) {
                                   photo={photo}
                                   key={photo.docId}
                                   src={photo.imageSrc}
-                                  amountOfLikes={photo.likes.length}
-                                  amountOfComments={photo.comments.length}
                                   activeUser={activeUser}
+                                  amountOfComments={photo.comments.length}
                               />
                           </>
                       ))}

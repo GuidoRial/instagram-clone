@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Header.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Menu from "@mui/material/Menu";
@@ -15,7 +15,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import firebase from "firebase/compat/app";
 import { authService, signOut, firestore, ref, storage } from "../firebase";
-import { handleLogOut, linkStyle, modalStyle } from "../aux";
+import { linkStyle, modalStyle } from "../aux";
 
 import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
@@ -67,6 +67,15 @@ function Header({ user, activeUser }) {
                 });
             }
         );
+    };
+
+    const handleLogOut = async () => {
+        try {
+            signOut(authService);
+            await Navigate("/");
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (

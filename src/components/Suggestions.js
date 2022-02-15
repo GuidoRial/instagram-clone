@@ -4,7 +4,7 @@ import "./Suggestions.css";
 import { Link, Navigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { authService, firestore } from "../firebase";
-import { getSuggestedProfiles, handleLogOut, linkStyle } from "../aux";
+import { getSuggestedProfiles, linkStyle } from "../aux";
 
 function Suggestions({ user, activeUser }) {
     const [suggestions, setSuggestions] = useState([]);
@@ -24,6 +24,15 @@ function Suggestions({ user, activeUser }) {
             suggestedProfiles(activeUser.userId, activeUser.following);
         }
     }, [activeUser.userId]);
+
+ const handleLogOut = async () => {
+    try {
+        signOut(authService);
+        await Navigate("/");
+    } catch (error) {
+        console.error(error);
+    }
+};
 
     return (
         <div className="suggestions">

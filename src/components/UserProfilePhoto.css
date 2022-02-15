@@ -1,0 +1,49 @@
+#postedPicture {
+    width: 60%;
+    height: 99%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.interactive-section {
+    width: 40%;
+    height: 99%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#profilePictureHeader {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+
+.post-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 5px 0;
+}
+
+.comment-section {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 10px;
+}
+
+#profileIcons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+#profileIcons > i {
+    width: 10px;
+    height: 10px;
+}

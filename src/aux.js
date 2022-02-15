@@ -205,11 +205,3 @@ export async function getSuggestedProfiles(userId, following) {
         );
 }
 
-export const handleLogOut = async () => {
-    try {
-        signOut(authService);
-        await Navigate("/");
-    } catch (error) {
-        console.error(error);
-    }
-};
