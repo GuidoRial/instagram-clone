@@ -47,7 +47,10 @@ function Suggestions({ user, activeUser }) {
         <div className="suggestions">
             <div className="user-mini-profile">
                 <div className="avatar-and-username-miniprofile">
-                    <Link to="/profile" style={linkStyle}>
+                    <Link
+                        to={`/profile/${activeUser.username}`}
+                        style={linkStyle}
+                    >
                         <img
                             src={activeUser.profilePicture}
                             style={{
@@ -60,7 +63,10 @@ function Suggestions({ user, activeUser }) {
                         />
                     </Link>
                     <div className="user-data-container">
-                        <Link to="/profile" style={linkStyle}>
+                        <Link
+                            to={`/profile/${activeUser.username}`}
+                            style={linkStyle}
+                        >
                             <p className="username">{activeUser.username}</p>
                         </Link>
                     </div>

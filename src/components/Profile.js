@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile.css";
 
 import Box from "@mui/material/Box";
@@ -8,10 +8,11 @@ import Modal from "@mui/material/Modal";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 import LinearProgress from "@mui/material/LinearProgress";
-import { auth, storage } from "../firebase";
+import { auth, firestore, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { modalStyle } from "../aux";
+import { useParams } from "react-router-dom";
 
 function Profile({ user, activeUser }) {
     const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
@@ -23,43 +24,38 @@ function Profile({ user, activeUser }) {
     const [updatedDescription, setUpdatedDescription] = useState("");
     const [uploadProgress, setUploadProgress] = useState(0);
 
+    let params = useParams();
+    //When I give React Router a personalized link like :username or :userId I can call params to return that value
+    //console.log(params);  with :username returns: {username: "demouser"}
+
     /* I have to add three sections, one for each component the user can update */
     /* The photoURL is the same as posting, send the profile picture to storage, get the link, use that as a source for photoURL */
     /* display name will be the one the user set when he signed in, but if they decide to change it, I'll set it to updateDisplayName and updatedDescription and add it to the updateProfile function at the end */
+    const [profileOwner, setProfileOwner] = useState({});
+    const [followers, setFollowers] = useState("");
+    const [following, setFollowing] = useState("");
 
-    const updateUserProfile = (image, user) => {
-        if (!image) return;
-        const imagesRef = ref(storage, `/profilePictures/${image.name}`);
-        const uploadTask = uploadBytesResumable(imagesRef, image);
-        uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-                setUploadProgress(
-                    Math.round(
-                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                    )
-                );
-            },
-            (error) => {
+    useEffect(() => {
+        const getProfileOwner = async (username) => {
+            try {
+                const result = await firestore
+                    .collection("users")
+                    .where("username", "==", username)
+                    .get();
+
+                const [profileOwnerObject] = result.docs.map((item) => ({
+                    ...item.data(),
+                    docId: item.id,
+                }));
+
+                setProfileOwner(profileOwnerObject);
+            } catch (error) {
                 console.error(error);
-                console.log(error);
-            },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    updateProfile(auth.user, {
-                        displayName: updatedDisplayName || user.displayName,
-                        photoURL: downloadURL || user.photoURL,
-                    })
-                        .then(() => {
-                            console.log("passed");
-                        })
-                        .catch((error) => {
-                            console.error(error);
-                        });
-                });
             }
-        );
-    };
+        };
+
+        getProfileOwner(params.username);
+    }, [params]);
 
     return (
         <div className="profile-container">
@@ -75,7 +71,7 @@ function Profile({ user, activeUser }) {
                         variant="h6"
                         component="h2"
                     >
-                        Edit Profile
+                        test Edit Profile
                     </Typography>
                     <Divider />
 
@@ -122,55 +118,64 @@ function Profile({ user, activeUser }) {
                             borderRadius: "50%",
                             objectFit: "cover",
                         }}
-                        src={activeUser.profilePicture}
+                        src={profileOwner.profilePicture}
                         alt="user-avatar"
                     />
                 </div>
                 <div className="profile-right">
                     <div className="profile-first">
-                        <p className="bold-text">{activeUser.username}</p>
-                        <button
-                            className="edit-profile-button"
-                            onClick={handleEditProfileModalOpen}
-                        >
-                            Edit Profile
-                        </button>
+                        <p className="bold-text">{profileOwner.username}</p>
+                        {activeUser.username === profileOwner.username ? (
+                            <button
+                                className="edit-profile-button"
+                                onClick={handleEditProfileModalOpen}
+                            >
+                                Edit Profile
+                            </button>
+                        ) : null}
                     </div>
                     <div className="profile-second">
                         <div className="profile-amounts">
-                            <p className="bold-text">
-                                {activeUser.postsAmount || 0}
-                            </p>
+                            <p className="bold-text">0</p>
                             <span> posts</span>
                         </div>
                         <div className="profile-amounts">
                             <p className="bold-text">
-                                {activeUser.followers.length}
+                                {profileOwner.followers
+                                    ? profileOwner.followers.length
+                                    : "loading..."}
                             </p>
                             <span> followers</span>
                         </div>
                         <div className="profile-amounts">
                             <p className="bold-text">
-                                {activeUser.following.length}
+                                {profileOwner.following
+                                    ? profileOwner.following.length
+                                    : "loading..."}
                             </p>
                             <span> following</span>
                         </div>
                     </div>
                     <div className="profile-third">
-                        <p className="bold-text"> {activeUser.fullName}</p>
-                        <p>{activeUser.description}</p>
+                        <p className="bold-text"> {profileOwner.fullName}</p>
+                        <p>{profileOwner.description}</p>
                     </div>
                 </div>
             </div>
             {/* give a style with a change of color depending on the state of the button, if it's active change it to the new one otherwise left it as it is */}
             <div className="profile-button-container">
-                <button className="profile-switch-button">
-                    <i className="fas fa-th profile-icons"></i>POSTS
-                </button>
-                <button className="profile-switch-button">
-                    <i className="far fa-bookmark profile-icons" />
-                    SAVED
-                </button>
+                {activeUser.username === profileOwner.username ? (
+                    <>
+                        <button className="profile-switch-button">
+                            <i className="fas fa-th profile-icons"></i>POSTS
+                        </button>
+
+                        <button className="profile-switch-button">
+                            <i className="far fa-bookmark profile-icons" />
+                            SAVED
+                        </button>
+                    </>
+                ) : null}
             </div>
             <div>
                 {/* import pics from this user and render an each one in three columns and three rows with a hover effect that displays the amount of likes and comments it has */}

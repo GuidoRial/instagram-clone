@@ -17,7 +17,6 @@ function Post({
     dateCreated,
 }) {
     const [postOwner, setPostOwner] = useState({});
-
     useEffect(() => {
         const getPostOwner = async (userId) => {
             const result = await firestore
@@ -40,7 +39,7 @@ function Post({
         <div className="post" key={id}>
             <div className="post-header">
                 <div className="user-and-image">
-                    <Link to={`/profile/${username}`} style={linkStyle}>
+                    <Link to={`/profile/${postOwner.username}`} style={linkStyle}>
                         <img
                             className="post-user-avatar"
                             alt="user-avatar"
@@ -53,7 +52,7 @@ function Post({
                             }}
                         />
                     </Link>
-                    <Link to={`/profile/${username}`} style={linkStyle}>
+                    <Link to={`/profile/${postOwner.username}`} style={linkStyle}>
                         <p>{postOwner.username}</p>
                     </Link>
                 </div>

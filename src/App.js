@@ -125,11 +125,11 @@ function App() {
 
                     <Route
                         exact
-                        path="profile"
+                        path="profile/:username"
                         element={
                             <>
                                 <Header user={user} activeUser={activeUser} />
-                                <Profile user={user} activeUser={activeUser} />
+                                <Profile user={user} activeUser={activeUser} animate={true}/>
                             </>
                         }
                     ></Route>

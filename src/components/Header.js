@@ -255,7 +255,10 @@ function Header({ user, activeUser }) {
                                 vertical: "bottom",
                             }}
                         >
-                            <Link to="/profile" style={linkStyle}>
+                            <Link
+                                to={`/profile/${activeUser.username}`}
+                                style={linkStyle}
+                            >
                                 <MenuItem>
                                     <Avatar
                                         src={activeUser.profilePicture}
@@ -283,7 +286,7 @@ function Header({ user, activeUser }) {
                     </React.Fragment>
                 </div>
             </div>
-            <Link to="profile" label="Profile"></Link>
+            <Link to={`/profile/${activeUser.username}`} label="Profile"></Link>
         </div>
     );
 }
