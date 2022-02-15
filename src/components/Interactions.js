@@ -175,7 +175,6 @@ function Interactions({
             <div className="days-ago">{daysAgo} AGO</div>
 
             <form className="comment-form" onSubmit={handleAddComment}>
-                <i className="far fa-smile-wink" />
                 <input
                     type="text"
                     placeholder="Add a comment..."

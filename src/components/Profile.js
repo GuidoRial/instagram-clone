@@ -104,9 +104,7 @@ function Profile({ user, activeUser }) {
             getPhotos();
         }
     }, [profileOwner]);
-    //On load, setProfilePhotos(userPhotos) and setSavedPhotos(savedPhotosByUser)
-    //photosFromUser is true by default, showing then only this user's photos
-    //On click of SAVED button, photosFromUser changes to false showing this user's saved photos, the opposite happens on click of POSTS button
+
     return (
         <div className="profile-container">
             <Modal
@@ -212,7 +210,6 @@ function Profile({ user, activeUser }) {
                     </div>
                 </div>
             </div>
-            {/* give a style with a change of color depending on the state of the button, if it's active change it to the new one otherwise left it as it is */}
             <div className="profile-button-container">
                 {activeUser.username === profileOwner.username ? (
                     <>
@@ -221,9 +218,7 @@ function Profile({ user, activeUser }) {
                             disabled={photosFromUser}
                             onClick={() => setPhotosFromUser(true)}
                         >
-                            <i className="fas fa-th profile-icons">
-                                {/*on click, get this profile's photos and set this state by default */}
-                            </i>
+                            <i className="fas fa-th profile-icons"></i>
                             POSTS
                         </button>
 
@@ -233,36 +228,34 @@ function Profile({ user, activeUser }) {
                             disabled={!photosFromUser}
                         >
                             <i className="far fa-bookmark profile-icons" />
-                            {/*on click, get this profile's saved photos */}
                             SAVED
                         </button>
                     </>
                 ) : null}
             </div>
             <div className="profile-photo-main-container">
-                {/* if photosFromUser is true showme this user's photos (true by default, else show me this user's saved photos) */}
-
                 {photosFromUser
                     ? profilePhotos.map((photo) => (
                           <>
                               <UserProfilePhoto
+                                  photo={photo}
                                   key={photo.docId}
                                   src={photo.imageSrc}
                                   amountOfLikes={photo.likes.length}
                                   amountOfComments={photo.comments.length}
+                                  activeUser={activeUser}
                               />
-
-                              {/*on click, open a modal with the photo's content, get user by user id and fetch it's profile photo*/}
-                              {/* on mousover and mouseout toggle opacity and display an icon with the amount of likes and comments this have */}
                           </>
                       ))
                     : savedPhotos.map((photo) => (
                           <>
                               <UserProfilePhoto
+                                  photo={photo}
                                   key={photo.docId}
                                   src={photo.imageSrc}
                                   amountOfLikes={photo.likes.length}
                                   amountOfComments={photo.comments.length}
+                                  activeUser={activeUser}
                               />
                           </>
                       ))}

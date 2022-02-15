@@ -39,6 +39,19 @@ export async function getUserByUserId(userId) {
     return user;
 }
 
+export async function getUserByUserName(username) {
+    const result = await firestore
+        .collection("users")
+        .where("username", "==", username)
+        .get();
+    const [user] = result.docs.map((item) => ({
+        ...item.data(),
+        docId: item.id,
+    }));
+
+    return user;
+}
+
 export const linkStyle = {
     textDecoration: "none",
     color: "black",
@@ -114,4 +127,22 @@ export const profilePhotosStyle = {
     color: "white",
     cursor: "pointer",
     fontWeight: "700",
+};
+
+export const modalPostStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    height: "95%",
+    width: "65%",
+    bgcolor: "background.paper",
+    border: "1px solid #efefef",
+    borderRadius: "4px",
+    boxShadow: 24,
+    padding: "5px",
+    backgroundColor: "white",
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
 };
