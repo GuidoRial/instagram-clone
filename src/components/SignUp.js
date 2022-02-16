@@ -15,13 +15,13 @@ function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
     const [emailAdress, setEmailAdress] = useState("");
     const [password, setPassword] = useState("");
 
-
-
     const isInvalid =
         password === "" ||
         emailAdress === "" ||
         fullName === "" ||
         userName === "";
+
+    if (activeUser.userId) navigate("/");
 
     const handleSignUp = async (e) => {
         try {
@@ -41,7 +41,7 @@ function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
                 username: userName.toLowerCase(),
                 fullName: fullName,
                 emailAdress: emailAdress.toLowerCase(),
-                following: ["a8fN5O0biDVRmOFhveOfW16Ozb63"],
+                following: [],
                 followers: [],
                 dateCreated: Date.now(),
                 description: "",

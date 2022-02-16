@@ -27,7 +27,7 @@ function Suggestions({ user, activeUser }) {
     const handleLogOut = async () => {
         try {
             signOut(authService);
-            navigate("/login");
+            navigate("/");
         } catch (error) {
             console.error(error);
         }

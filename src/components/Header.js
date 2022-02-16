@@ -21,6 +21,7 @@ import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import uniqid from "uniqid";
 
 function Header({ user, activeUser }) {
+    console.log(activeUser);
     let navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -30,9 +31,6 @@ function Header({ user, activeUser }) {
     const [caption, setCaption] = useState("");
     const [image, setImage] = useState(null);
     const [progress, setProgress] = useState(0);
-
-
-
 
     const handleFileUpload = (image) => {
         if (!image) return;
@@ -76,7 +74,7 @@ function Header({ user, activeUser }) {
     const handleLogOut = async () => {
         try {
             signOut(authService);
-            navigate("/login");
+            navigate("/");
         } catch (error) {
             console.error(error);
         }

@@ -63,7 +63,7 @@ function Interactions({
             });
     };
 
-    useEffect( () => {
+    useEffect(() => {
         let didILikeThisPhoto = likes.includes(activeUser.userId);
         let didISaveThisPhoto = saved.includes(activeUser.userId);
         didILikeThisPhoto && setToggleLiked(true);

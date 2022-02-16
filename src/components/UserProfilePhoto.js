@@ -235,11 +235,21 @@ function UserProfilePhoto({ src, amountOfComments, photo, activeUser }) {
                                 )}
                             </div>
                             {amountOfLikes === 1 ? (
-                                <p style={{ fontWeight: "700", marginLeft: "10px" }}>
+                                <p
+                                    style={{
+                                        fontWeight: "700",
+                                        marginLeft: "10px",
+                                    }}
+                                >
                                     {amountOfLikes} like
                                 </p>
                             ) : (
-                                <p style={{ fontWeight: "700", marginLeft: "10px" }}>
+                                <p
+                                    style={{
+                                        fontWeight: "700",
+                                        marginLeft: "10px",
+                                    }}
+                                >
                                     {amountOfLikes} likes
                                 </p>
                             )}
@@ -295,10 +305,10 @@ function UserProfilePhoto({ src, amountOfComments, photo, activeUser }) {
                 >
                     {amountOfComments >= 0 && amountOfLikes >= 0 ? (
                         <>
-                            <p style={{gap: "3px"}}>
+                            <p style={{ gap: "3px" }}>
                                 <i className="fas fa-heart" /> {amountOfLikes}
                             </p>
-                            <p style={{gap: "3px"}}>
+                            <p style={{ gap: "3px" }}>
                                 <i className="fas fa-comment" />
                                 {amountOfComments}
                             </p>

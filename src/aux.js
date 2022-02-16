@@ -222,4 +222,3 @@ export async function getSuggestedProfiles(userId, following) {
                 profile.userId !== userId && !following.includes(profile.userId)
         );
 }
-

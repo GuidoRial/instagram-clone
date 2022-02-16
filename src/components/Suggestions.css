@@ -4,8 +4,6 @@
     font-weight: 700;
 }
 
-
-
 .suggestion {
     display: flex;
     justify-content: space-between;
@@ -28,8 +26,6 @@
 .user-data-container {
     text-align: left;
 }
-
-
 
 .log-out-button {
     border: none;

@@ -3,10 +3,9 @@ import Post from "./Post";
 import "./Posts.css";
 
 function Posts({ user, activeUser, feedPhotos }) {
-
     return (
         <div className="posts">
-            {feedPhotos ? (
+            {feedPhotos.length > 0 ? (
                 feedPhotos.map((post) => (
                     <Post
                         key={post.docId}
@@ -24,8 +23,10 @@ function Posts({ user, activeUser, feedPhotos }) {
                 ))
             ) : (
                 <p>
-                    You need to follow people to see their posts. Consider
-                    following someone from your suggestions
+                    You need to follow people to see their posts. guidorial is
+                    the web developer who created this clone, so looking for him
+                    on your suggestions here on the right or in the search bar
+                    up there may be a good place to start.
                 </p>
             )}
         </div>

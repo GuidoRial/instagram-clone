@@ -168,10 +168,14 @@ function Profile({ user, activeUser }) {
                             downloadURL || activeUser.profilePicture,
                     });
                 });
-                firestore.collection("users").doc(activeUser.docId).update({
-                    description: updatedDescription || activeUser.description,
-                    username: updatedDisplayName || activeUser.username,
-                });
+                firestore
+                    .collection("users")
+                    .doc(activeUser.docId)
+                    .update({
+                        description:
+                            updatedDescription || activeUser.description,
+                        username: updatedDisplayName || activeUser.username,
+                    });
             }
         );
     };

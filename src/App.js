@@ -6,7 +6,7 @@ import LogIn from "./components/LogIn";
 import Profile from "./components/Profile";
 import SignUp from "./components/SignUp";
 import { firestore, authService } from "./firebase";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { getFeedPhotos } from "./aux";
 
 function App() {
@@ -65,26 +65,47 @@ function App() {
 
         if (activeUser) getFeed();
     }, [activeUser]);
-    console.log(activeUser)
 
     return (
         <div className="App">
             <BrowserRouter>
                 <Routes>
-                    {/* if there isn't a user make me log in, else show me my feed */}
-
-                    <Route exact path="/login" element={<LogIn activeUser={activeUser} />}></Route>
+                    {!user ? (
+                        <Route
+                            exact
+                            path="/"
+                            element={<LogIn activeUser={activeUser} />}
+                        ></Route>
+                    ) : (
+                        <Route
+                            exact
+                            path="/"
+                            element={
+                                <>
+                                    <Header
+                                        user={user}
+                                        activeUser={activeUser}
+                                    />
+                                    <Feed
+                                        feedPhotos={feedPhotos}
+                                        user={user}
+                                        activeUser={activeUser}
+                                    />
+                                </>
+                            }
+                        ></Route>
+                    )}
 
                     <Route
                         exact
-                        path="/"
+                        path="profile/:username"
                         element={
                             <>
                                 <Header user={user} activeUser={activeUser} />
-                                <Feed
-                                    feedPhotos={feedPhotos}
+                                <Profile
                                     user={user}
                                     activeUser={activeUser}
+                                    animate={true}
                                 />
                             </>
                         }
@@ -101,21 +122,6 @@ function App() {
                                 setFullName={setFullName}
                                 activeUser={activeUser}
                             />
-                        }
-                    ></Route>
-
-                    <Route
-                        exact
-                        path="profile/:username"
-                        element={
-                            <>
-                                <Header user={user} activeUser={activeUser} />
-                                <Profile
-                                    user={user}
-                                    activeUser={activeUser}
-                                    animate={true}
-                                />
-                            </>
                         }
                     ></Route>
                 </Routes>

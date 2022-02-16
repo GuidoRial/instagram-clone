@@ -18,6 +18,14 @@ function LogIn({ activeUser }) {
     const demoUserPassword = "demouser";
     const isInvalid = password === "" || emailAdress === "";
 
+    useEffect(() => {
+        if (activeUser) {
+            navigate("/");
+        } else {
+            navigate("/login");
+        }
+    }, [activeUser.userId]);
+
     const handleLogin = async (e) => {
         try {
             e.preventDefault();
