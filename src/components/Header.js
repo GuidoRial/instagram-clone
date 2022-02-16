@@ -14,6 +14,7 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import firebase from "firebase/compat/app";
+import Autocomplete from "@mui/material/Autocomplete";
 import { authService, signOut, firestore, ref, storage } from "../firebase";
 import { linkStyle, modalStyle } from "../aux";
 
@@ -21,7 +22,6 @@ import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import uniqid from "uniqid";
 
 function Header({ user, activeUser }) {
-    console.log(activeUser);
     let navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -31,6 +31,38 @@ function Header({ user, activeUser }) {
     const [caption, setCaption] = useState("");
     const [image, setImage] = useState(null);
     const [progress, setProgress] = useState(0);
+
+    const [usersFromDatabase, setUsersFromDatabase] = useState([]);
+    const [search, setSearch] = useState("");
+    const [display, setDisplay] = useState(false);
+    const [recommendations, setRecommendations] = useState([]);
+
+    useEffect(() => {
+        const getUsersFromDatabase = async () => {
+            const result = await firestore.collection("users").get();
+            let filteredResult = result.docs.map((user) => ({
+                username: user.data().username,
+            }));
+            setUsersFromDatabase(filteredResult);
+        };
+
+        getUsersFromDatabase();
+    }, []);
+
+    useEffect(() => {
+        const filterUsers = (search) => {
+            const searchResult = usersFromDatabase.filter((user) =>
+                user.username.includes(search)
+            );
+            setRecommendations(searchResult);
+        };
+
+        filterUsers(search);
+    }, [search]);
+
+    useEffect(() => {
+        search.length > 0 ? setDisplay(true) : setDisplay(false);
+    }, [search]);
 
     const handleFileUpload = (image) => {
         if (!image) return;
@@ -79,6 +111,9 @@ function Header({ user, activeUser }) {
             console.error(error);
         }
     };
+    //console.log(recommendations);
+    //console.log(usersFromDatabase[0].username);
+    //console.log(display);
 
     return (
         <div className="header">
@@ -98,7 +133,11 @@ function Header({ user, activeUser }) {
                         type="search"
                         className="search-bar"
                         placeholder="Search"
+                        onChange={(e) => setSearch(e.target.value)}
                     />
+                    {display && recommendations.map((recommendation) => (
+                        <div key={uniqid()}>{recommendation.username}</div>
+                    ))}
                 </div>
                 <div className="icon-container">
                     <React.Fragment>

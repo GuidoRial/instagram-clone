@@ -52,24 +52,6 @@
     border: none;
 }
 
-.fa-inbox {
-    position: relative;
-}
-
-.amount-of-unread-messages {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 20px;
-    height: 20px;
-    font-size: 12px;
-    border-radius: 50%;
-    background-color: #ed4956;
-    color: white;
-    position: absolute;
-    left: 10px;
-    top: -12px;
-}
 
 .icon-container {
     gap: 12px;

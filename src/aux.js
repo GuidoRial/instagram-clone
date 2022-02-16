@@ -181,6 +181,7 @@ export const getFeedPhotos = async (following) => {
     return filteredResult;
 };
 
+
 export const getProfilePhotos = async (profileOwnerUserId) => {
     const result = await firestore
         .collection("photos")
