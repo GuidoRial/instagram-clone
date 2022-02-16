@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Miniprofile from "./Miniprofile";
 import "./Suggestions.css";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { authService, firestore } from "../firebase";
 import { getSuggestedProfiles, linkStyle } from "../aux";
 
 function Suggestions({ user, activeUser }) {
     const [suggestions, setSuggestions] = useState([]);
-
-
+    let navigate = useNavigate();
 
     useEffect(() => {
         async function suggestedProfiles() {
@@ -25,14 +24,14 @@ function Suggestions({ user, activeUser }) {
         }
     }, [activeUser.userId]);
 
- const handleLogOut = async () => {
-    try {
-        signOut(authService);
-        await Navigate("/login");
-    } catch (error) {
-        console.error(error);
-    }
-};
+    const handleLogOut = async () => {
+        try {
+            signOut(authService);
+            navigate("/login");
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <div className="suggestions">

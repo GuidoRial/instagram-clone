@@ -18,13 +18,11 @@ function LogIn({ activeUser }) {
     const demoUserPassword = "demouser";
     const isInvalid = password === "" || emailAdress === "";
 
-
-
     const handleLogin = async (e) => {
         try {
             e.preventDefault();
             signInWithEmailAndPassword(authService, emailAdress, password);
-            await navigate("/");
+            navigate("/");
         } catch (error) {
             console.error(error);
         }

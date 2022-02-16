@@ -65,6 +65,7 @@ function App() {
 
         if (activeUser) getFeed();
     }, [activeUser]);
+    console.log(activeUser)
 
     return (
         <div className="App">

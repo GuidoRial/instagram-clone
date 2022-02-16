@@ -76,7 +76,7 @@ function Header({ user, activeUser }) {
     const handleLogOut = async () => {
         try {
             signOut(authService);
-            await Navigate("/login");
+            navigate("/login");
         } catch (error) {
             console.error(error);
         }
