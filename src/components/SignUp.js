@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppStoreLogo from "../assets/download-appStore.png";
 import GooglePlayLogo from "../assets/get-it-on-GooglePlay.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -38,7 +38,7 @@ function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
             await firestore.collection("users").add({
                 userId: createdUserResult.user.uid,
                 username: userName.toLowerCase(),
-                fullName,
+                fullName: fullName,
                 emailAdress: emailAdress.toLowerCase(),
                 following: ["a8fN5O0biDVRmOFhveOfW16Ozb63"],
                 followers: [],
@@ -48,7 +48,7 @@ function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
                     "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png",
             });
 
-            navigate("/");
+         
         } catch (error) {
             console.error(error);
         }

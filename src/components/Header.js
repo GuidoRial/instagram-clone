@@ -18,6 +18,7 @@ import { authService, signOut, firestore, ref, storage } from "../firebase";
 import { linkStyle, modalStyle } from "../aux";
 
 import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import uniqid from "uniqid";
 
 function Header({ user, activeUser }) {
     let navigate = useNavigate();
@@ -57,7 +58,7 @@ function Header({ user, activeUser }) {
                         dateCreated: Date.now(),
                         imageSrc: downloadURL,
                         likes: [],
-                        photoId: "",
+                        photoId: uniqid(),
                         saved: [],
                         userId: activeUser.userId,
                     });
@@ -77,7 +78,6 @@ function Header({ user, activeUser }) {
             console.error(error);
         }
     };
-
 
     return (
         <div className="header">
@@ -241,7 +241,7 @@ function Header({ user, activeUser }) {
                                     Profile
                                 </MenuItem>
                             </Link>
-                           
+
                             <Divider />
                             <MenuItem>
                                 <ListItemIcon>
