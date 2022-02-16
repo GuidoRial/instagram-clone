@@ -71,27 +71,23 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     {/* if there isn't a user make me log in, else show me my feed */}
-                    {!user ? (
-                        <Route exact path="/" element={<LogIn />}></Route>
-                    ) : (
-                        <Route
-                            exact
-                            path="/"
-                            element={
-                                <>
-                                    <Header
-                                        user={user}
-                                        activeUser={activeUser}
-                                    />
-                                    <Feed
-                                        feedPhotos={feedPhotos}
-                                        user={user}
-                                        activeUser={activeUser}
-                                    />
-                                </>
-                            }
-                        ></Route>
-                    )}
+
+                    <Route exact path="/login" element={<LogIn activeUser={activeUser} />}></Route>
+
+                    <Route
+                        exact
+                        path="/"
+                        element={
+                            <>
+                                <Header user={user} activeUser={activeUser} />
+                                <Feed
+                                    feedPhotos={feedPhotos}
+                                    user={user}
+                                    activeUser={activeUser}
+                                />
+                            </>
+                        }
+                    ></Route>
 
                     <Route
                         exact
@@ -113,7 +109,11 @@ function App() {
                         element={
                             <>
                                 <Header user={user} activeUser={activeUser} />
-                                <Profile user={user} activeUser={activeUser} animate={true}/>
+                                <Profile
+                                    user={user}
+                                    activeUser={activeUser}
+                                    animate={true}
+                                />
                             </>
                         }
                     ></Route>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
@@ -30,6 +30,9 @@ function Header({ user, activeUser }) {
     const [caption, setCaption] = useState("");
     const [image, setImage] = useState(null);
     const [progress, setProgress] = useState(0);
+
+
+
 
     const handleFileUpload = (image) => {
         if (!image) return;
@@ -73,7 +76,7 @@ function Header({ user, activeUser }) {
     const handleLogOut = async () => {
         try {
             signOut(authService);
-            await Navigate("/");
+            await Navigate("/login");
         } catch (error) {
             console.error(error);
         }

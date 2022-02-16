@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppStoreLogo from "../assets/download-appStore.png";
 import GooglePlayLogo from "../assets/get-it-on-GooglePlay.png";
 import "./LogIn.css";
@@ -10,13 +10,15 @@ import { authService } from "../firebase";
 import * as openFunction from "../aux";
 import { linkStyle } from "../aux";
 
-function LogIn() {
+function LogIn({ activeUser }) {
     let navigate = useNavigate();
     const [emailAdress, setEmailAdress] = useState("");
     const [password, setPassword] = useState("");
     const demoUserEmailAdress = "demouser@gmail.com";
     const demoUserPassword = "demouser";
     const isInvalid = password === "" || emailAdress === "";
+
+
 
     const handleLogin = async (e) => {
         try {

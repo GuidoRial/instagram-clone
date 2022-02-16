@@ -11,7 +11,12 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { auth, firestore, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
-import { getProfilePhotos, getSavedPhotos, modalStyle } from "../aux";
+import {
+    editProfileModalStyle,
+    getProfilePhotos,
+    getSavedPhotos,
+    modalStyle,
+} from "../aux";
 import { useParams } from "react-router-dom";
 import UserProfilePhoto from "./UserProfilePhoto";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
@@ -130,6 +135,47 @@ function Profile({ user, activeUser }) {
         }
     };
 
+    const handleEditProfile = (updatedPhotoURL) => {
+        if (!updatedPhotoURL) return;
+        const profilePicsRef = ref(
+            storage,
+            `/profilePictures/${updatedPhotoURL.name}`
+        );
+
+        const usersRef = firestore.collection("users");
+
+        const uploadTask = uploadBytesResumable(
+            profilePicsRef,
+            updatedPhotoURL
+        );
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                setUploadProgress(
+                    Math.round(
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    )
+                );
+            },
+            (error) => {
+                console.error(error);
+                console.log(error);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    usersRef.update({
+                        profilePicture:
+                            downloadURL || activeUser.profilePicture,
+                    });
+                });
+                firestore.collection("users").doc(activeUser.docId).update({
+                    description: updatedDescription || activeUser.description,
+                    username: updatedDisplayName || activeUser.username,
+                });
+            }
+        );
+    };
+
     return (
         <div className="profile-container">
             <Modal
@@ -138,13 +184,13 @@ function Profile({ user, activeUser }) {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={modalStyle}>
+                <Box sx={editProfileModalStyle}>
                     <Typography
                         id="modal-modal-title"
                         variant="h6"
                         component="h2"
                     >
-                        test Edit Profile
+                        Edit Profile
                     </Typography>
                     <Divider />
 
@@ -161,11 +207,7 @@ function Profile({ user, activeUser }) {
                         type="file"
                         onChange={(e) => setUpdatedPhotoURL(e.target.files[0])}
                     />
-                    <LinearProgress
-                        variant="determinate"
-                        value={uploadProgress}
-                    />
-
+                    {updatedPhotoURL && <h3>{uploadProgress}% done</h3>}
                     <TextField
                         id="filled-basic"
                         label="New username..."
@@ -179,7 +221,12 @@ function Profile({ user, activeUser }) {
                         onChange={(e) => setUpdatedDescription(e.target.value)}
                     />
 
-                    <Button variant="contained">Update Profile</Button>
+                    <Button
+                        variant="contained"
+                        onClick={() => handleEditProfile(updatedPhotoURL)}
+                    >
+                        Update Profile
+                    </Button>
                 </Box>
             </Modal>
             <div className="profile-resume">

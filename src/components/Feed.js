@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import Posts from "./Posts";
 import Suggestions from "./Suggestions";
 
 function Feed({ feedPhotos, user, activeUser }) {
+
+
 
     return (
         <div className="main">

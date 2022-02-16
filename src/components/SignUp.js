@@ -11,10 +11,11 @@ import { linkStyle } from "../aux";
 
 function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
     let navigate = useNavigate();
-    activeUser && navigate("/");
 
     const [emailAdress, setEmailAdress] = useState("");
     const [password, setPassword] = useState("");
+
+
 
     const isInvalid =
         password === "" ||
@@ -47,8 +48,7 @@ function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
                 profilePicture:
                     "https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png",
             });
-
-         
+            navigate("/");
         } catch (error) {
             console.error(error);
         }
