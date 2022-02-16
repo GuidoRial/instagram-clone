@@ -14,6 +14,7 @@ import { updateProfile } from "firebase/auth";
 import { getProfilePhotos, getSavedPhotos, modalStyle } from "../aux";
 import { useParams } from "react-router-dom";
 import UserProfilePhoto from "./UserProfilePhoto";
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 
 function Profile({ user, activeUser }) {
     const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
@@ -29,6 +30,13 @@ function Profile({ user, activeUser }) {
     const [photosFromUser, setPhotosFromUser] = useState(true);
     const [savedPhotos, setSavedPhotos] = useState([]);
     const [followButton, setFollowButton] = useState("");
+    const [followStatus, setFollowStatus] = useState(false);
+
+    const [postsAmount, setPostsAmount] = useState(0);
+    const [followersAmount, setFollowersAmount] = useState(0);
+    const [followingAmount, setFollowingAmount] = useState(0);
+
+    //Set state for posts, followers and following so that it updates automatically
 
     useEffect(() => {
         const getProfileOwner = async (username) => {
@@ -53,14 +61,17 @@ function Profile({ user, activeUser }) {
     }, [params]);
 
     useEffect(() => {
-        async function getPhotos() {
+        async function initializeProfile() {
             const response = await getProfilePhotos(profileOwner.userId);
             setProfilePhotos(response);
             const secondResponse = await getSavedPhotos(profileOwner.userId);
             setSavedPhotos(secondResponse);
+            setPostsAmount(response.length);
+            setFollowersAmount(profileOwner.followers.length);
+            setFollowingAmount(profileOwner.following.length);
         }
 
-        profileOwner && getPhotos();
+        profileOwner && initializeProfile();
     }, [profileOwner]);
 
     useEffect(() => {
@@ -68,15 +79,57 @@ function Profile({ user, activeUser }) {
             let doIFollowThisUser = await profileOwner.followers.includes(
                 activeUser.userId
             );
-            return doIFollowThisUser
-                ? setFollowButton("UNFOLLOW")
-                : setFollowButton("FOLLOW");
+            if (doIFollowThisUser) {
+                setFollowStatus(true);
+                setFollowButton("UNFOLLOW");
+            } else {
+                setFollowStatus(false);
+                setFollowButton("FOLLOW");
+            }
         }
         if (profileOwner && activeUser) {
             getFollowUserState(profileOwner, activeUser);
         }
     }, [profileOwner, activeUser]);
-    console.log(followButton);
+
+    const toggleFollowUser = async (activeUser, profileOwner) => {
+        if (!followStatus) {
+            //If I'm not following this user
+            await firestore
+                .collection("users")
+                .doc(activeUser.docId)
+                .update({
+                    following: arrayUnion(profileOwner.userId),
+                });
+            await firestore
+                .collection("users")
+                .doc(profileOwner.docId)
+                .update({
+                    followers: arrayUnion(activeUser.userId),
+                });
+            setFollowStatus(true);
+            setFollowButton("UNFOLLOW");
+            setFollowersAmount(followersAmount + 1);
+        } else {
+            //If I'm already following him
+            await firestore
+                .collection("users")
+                .doc(activeUser.docId)
+                .update({
+                    following: arrayRemove(profileOwner.userId),
+                });
+            await firestore
+                .collection("users")
+                .doc(profileOwner.docId)
+                .update({
+                    followers: arrayRemove(activeUser.userId),
+                });
+            setFollowStatus(false);
+            setFollowButton("FOLLOW");
+            setFollowersAmount(followersAmount - 1);
+        }
+    };
+
     return (
         <div className="profile-container">
             <Modal
@@ -153,30 +206,31 @@ function Profile({ user, activeUser }) {
                                 Edit Profile
                             </button>
                         ) : (
-                            <Button variant="outlined">
-                                {profileOwner ? followButton : "loading"}
+                            <Button
+                                variant="outlined"
+                                onClick={() =>
+                                    toggleFollowUser(activeUser, profileOwner)
+                                }
+                            >
+                                {profileOwner ? followButton : "loading..."}
                             </Button>
                         )}
                     </div>
                     <div className="profile-second">
                         <div className="profile-amounts">
                             <p className="bold-text">
-                                {profilePhotos
-                                    ? profilePhotos.length
-                                    : "loading..."}
+                                {profilePhotos ? postsAmount : "loading..."}
                             </p>
-                            <span>
-                                {profilePhotos.length === 1 ? "post" : "posts"}
-                            </span>
+                            <span>{postsAmount === 1 ? "post" : "posts"}</span>
                         </div>
                         <div className="profile-amounts">
                             <p className="bold-text">
                                 {profileOwner.followers
-                                    ? profileOwner.followers.length
+                                    ? followersAmount
                                     : "loading..."}
                             </p>
                             <span>
-                                {profileOwner.followers === 1
+                                {followersAmount === 1
                                     ? "follower"
                                     : "followers"}
                             </span>
@@ -184,7 +238,7 @@ function Profile({ user, activeUser }) {
                         <div className="profile-amounts">
                             <p className="bold-text">
                                 {profileOwner.following
-                                    ? profileOwner.following.length
+                                    ? followingAmount
                                     : "loading..."}
                             </p>
                             <span> following</span>
