@@ -24,19 +24,17 @@
 
 ## Todo's
 
-1. Fix ability to post [I KNOW HOW TO DO IT]
-2. Finish edit profile [I KNOW HOW TO DO IT]
-3. Add search bar functionality [I KNOW HOW TO DO IT]
+1. Add function to not allow user to signup with a username that already exists [not a clue on how to do it]
+2. Fix ability to post [I KNOW HOW TO DO IT]
+3. Finish edit profile [I KNOW HOW TO DO IT]
+4. Add search bar functionality [I KNOW HOW TO DO IT]
 
-4. Let user follow eachother on the other's profile [I KNOW HOW TO DO IT]
-
-5. Add function to not allow user to signup with a username that already exists [not a clue on how to do it]
-
-6. Add ability to like [DONE]
-7. Add ability to save posts [DONE]
-8. Display and Add ability to comment [DONE]
-9. Implement the logic of what an user can and can't see [DONE]
-10. Implement react-router-dom so that you can click on each profile and it renders /profile/username [DONE]
-11. Add POST and SAVED profile buttons functionality [DONE]
-12. Add a postAmount property to each user [DONE]
-13. Clean and refactor code, make use of aux.js, delete functionality I'm not going to use [DONE]
+5. Add ability to like [DONE]
+6. Add ability to save posts [DONE]
+7. Display and Add ability to comment [DONE]
+8. Implement the logic of what an user can and can't see [DONE]
+9. Implement react-router-dom so that you can click on each profile and it renders /profile/username [DONE]
+10. Add POST and SAVED profile buttons functionality [DONE]
+11. Add a postAmount property to each user [DONE]
+12. Clean and refactor code, make use of aux.js, delete functionality I'm not going to use [DONE]
+13. Let user follow eachother on the other's profile [DONE]
