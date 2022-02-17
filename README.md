@@ -1,43 +1,88 @@
-## Functionality
+# An Instagram Clone made with React, React Router, MaterialUI and Firebase
 
-1. In the signup page
-   a. Add phone picture to make it cute
-   b. Add a sign up and a log in form, consider not using google Auth
-   c. Add these links to the images: https://apps.apple.com/app/instagram/id389801252?vt=lo and https://play.google.com/store/apps/details?id=com.instagram.android&referrer=utm_source%3Dinstagramweb%26utm_campaign%3DloginPage%26ig_mid%3DA76072FB-24DB-4D3D-9F86-7270D5872CED%26utm_content%3Dlo%26utm_medium%3Dbadge
-   d. Add a demo user who follows some people
+## Live Preview
 
-2. In the homepage
-   a. People should be able to see only post of people they follow
-   b. People should be able to see only suggestions of people they don't follow
-   c. The search bar should retrieve any username or Name who has e.target.value in it
-   d. The notifications should work as a modal that display who did what and when.
-   e. You should be able to post images and add a caption up to 2.200 characters, if you click outside the modal it closes
-   f. Each post should be likeable and saveable, that means creating a collection for each one so that the user can see what they clicked on
-   g. People should be able to comment on a post
-   h. People should be able to see how many people liked a post
+## Project Description
 
-3. In the profile
-   a. You should be able to see your photo, name, full name, followers, following and posts
-   b. On hover you should be able to see the amount of likes and comments a post has
-   c. You should be able to edit your profile
-   d. You should be able to see the saved and liked photos
+I've been studying web development for 6 months now and I've been learning a lot about a variety of languages, libraries and frameworks thanks to The Odin Project. This is a project that convines everything I've been learning so far using **React** and **Firebase** (among other libraries).
 
-## Todo's
+It took me exactly 14 days of 8-12hs of work a day to do this. It was a particularly difficult project because it was my first time using Firebase (or doing anything more than a localStorage for the backend). Looking back I might have been better off doing anything that made me proggresively learn Firebase and then jumping to this clone.
 
-1. Finish edit profile [I KNOW HOW TO DO IT]
+### What I used
 
-2. Add ability to like [DONE]
-3. Add ability to save posts [DONE]
-4. Display and Add ability to comment [DONE]
-5. Implement the logic of what an user can and can't see [DONE]
-6. Implement react-router-dom so that you can click on each profile and it renders /profile/username [DONE]
-7. Add POST and SAVED profile buttons functionality [DONE]
-8. Add a postAmount property to each user [DONE]
-9. Clean and refactor code, make use of aux.js, delete functionality I'm not going to use [DONE]
-10. Let user follow eachother on the other's profile [DONE]
-11. Fix ability to post [DONE]
-12. Fix signup page [DONE, (if F'ed up with react router and navigate)]
-13. Fix logout function [DONE]
-14. Add dynamic rendering [DONE]
-15. Add function to not allow user to signup with a username that already exists [DONE]
-16. Add search bar functionality [DONE]
+1. React
+2. React Router
+3. MaterialUI
+4. Firebase
+
+## Features
+
+1.  Log In Page
+
+    -   Log in button that disables itself if any field is empty
+    -   Demo user button that let's you log in with a user I made so that you don't have to actually create an account to demo this project
+
+2.  Sign Up Page
+
+    -   Sign up with email and pasword using _Firebase_
+    -   Check for usernames in use (with feedback on the UI)
+    -   Sign up button that disables itself if username is in use or any field is empty
+    -   Links to Terms, Data Policy, Cookies Policy, AppStore and GooglePlayStore that will open those pages in a new tab if clicked
+
+3.  Homepage
+    -   Header
+    -   Go home by clicking the _icon_ or the _Instagram Logo_
+    -   Look for users in the database using the _search bar_
+    -   Upload a picture with a description using the _plus icon_
+    -   Opening a menu by clicking your avatar, there you can
+        1. Go to your _profile_
+        2. _Log Out_
+    -   Feed
+        -   If you don't follow anyone, you'll be encouraged to do so here
+        -   You only see the posts from people you follow
+        -   You can access any person's profile by clicking their name or profile picture
+        -   You can _like_ or _save_ things
+        -   You can _access any person's profile_ by clicking their name on the comment section
+        -   A counter for the days that passed since the user uploaded a photo
+        -   You can _comment_ any post (and can only post it if you actually wrote something, else the button won't work)
+    -   Suggestions
+        -   You can access your profile or log out from here
+        -   You get up to 5 users you don't follow as recommendations
+            -   You can access their profile or follow them from here
+4.  Profile
+    -   If this is your profile
+        -   You can see your information, by default you'll have no profile picture, you can change that (as well as your description and username which will be checked again so that you don't end up sharing a name with other user)
+            -   You will only change the things you want to change, that means you can just leave a field empty and will keep the pervious value
+        -   You can access every post you saved if you click the _SAVED button_
+    -   If this is someone else's profile
+        -   You can see a button that will let you _follow_ or _unfollow_ this user depending on if you already follow them or not.
+        -   If you follow or unfollow, the followers or following will update immediately
+    -   In both cases
+        -   You can see this person's posts
+        -   You can access any post by clicking on it, then you can actually see if you liked or saved it, or can add a comment from there!
+
+## Challenges
+
+1. The most difficult one was connecting Firebase's Firestore Database with the Storage and Authentication so that I can link a new user to a document or add a post. Besides that, Firebase's documentation is hard to read so that made this point even harder. Thanks YouTube.
+2. I never made a social media app, so the logic behind users, what they can see or not and how they interact with each other was new to me. But once I got the hang of it I managed just fine.
+3. Handling this massive amount of data between different components was something that I found hard. I usually work with projects that take me 2 or 3 days of work and are less than 300 lines of code long, this one took me 2 weeks and 3000 lines of code. The fact that it was longer doesn't make it harder, but it definetly got hard to read by the end of it so I did my best to not repeat myself and clean this code to the best of my ability
+
+## What I learned
+
+1. React
+    - Gained further understanding of what one can do with hooks and how they relate to the lifecycle methods
+    - How to move information from one component to another to manipulate it
+2. React Router
+    - How to mix react router with conditional rendering
+    - How to use useParams to create a user's profile
+3. MaterialUI
+    - I used MaterialUI's buttons, modals and avatar's
+4. Firebase
+    - How to create and initialize a webapp project
+    - How to use email and password to create an user
+    - How to manipulate this user's displayName
+    - How to use _Firebase's Storage_ to save posts and profile pictures there and retrieve those link's so that I can use them from _Firestore_
+    - What's the relationship between a collection and a document
+    - How to create a collection
+    - Multiple ways of accessing a document (by using a username, a docId or a userId)
+    - How to manipulate a document to add, remove or update things
