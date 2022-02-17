@@ -12,12 +12,13 @@ import { auth, firestore, storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import {
+    clearAllInputs,
     editProfileModalStyle,
     getProfilePhotos,
     getSavedPhotos,
     modalStyle,
 } from "../aux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UserProfilePhoto from "./UserProfilePhoto";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 
@@ -25,12 +26,21 @@ function Profile({ user, activeUser }) {
     const [openEditProfileModal, setOpenEditProfileModal] = useState(false);
     const handleEditProfileModalOpen = () => setOpenEditProfileModal(true);
     const handleEditProfileModalClose = () => setOpenEditProfileModal(false);
+
     const [updatedPhotoURL, setUpdatedPhotoURL] = useState(null);
     const [updatedDisplayName, setUpdatedDisplayName] = useState("");
     const [updatedDescription, setUpdatedDescription] = useState("");
     const [uploadProgress, setUploadProgress] = useState(0);
+    const [usersFromDatabase, setUsersFromDatabase] = useState([]);
+    const [usernameExistsInDatabase, setUsernameExistsInDatabase] = useState(
+        []
+    );
+    const [usernameAvailable, setUserNameAvailable] = useState(false);
+    let navigate = useNavigate();
+
     let params = useParams();
     const [profileOwner, setProfileOwner] = useState({});
+
     const [profilePhotos, setProfilePhotos] = useState([]);
     const [photosFromUser, setPhotosFromUser] = useState(true);
     const [savedPhotos, setSavedPhotos] = useState([]);
@@ -97,6 +107,35 @@ function Profile({ user, activeUser }) {
         }
     }, [profileOwner, activeUser]);
 
+    useEffect(() => {
+        const getUsersFromDatabase = async () => {
+            const result = await firestore.collection("users").get();
+            let filteredResult = result.docs.map((user) => ({
+                username: user.data().username,
+            }));
+            setUsersFromDatabase(filteredResult);
+        };
+
+        getUsersFromDatabase();
+    }, []);
+
+    useEffect(() => {
+        const checkIfUsernameIsValid = (updatedDisplayName) => {
+            const searchResult = usersFromDatabase.filter(
+                (user) => user.username === updatedDisplayName
+            );
+            setUsernameExistsInDatabase(searchResult);
+        };
+
+        checkIfUsernameIsValid(updatedDisplayName);
+    }, [updatedDisplayName]);
+
+    useEffect(() => {
+        usernameExistsInDatabase[0]
+            ? setUserNameAvailable(false)
+            : setUserNameAvailable(true);
+    }, [usernameExistsInDatabase]);
+
     const toggleFollowUser = async (activeUser, profileOwner) => {
         if (!followStatus) {
             //If I'm not following this user
@@ -135,52 +174,81 @@ function Profile({ user, activeUser }) {
         }
     };
 
-    const handleEditProfile = (updatedPhotoURL) => {
-        // I have to give this function the ability to submit changing only the values the user want to change.
-        //Those values that will change have to update the data both in the auth and database
-        //Everytime I have to check that the username is valid (it doesn't already exists in the database)
-        if (!updatedPhotoURL) return;
-        const profilePicsRef = ref(
-            storage,
-            `/profilePictures/${updatedPhotoURL.name}`
-        );
-
-        const usersRef = firestore.collection("users");
-
-        const uploadTask = uploadBytesResumable(
-            profilePicsRef,
-            updatedPhotoURL
-        );
-        uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-                setUploadProgress(
-                    Math.round(
-                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                    )
-                );
-            },
-            (error) => {
-                console.error(error);
-                console.log(error);
-            },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    usersRef.update({
-                        profilePicture:
-                            downloadURL || activeUser.profilePicture,
-                    });
+    const handleEditProfile = (updatedPhotoURL, activeUser) => {
+        if (!usernameAvailable) {
+            alert("You can't do that, username taken");
+            return;
+        }
+        if (updatedPhotoURL) {
+            const profilePicsRef = ref(
+                storage,
+                `/profilePictures/${updatedPhotoURL.name}`
+            );
+            const uploadTask = uploadBytesResumable(
+                profilePicsRef,
+                updatedPhotoURL
+            );
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    setUploadProgress(
+                        Math.round(
+                            (snapshot.bytesTransferred / snapshot.totalBytes) *
+                                100
+                        )
+                    );
+                },
+                (error) => {
+                    console.error(error);
+                    console.log(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref)
+                        .then((downloadURL) => {
+                            firestore
+                                .collection("users")
+                                .doc(activeUser.docId)
+                                .update({
+                                    profilePicture:
+                                        downloadURL ||
+                                        activeUser.profilePicture,
+                                    description:
+                                        updatedDescription ||
+                                        activeUser.description,
+                                    username:
+                                        updatedDisplayName ||
+                                        activeUser.username,
+                                });
+                        })
+                        .then(() => {
+                            setTimeout(() => {
+                                navigate("/");
+                                window.location.reload();
+                            }, 3000);
+                            setUpdatedDisplayName("");
+                            setUpdatedDescription("");
+                            setUploadProgress(0);
+                            clearAllInputs();
+                        });
+                }
+            );
+        } else {
+            firestore
+                .collection("users")
+                .doc(activeUser.docId)
+                .update({
+                    description: updatedDescription || activeUser.description,
+                    username: updatedDisplayName || activeUser.username,
                 });
-                firestore
-                    .collection("users")
-                    .doc(activeUser.docId)
-                    .update({
-                        description:
-                            updatedDescription || activeUser.description,
-                        username: updatedDisplayName || activeUser.username,
-                    });
-            }
-        );
+            setTimeout(() => {
+                navigate("/");
+                window.location.reload();
+            }, 3000);
+            setUpdatedDisplayName("");
+            setUpdatedDescription("");
+            setUploadProgress(0);
+            clearAllInputs()
+        }
     };
 
     return (
@@ -215,6 +283,11 @@ function Profile({ user, activeUser }) {
                         onChange={(e) => setUpdatedPhotoURL(e.target.files[0])}
                     />
                     {updatedPhotoURL && <h3>{uploadProgress}% done</h3>}
+                    {!usernameAvailable && updatedDisplayName.length > 0 && (
+                        <p style={{ color: "#FD1D1D" }}>
+                            This username is taken.
+                        </p>
+                    )}
                     <TextField
                         id="filled-basic"
                         label="New username..."
@@ -230,7 +303,9 @@ function Profile({ user, activeUser }) {
 
                     <Button
                         variant="contained"
-                        onClick={() => handleEditProfile(updatedPhotoURL)}
+                        onClick={() =>
+                            handleEditProfile(updatedPhotoURL, activeUser)
+                        }
                     >
                         Update Profile
                     </Button>

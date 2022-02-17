@@ -14,7 +14,6 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import firebase from "firebase/compat/app";
-import Autocomplete from "@mui/material/Autocomplete";
 import { authService, signOut, firestore, ref, storage } from "../firebase";
 import { clearAllInputs, linkStyle, modalStyle } from "../aux";
 
