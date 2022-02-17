@@ -33,12 +33,12 @@ It took me exactly 14 days of 8-12hs of work a day to do this. It was a particul
 
 3.  Homepage
     -   Header
-    -   Go home by clicking the _icon_ or the _Instagram Logo_
-    -   Look for users in the database using the _search bar_
-    -   Upload a picture with a description using the _plus icon_
-    -   Opening a menu by clicking your avatar, there you can
-        1. Go to your _profile_
-        2. _Log Out_
+        -   Go home by clicking the _icon_ or the _Instagram Logo_
+        -   Look for users in the database using the _search bar_
+        -   Upload a picture with a description using the _plus icon_
+        -   Opening a menu by clicking your avatar, there you can
+            1. Go to your _profile_
+            2. _Log Out_
     -   Feed
         -   If you don't follow anyone, you'll be encouraged to do so here
         -   You only see the posts from people you follow
