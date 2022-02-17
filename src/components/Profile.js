@@ -247,7 +247,7 @@ function Profile({ user, activeUser }) {
             setUpdatedDisplayName("");
             setUpdatedDescription("");
             setUploadProgress(0);
-            clearAllInputs()
+            clearAllInputs();
         }
     };
 

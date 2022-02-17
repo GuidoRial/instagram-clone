@@ -171,7 +171,7 @@ function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
             </div>
             <div className="sign-in-question">
                 <p>Have an account?</p>
-                <Link style={linkStyle} to="/login" label="LogIn">
+                <Link style={linkStyle} to="/" label="LogIn">
                     <p>Log in</p>
                 </Link>
             </div>
