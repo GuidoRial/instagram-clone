@@ -2,6 +2,8 @@
 
 ## Live Preview
 
+https://instagram-clone-six-tau.vercel.app/
+
 ## Project Description
 
 I've been studying web development for 6 months now and I've been learning a lot about a variety of languages, libraries and frameworks thanks to The Odin Project. This is a project that convines everything I've been learning so far using **React** and **Firebase** (among other libraries).
