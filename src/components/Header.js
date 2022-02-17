@@ -41,8 +41,6 @@ function Header({ user, activeUser }) {
     const [display, setDisplay] = useState(false);
     const [recommendations, setRecommendations] = useState([]);
 
-    // Search for users
-
     useEffect(() => {
         const getUsersFromDatabase = async () => {
             const result = await firestore.collection("users").get();
@@ -74,6 +72,8 @@ function Header({ user, activeUser }) {
         setSearch("");
         clearAllInputs();
     };
+
+    // Search for users
 
     const handleFileUpload = (image) => {
         if (!image) return;

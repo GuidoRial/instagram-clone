@@ -136,6 +136,9 @@ function Profile({ user, activeUser }) {
     };
 
     const handleEditProfile = (updatedPhotoURL) => {
+        // I have to give this function the ability to submit changing only the values the user want to change.
+        //Those values that will change have to update the data both in the auth and database
+        //Everytime I have to check that the username is valid (it doesn't already exists in the database)
         if (!updatedPhotoURL) return;
         const profilePicsRef = ref(
             storage,

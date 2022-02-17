@@ -31,8 +31,9 @@ function Interactions({
     const [newComment, setNewComment] = useState("");
     const [databaseComments, setDatabaseComments] = useState(comments);
 
+    //Interactions
     const handleToggleLiked = async (docId, userId) => {
-        if (toggleLiked == false) {
+        if (toggleLiked === false) {
             setToggleLiked(true);
             setAmountOfLikes(amountOfLikes + 1);
         } else {
@@ -64,6 +65,7 @@ function Interactions({
     };
 
     useEffect(() => {
+        //Checks if the user already liked a photo on load (without this function the backend shows the info correctly but it's not presented to the user in the UI)
         let didILikeThisPhoto = likes.includes(activeUser.userId);
         let didISaveThisPhoto = saved.includes(activeUser.userId);
         didILikeThisPhoto && setToggleLiked(true);
@@ -83,6 +85,8 @@ function Interactions({
             .doc(docId)
             .update({ comments: arrayUnion(newComment) });
     };
+
+    //Interactions
 
     return (
         <div>

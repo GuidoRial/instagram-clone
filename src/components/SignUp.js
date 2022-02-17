@@ -12,6 +12,7 @@ import { linkStyle } from "../aux";
 function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
     let navigate = useNavigate();
 
+    //Save the input, check if it's valid (and make sure the user doesn't exist) and create a new user
     const [emailAdress, setEmailAdress] = useState("");
     const [password, setPassword] = useState("");
     const [usersFromDatabase, setUsersFromDatabase] = useState([]);
@@ -56,9 +57,6 @@ function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
         userName === "" ||
         usernameAvailable === false;
 
-    if (activeUser.userId) navigate("/");
-    // console.log(userName, usernameExistsInDatabase, usernameAvailable);
-
     const handleSignUp = async (e) => {
         try {
             e.preventDefault();
@@ -90,6 +88,8 @@ function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
         }
     };
 
+    //Save the input, check if it's valid (and make sure the user doesn't exist) and create a new user
+    if (activeUser.userId) navigate("/");
     return (
         <div className="main-container">
             <div className="superior-container">

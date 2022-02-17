@@ -28,6 +28,7 @@ function UserProfilePhoto({ src, amountOfComments, photo, activeUser }) {
     const handleClose = () => setPostModal(false);
 
     const [postOwner, setPostOwner] = useState({});
+    
     useEffect(() => {
         const getPostOwner = async (userId) => {
             const result = await firestore

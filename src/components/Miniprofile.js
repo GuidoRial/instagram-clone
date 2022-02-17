@@ -16,6 +16,7 @@ function Miniprofile({
 }) {
     const [followed, setFollowed] = useState(false);
 
+    //Handle follow a new user
     async function updateLoggedInUserFollowingArray(
         loggedInUserDocId,
         profileId,
@@ -55,7 +56,7 @@ function Miniprofile({
             false
         );
     }
-
+    //Handle follow a new user
     return !followed ? (
         <div className="suggestion">
             <div className="suggestion-image-and-username">

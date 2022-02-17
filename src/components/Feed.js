@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Posts from "./Posts";
 import Suggestions from "./Suggestions";
 
 function Feed({ feedPhotos, user, activeUser }) {
     let navigate = useNavigate();
+
     useEffect(() => {
         if (activeUser) {
             navigate("/");
@@ -12,6 +13,7 @@ function Feed({ feedPhotos, user, activeUser }) {
             navigate("/login");
         }
     }, [activeUser.userId]);
+
     return (
         <div className="main">
             <div className="left-container">
