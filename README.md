@@ -24,8 +24,6 @@
 
 ## Todo's
 
-1. Add function to not allow user to signup with a username that already exists [not a clue on how to do it]
-
 2. Finish edit profile [I KNOW HOW TO DO IT]
 3. Add search bar functionality [I KNOW HOW TO DO IT]
 
@@ -42,3 +40,4 @@
 14. Fix signup page [DONE, (if F'ed up with react router and navigate)]
 15. Fix logout function [DONE]
 16. Add dynamic rendering [DONE]
+17. Add function to not allow user to signup with a username that already exists [DONE]
