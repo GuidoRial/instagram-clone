@@ -16,13 +16,15 @@ import TextField from "@mui/material/TextField";
 import firebase from "firebase/compat/app";
 import Autocomplete from "@mui/material/Autocomplete";
 import { authService, signOut, firestore, ref, storage } from "../firebase";
-import { linkStyle, modalStyle } from "../aux";
+import { clearAllInputs, linkStyle, modalStyle } from "../aux";
 
 import { getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import uniqid from "uniqid";
 
 function Header({ user, activeUser }) {
     let navigate = useNavigate();
+
+    // Upload Photo Modal
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const [openUploadModal, setOpenUploadModal] = useState(false);
@@ -31,11 +33,15 @@ function Header({ user, activeUser }) {
     const [caption, setCaption] = useState("");
     const [image, setImage] = useState(null);
     const [progress, setProgress] = useState(0);
+    // Upload Photo Modal
 
+    // Search for users
     const [usersFromDatabase, setUsersFromDatabase] = useState([]);
     const [search, setSearch] = useState("");
     const [display, setDisplay] = useState(false);
     const [recommendations, setRecommendations] = useState([]);
+
+    // Search for users
 
     useEffect(() => {
         const getUsersFromDatabase = async () => {
@@ -63,6 +69,11 @@ function Header({ user, activeUser }) {
     useEffect(() => {
         search.length > 0 ? setDisplay(true) : setDisplay(false);
     }, [search]);
+
+    const handleEnterProfile = () => {
+        setSearch("");
+        clearAllInputs();
+    };
 
     const handleFileUpload = (image) => {
         if (!image) return;
@@ -111,9 +122,6 @@ function Header({ user, activeUser }) {
             console.error(error);
         }
     };
-    //console.log(recommendations);
-    console.log(usersFromDatabase);
-    //console.log(display);
 
     return (
         <div className="header">
@@ -135,10 +143,25 @@ function Header({ user, activeUser }) {
                         placeholder="Search"
                         onChange={(e) => setSearch(e.target.value)}
                     />
-                    {display &&
-                        recommendations.map((recommendation) => (
-                            <div key={uniqid()}>{recommendation.username}</div>
-                        ))}
+                    {display && (
+                        <div key={uniqid()} className="recommendations">
+                            {recommendations.map((recommendation) => (
+                                <Link
+                                    to={`/profile/${recommendation.username}`}
+                                    label="Profile"
+                                    style={linkStyle}
+                                    onClick={handleEnterProfile}
+                                >
+                                    <div
+                                        className="recommendation-item"
+                                        key={uniqid()}
+                                    >
+                                        {recommendation.username}
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    )}
                 </div>
                 <div className="icon-container">
                     <React.Fragment>

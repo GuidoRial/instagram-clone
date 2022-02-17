@@ -85,6 +85,7 @@ export const clearAllInputs = () => {
     );
 };
 
+
 export const profilePhotosStyleOnHover = {
     position: "absolute",
     top: "50%",

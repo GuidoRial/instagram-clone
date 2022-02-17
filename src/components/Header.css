@@ -24,6 +24,36 @@
     min-width: 100px;
     position: relative;
     padding: 0px 16px;
+    display: inline-block;
+}
+
+.recommendations {
+    margin-top: 10px;
+    position: absolute;
+    background-color: #ffffff;
+    border: 1px solid #cecece;
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 8px;
+
+    z-index: 99;
+    top: 100%;
+}
+
+.recommendation-item {
+    cursor: pointer;
+    height: 50px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #262626;
+    font-weight: 700;
+}
+
+.recommendation-item:hover {
+    background-color: #fafafa;
 }
 
 .search-icon {
@@ -51,7 +81,6 @@
 .search-bar:focus {
     border: none;
 }
-
 
 .icon-container {
     gap: 12px;
