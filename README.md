@@ -6,9 +6,9 @@ https://instagram-clone-six-tau.vercel.app/
 
 ## Project Description
 
-I've been studying web development for 6 months now and I've been learning a lot about a variety of languages, libraries and frameworks thanks to The Odin Project. This is a project that convines everything I've been learning so far using **React** and **Firebase** (among other libraries).
+I've been studying web development for 6 months now and I've been learning a lot about a variety of languages, libraries and frameworks thanks to The Odin Project. This is a project that combines everything I've been learning so far using **React** and **Firebase** (among other libraries).
 
-It took me exactly 14 days of 8-12hs of work a day to do this. It was a particularly difficult project because it was my first time using Firebase (or doing anything more than a localStorage for the backend). Looking back I might have been better off doing anything that made me proggresively learn Firebase and then jumping to this clone.
+It took me exactly 14 days of 8-12hs of work a day to do this. It was a particularly difficult project because it was my first time using Firebase (or doing anything more than a localStorage for the backend). Looking back I might have been better off doing anything that made me progressively learn Firebase and then jumping to this clone.
 
 ### What I used
 
@@ -21,12 +21,12 @@ It took me exactly 14 days of 8-12hs of work a day to do this. It was a particul
 
 1.  Log In Page
 
-    -   Log in button that disables itself if any field is empty
-    -   Demo user button that let's you log in with a user I made so that you don't have to actually create an account to demo this project
+    -   Login button that disables itself if any field is empty
+    -   Demo user button that lets you log in with a user I made so that you don't have to actually create an account to demo this project
 
 2.  Sign Up Page
 
-    -   Sign up with email and pasword using _Firebase_
+    -   Signup with email and password using _Firebase_
     -   Check for usernames in use (with feedback on the UI)
     -   Sign up button that disables itself if username is in use or any field is empty
     -   Links to Terms, Data Policy, Cookies Policy, AppStore and GooglePlayStore that will open those pages in a new tab if clicked
@@ -54,7 +54,7 @@ It took me exactly 14 days of 8-12hs of work a day to do this. It was a particul
 4.  Profile
     -   If this is your profile
         -   You can see your information, by default you'll have no profile picture, you can change that (as well as your description and username which will be checked again so that you don't end up sharing a name with other user)
-            -   You will only change the things you want to change, that means you can just leave a field empty and will keep the pervious value
+            -   You will only change the things you want to change, that means you can just leave a field empty and will keep the previous value
         -   You can access every post you saved if you click the _SAVED button_
     -   If this is someone else's profile
         -   You can see a button that will let you _follow_ or _unfollow_ this user depending on if you already follow them or not.
@@ -67,7 +67,7 @@ It took me exactly 14 days of 8-12hs of work a day to do this. It was a particul
 
 1. The most difficult one was connecting Firebase's Firestore Database with the Storage and Authentication so that I can link a new user to a document or add a post. Besides that, Firebase's documentation is hard to read so that made this point even harder. Thanks YouTube.
 2. I never made a social media app, so the logic behind users, what they can see or not and how they interact with each other was new to me. But once I got the hang of it I managed just fine.
-3. Handling this massive amount of data between different components was something that I found hard. I usually work with projects that take me 2 or 3 days of work and are less than 300 lines of code long, this one took me 2 weeks and 3000 lines of code. The fact that it was longer doesn't make it harder, but it definetly got hard to read by the end of it so I did my best to not repeat myself and clean this code to the best of my ability
+3. Handling this massive amount of data between different components was something that I found hard. I usually work with projects that take me 2 or 3 days of work and are less than 300 lines of code long, this one took me 2 weeks and 3000 lines of code. The fact that it was longer doesn't make it harder, but it definitely got hard to read by the end of it so I did my best to not repeat myself and clean this code to the best of my ability
 
 ## What I learned
 
