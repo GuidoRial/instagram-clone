@@ -14,14 +14,50 @@ function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
 
     const [emailAdress, setEmailAdress] = useState("");
     const [password, setPassword] = useState("");
+    const [usersFromDatabase, setUsersFromDatabase] = useState([]);
+    const [usernameExistsInDatabase, setUsernameExistsInDatabase] = useState(
+        []
+    );
+    const [usernameAvailable, setUserNameAvailable] = useState(false);
+
+    useEffect(() => {
+        const getUsersFromDatabase = async () => {
+            const result = await firestore.collection("users").get();
+            let filteredResult = result.docs.map((user) => ({
+                username: user.data().username,
+            }));
+            setUsersFromDatabase(filteredResult);
+        };
+
+        getUsersFromDatabase();
+    }, []);
+
+    useEffect(() => {
+        const checkIfUsernameIsValid = (userName) => {
+            const searchResult = usersFromDatabase.filter(
+                (user) => user.username === userName
+            );
+            setUsernameExistsInDatabase(searchResult);
+        };
+
+        checkIfUsernameIsValid(userName);
+    }, [userName]);
+
+    useEffect(() => {
+        usernameExistsInDatabase[0]
+            ? setUserNameAvailable(false)
+            : setUserNameAvailable(true);
+    }, [usernameExistsInDatabase]);
 
     const isInvalid =
         password === "" ||
         emailAdress === "" ||
         fullName === "" ||
-        userName === "";
+        userName === "" ||
+        usernameAvailable === false;
 
     if (activeUser.userId) navigate("/");
+    // console.log(userName, usernameExistsInDatabase, usernameAvailable);
 
     const handleSignUp = async (e) => {
         try {
@@ -66,6 +102,10 @@ function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
                 <p className="message">
                     Sign up to see photos and videos from your friends.
                 </p>
+
+                {!usernameAvailable && userName.length > 0 && (
+                    <p style={{ color: "#FD1D1D" }}>This username is taken.</p>
+                )}
 
                 <form className="sign-up-form" onSubmit={handleSignUp}>
                     <input

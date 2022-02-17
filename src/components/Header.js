@@ -112,7 +112,7 @@ function Header({ user, activeUser }) {
         }
     };
     //console.log(recommendations);
-    //console.log(usersFromDatabase[0].username);
+    console.log(usersFromDatabase);
     //console.log(display);
 
     return (
@@ -135,9 +135,10 @@ function Header({ user, activeUser }) {
                         placeholder="Search"
                         onChange={(e) => setSearch(e.target.value)}
                     />
-                    {display && recommendations.map((recommendation) => (
-                        <div key={uniqid()}>{recommendation.username}</div>
-                    ))}
+                    {display &&
+                        recommendations.map((recommendation) => (
+                            <div key={uniqid()}>{recommendation.username}</div>
+                        ))}
                 </div>
                 <div className="icon-container">
                     <React.Fragment>
