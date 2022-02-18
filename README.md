@@ -5,7 +5,7 @@
 https://instagram-clone-six-tau.vercel.app/
 
 ### A few things if you want to test this
-I didn't include email verification so if you want to create an user with an email you don't own, you can absolutely do that, as this was planned to be a functional clone with no intentions of being a real web aplication. It's just a clone that works and I wanted to facilitate testing for any recruiters or developers that wanted to see what I can do.
+I didn't include email verification so if you want to create an user with an email you don't own, you can absolutely do that, as this was planned to be a functional clone with no intentions of being a real web application. It's just a clone that works and I wanted to facilitate testing for any recruiters or developers that wanted to see what I can do.
 
 That said, if the email or the username is taken you will not be able to create an account. The same applies if the email is not valid (you can't put "asdasdasda" as an email, but you could create one like "potatopotato@potato.com")
 
