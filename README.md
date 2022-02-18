@@ -4,6 +4,13 @@
 
 https://instagram-clone-six-tau.vercel.app/
 
+### A few things if you want to test this
+I didn't include email verification so if you want to create an user with an email you don't own, you can absolutely do that, as this was planned to be a functional clone with no intentions of being a real web aplication. It's just a clone that works and I wanted to facilitate testing for any recruiters or developers that wanted to see what I can do.
+
+That said, if the email or the username is taken you will not be able to create an account. The same applies if the email is not valid (you can't put "asdasdasda" as an email, but you could create one like "potatopotato@potato.com")
+
+If you don't want to create an account to test this, you can always go back to the login page and use the **demouser account** that I pre-made for this and test all the functionality I added. 
+
 ## Project Description
 
 I've been studying web development for 6 months now and I've been learning a lot about a variety of languages, libraries and frameworks thanks to The Odin Project. This is a project that combines everything I've been learning so far using **React** and **Firebase** (among other libraries).
@@ -88,3 +95,6 @@ It took me exactly 14 days of 8-12hs of work a day to do this. It was a particul
     - How to create a collection
     - Multiple ways of accessing a document (by using a username, a docId or a userId)
     - How to manipulate a document to add, remove or update things
+
+## For the future
+1. Add more user validation with feedback in the UI
