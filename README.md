@@ -5,11 +5,21 @@
 https://instagram-clone-six-tau.vercel.app/
 
 ### A few things if you want to test this
-I didn't include email verification so if you want to create an user with an email you don't own, you can absolutely do that, as this was planned to be a functional clone with no intentions of being a real web application. It's just a clone that works and I wanted to facilitate testing for any recruiters or developers that wanted to see what I can do.
+I didn't include email verification so if you want to create an user with an email you don't own, you can absolutely do that, as this was planned to be a functional clone with no intentions of being a real web application. It's just a clone that displays a lot of Instagram's functionality and I wanted to facilitate testing for any recruiters or developers that wanted to see what I can do.
 
 That said, if the email or the username is taken you will not be able to create an account. The same applies if the email is not valid (you can't put "asdasdasda" as an email, but you could create one like "potatopotato@potato.com")
 
 If you don't want to create an account to test this, you can always go back to the login page and use the **demouser account** that I pre-made for this and test all the functionality I added. 
+
+I'm aware Google flagged my page as phishing (because it's an Instagram Clone and it thinks that because you can create an account and log into it I want to take your personal information, but as I said, you don't have to put any real email or password and don't have to verify it). As far as I'm aware this only happens on Google Chrome and I already appealed to Google but it could take a few weeks until that issue is resolved. You can still open this project on Google Chrome, but have to pass through that red screen that is inconsistently shown to people.
+
+Alternatively you can always run this project locally by cloning it and writting this on the console 
+
+```
+npm install
+npm update
+npm start
+```
 
 ## Project Description
 
