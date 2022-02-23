@@ -108,3 +108,6 @@ It took me exactly 14 days of 8-12hs of work a day to do this. It was a particul
 
 ## For the future
 1. Add more user validation with feedback in the UI
+2. Make it responsive
+3. Reorganize folders to follow React best practises
+4. Make a function that runs once a day to make Demo User's following === 0
