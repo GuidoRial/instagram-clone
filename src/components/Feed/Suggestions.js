@@ -3,8 +3,8 @@ import Miniprofile from "./Miniprofile";
 import "./Suggestions.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { authService, firestore } from "../firebase";
-import { getSuggestedProfiles, linkStyle } from "../aux";
+import { authService, firestore } from "../../firebase";
+import { getSuggestedProfiles, linkStyle } from "../../aux";
 
 function Suggestions({ user, activeUser }) {
     const [suggestions, setSuggestions] = useState([]);

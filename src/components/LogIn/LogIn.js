@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import AppStoreLogo from "../assets/download-appStore.png";
-import GooglePlayLogo from "../assets/get-it-on-GooglePlay.png";
+import AppStoreLogo from "../../assets/download-appStore.png";
+import GooglePlayLogo from "../../assets/get-it-on-GooglePlay.png";
 import "./LogIn.css";
-import LoginImg from "../assets/test.png";
+import LoginImg from "../../assets/phone.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { authService } from "../firebase";
-import * as openFunction from "../aux";
-import { linkStyle } from "../aux";
+import { authService } from "../../firebase";
+import * as openFunction from "../../aux";
+import { linkStyle } from "../../aux";
 
 function LogIn({ activeUser }) {
     let navigate = useNavigate();

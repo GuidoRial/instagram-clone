@@ -8,13 +8,13 @@ import {
     notLikeStyleHover,
     profilePhotosStyle,
     profilePhotosStyleOnHover,
-} from "../aux";
+} from "../../aux";
 import "./Profile.css";
 import "./UserProfilePhoto.css";
 
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import { firestore } from "../firebase";
+import { firestore } from "../../firebase";
 import { Avatar, Divider, Link } from "@mui/material";
 
 import uniqid from "uniqid";

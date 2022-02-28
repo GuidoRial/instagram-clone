@@ -1,12 +1,12 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import Feed from "./components/Feed";
-import Header from "./components/Header";
-import LogIn from "./components/LogIn";
-import Profile from "./components/Profile";
-import SignUp from "./components/SignUp";
+import Feed from "./components/Feed/Feed";
+import Header from "./components/Header/Header";
+import LogIn from "./components/LogIn/LogIn";
+import Profile from "./components/Profile/Profile";
+import SignUp from "./components/SignUp/SignUp";
 import { firestore, authService } from "./firebase";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getFeedPhotos } from "./aux";
 
 function App() {

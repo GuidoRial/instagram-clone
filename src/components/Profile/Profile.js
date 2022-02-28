@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
-
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
-import LinearProgress from "@mui/material/LinearProgress";
-import { auth, firestore, storage } from "../firebase";
+import { auth, firestore, storage } from "../../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import {
@@ -16,8 +14,7 @@ import {
     editProfileModalStyle,
     getProfilePhotos,
     getSavedPhotos,
-    modalStyle,
-} from "../aux";
+} from "../../aux";
 import { useNavigate, useParams } from "react-router-dom";
 import UserProfilePhoto from "./UserProfilePhoto";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";

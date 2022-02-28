@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { firestore } from "../firebase";
+import { firestore } from "../../firebase";
 import "./Posts.css";
 import { arrayUnion, arrayRemove } from "firebase/firestore";
 import {
@@ -8,7 +8,7 @@ import {
     linkStyle,
     notLikeStyle,
     notLikeStyleHover,
-} from "../aux";
+} from "../../aux";
 import { Link } from "react-router-dom";
 import uniqid from "uniqid";
 

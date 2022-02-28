@@ -2,9 +2,9 @@ import { Avatar } from "@mui/material";
 import { arrayUnion, arrayRemove, doc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { firestore } from "../firebase";
+import { firestore } from "../../firebase";
 import firebase from "firebase/app";
-import { linkStyle } from "../aux";
+import { linkStyle } from "../../aux";
 
 function Miniprofile({
     profilePicture,

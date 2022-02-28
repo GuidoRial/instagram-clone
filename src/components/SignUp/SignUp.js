@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import AppStoreLogo from "../assets/download-appStore.png";
-import GooglePlayLogo from "../assets/get-it-on-GooglePlay.png";
+import AppStoreLogo from "../../assets/download-appStore.png";
+import GooglePlayLogo from "../../assets/get-it-on-GooglePlay.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
-import * as openFunction from "../aux";
+import * as openFunction from "../../aux";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { firebase, firestore } from "../firebase";
+import { firebase, firestore } from "../../firebase";
 
-import { linkStyle } from "../aux";
+import { linkStyle } from "../../aux";
 
 function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
     let navigate = useNavigate();
