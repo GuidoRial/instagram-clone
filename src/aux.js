@@ -129,7 +129,7 @@ export const modalPostStyle = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     height: "95%",
-    width: "65%",
+    width: "95%",
     bgcolor: "background.paper",
     border: "1px solid #efefef",
     borderRadius: "4px",

@@ -13,10 +13,15 @@
     padding-top: 35px;
     display: flex;
     justify-content: center;
+
     width: 80%;
 }
 .left-container {
     width: 66.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .suggestions {
     width: 33.5%;
@@ -60,7 +65,7 @@
     margin: 0px 13px;
 }
 
-@media all and (max-width: 650px) {
+@media all and (max-width: 768px) {
     .search-bar {
         display: none;
     }
@@ -73,10 +78,15 @@
     }
 }
 
-@media all and (max-width: 1000px) {
+@media all and (max-width: 1024px) {
     .suggestions {
         display: none;
     }
+    .main {
+
+        justify-content: center;
+    }
+
     .left-container {
         width: 100%;
     }

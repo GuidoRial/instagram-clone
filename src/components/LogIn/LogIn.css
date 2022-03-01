@@ -31,6 +31,8 @@
     transform: translate(-50%, -50%);
     display: flex;
     background-color: transparent;
+    justify-content: center;
+    align-items: center;
 }
 
 .second-container {
@@ -96,4 +98,17 @@
     background-color: white;
     border: 1px solid #dbdbdb;
     background-color: #fafafa;
+}
+
+@media (max-width: 1024px) {
+    .login-img {
+        display: none;
+    }
+}
+
+@media (max-width: 425px) {
+    .form-container,
+    .log-in-question {
+        width: 80%;
+    }
 }
