@@ -51,38 +51,7 @@ It took me exactly 14 days of 8-12hs of work a day to do this. It was a particul
 3.  Homepage
     -   Header
         -   Go home by clicking the _icon_ or the _Instagram Logo_
-        -   Look for users in the database using the _search bar_
-        -   Upload a picture with a description using the _plus icon_
-        -   Opening a menu by clicking your avatar, there you can
-            1. Go to your _profile_
-            2. _Log Out_
-    -   Feed
-        -   If you don't follow anyone, you'll be encouraged to do so here
-        -   You only see the posts from people you follow
-        -   You can access any person's profile by clicking their name or profile picture
-        -   You can _like_ or _save_ things
-        -   You can _access any person's profile_ by clicking their name on the comment section
-        -   A counter for the days that passed since the user uploaded a photo
-        -   You can _comment_ any post (and can only post it if you actually wrote something, else the button won't work)
-    -   Suggestions
-        -   You can access your profile or log out from here
-        -   You get up to 5 users you don't follow as recommendations
-            -   You can access their profile or follow them from here
-4.  Profile
-    -   If this is your profile
-        -   You can see your information, by default you'll have no profile picture, you can change that (as well as your description and username which will be checked again so that you don't end up sharing a name with other user)
-            -   You will only change the things you want to change, that means you can just leave a field empty and will keep the previous value
-        -   You can access every post you saved if you click the _SAVED button_
-    -   If this is someone else's profile
-        -   You can see a button that will let you _follow_ or _unfollow_ this user depending on if you already follow them or not.
-        -   If you follow or unfollow, the followers or following will update immediately
-    -   In both cases
-        -   You can see this person's posts
-        -   You can access any post by clicking on it, then you can actually see if you liked or saved it, or can add a comment from there!
-
-## Challenges
-
-1. The most difficult one was connecting Firebase's Firestore Database with the Storage and Authentication so that I can link a new user to a document or add a post. Besides that, Firebase's documentation is hard to read so that made this point even harder. Thanks YouTube.
+        -   Look for users in the databs YouTube.
 2. I never made a social media app, so the logic behind users, what they can see or not and how they interact with each other was new to me. But once I got the hang of it I managed just fine.
 3. Handling this massive amount of data between different components was something that I found hard. I usually work with projects that take me 2 or 3 days of work and are less than 300 lines of code long, this one took me 2 weeks and 3000 lines of code. The fact that it was longer doesn't make it harder, but it definitely got hard to read by the end of it so I did my best to not repeat myself and clean this code to the best of my ability
 
