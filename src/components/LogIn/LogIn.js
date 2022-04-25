@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AppStoreLogo from "../../assets/download-appStore.png";
 import GooglePlayLogo from "../../assets/get-it-on-GooglePlay.png";
 import "./LogIn.css";
@@ -18,17 +18,9 @@ function LogIn({ activeUser }) {
     const demoUserPassword = "demouser";
     const isInvalid = password === "" || emailAdress === "";
 
-    useEffect(() => {
-        if (activeUser) {
-            navigate("/");
-        } else {
-            navigate("/login");
-        }
-    }, [activeUser.userId]);
-
     const handleLogin = async (e) => {
+        e.preventDefault();
         try {
-            e.preventDefault();
             signInWithEmailAndPassword(authService, emailAdress, password);
             navigate("/");
         } catch (error) {

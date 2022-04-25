@@ -58,8 +58,8 @@ function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
         usernameAvailable === false;
 
     const handleSignUp = async (e) => {
+        e.preventDefault();
         try {
-            e.preventDefault();
             const createdUserResult = await firebase
                 .auth()
                 .createUserWithEmailAndPassword(emailAdress, password);
@@ -95,7 +95,7 @@ function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
             <div className="superior-container">
                 <img
                     src="https://logos-marcas.com/wp-content/uploads/2020/04/Instagram-Logo.png"
-                    alt="instagram-logo"
+                    alt="instagram logo"
                     className="instagram-logo-text login-instagram-logo"
                 />
 
@@ -180,13 +180,13 @@ function SignUp({ userName, setUserName, fullName, setFullName, activeUser }) {
                 <div>
                     <img
                         src={AppStoreLogo}
-                        alt="get-it-on-appstore"
+                        alt="Get it on the App Store"
                         className="log-in-icon"
                         onClick={openFunction.openAppStore}
                     />
                     <img
                         src={GooglePlayLogo}
-                        alt="get-it-on-play-store"
+                        alt="Get it on Play Store"
                         className="log-in-icon"
                         onClick={openFunction.openPlayStore}
                     />

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Miniprofile from "./Miniprofile";
 import "./Suggestions.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { authService, firestore } from "../../firebase";
+import { authService } from "../../firebase";
 import { getSuggestedProfiles, linkStyle } from "../../aux";
 
 function Suggestions({ user, activeUser }) {

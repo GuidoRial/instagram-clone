@@ -6,7 +6,7 @@ import LogIn from "./components/LogIn/LogIn";
 import Profile from "./components/Profile/Profile";
 import SignUp from "./components/SignUp/SignUp";
 import { firestore, authService } from "./firebase";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getFeedPhotos } from "./aux";
 
 function App() {
@@ -35,9 +35,7 @@ function App() {
                 //I create an object out of it and add the doc.id (which it didn't previously have)
                 setActiveUser(userObject);
 
-                if (authUser.displayName) {
-                    //Don't update username
-                } else {
+                if (!authUser.displayName) {
                     //If I just created someone
                     return authUser.updateProfile({
                         displayName: userName,
@@ -113,7 +111,7 @@ function App() {
 
                     <Route
                         exact
-                        path="signup"
+                        path="/signup"
                         element={
                             <SignUp
                                 userName={userName}
@@ -124,6 +122,10 @@ function App() {
                             />
                         }
                     ></Route>
+                    <Route
+                        path="*"
+                        element={<Navigate to={activeUser ? "/" : "/login"} />}
+                    />
                 </Routes>
             </BrowserRouter>
         </div>

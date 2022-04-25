@@ -71,9 +71,7 @@ function Header({ user, activeUser }) {
         setSearch("");
         clearAllInputs();
     };
-
-    // Search for users
-
+    
     const handleFileUpload = (image) => {
         if (!image) return;
         const imagesRef = ref(storage, `/images/${image.name}`);
@@ -129,7 +127,7 @@ function Header({ user, activeUser }) {
                     <Link to="/" label="Home">
                         <img
                             src="https://logos-marcas.com/wp-content/uploads/2020/04/Instagram-Logo.png"
-                            alt="instagram-logo"
+                            alt="instagram logo"
                             className="instagram-logo-text"
                         />
                     </Link>
@@ -163,7 +161,7 @@ function Header({ user, activeUser }) {
                     )}
                 </div>
                 <div className="icon-container">
-                    <React.Fragment>
+                    <>
                         <Box
                             sx={{
                                 display: "flex",
@@ -208,7 +206,7 @@ function Header({ user, activeUser }) {
                                             setImage(e.target.files[0])
                                         }
                                     />
-                                    {image && <h3>{progress}% done</h3>}
+                                    {image && <p>{progress}% done</p>}
                                     <TextField
                                         id="standard-basic"
                                         label="Write a caption..."
@@ -299,7 +297,7 @@ function Header({ user, activeUser }) {
                                 <MenuItem>
                                     <Avatar
                                         src={activeUser.profilePicture}
-                                        alt="profile-pic"
+                                        alt="profile picture"
                                     />
                                     Profile
                                 </MenuItem>
@@ -317,7 +315,7 @@ function Header({ user, activeUser }) {
                                 <p onClick={handleLogOut}>Log Out</p>
                             </MenuItem>
                         </Menu>
-                    </React.Fragment>
+                    </>
                 </div>
             </div>
             <Link to={`/profile/${activeUser.username}`} label="Profile"></Link>
